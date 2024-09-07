@@ -1,0 +1,137 @@
+
+<div class="product-tabbed-content-wrapper">
+  <div class="row">
+    <div class="small-12">
+      <div class="product-tabbed-content">
+        <div class="product-tabbed-content__headers">
+          {% assign is_first_tab = true %}
+          {% assign app_id = 1 %}
+          {% for block in section.blocks %}
+            {% assign tab_header_id = block.settings.tab_header | replace: ' ', '-' | downcase %}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                {% assign app_header_key = 'tab_header_app_' | append: app_id %}
+                {% assign tab_header_id = section.settings[app_header_key] | replace: ' ', '-' | downcase %}
+                <div data-tab="tab-{{ tab_header_id }}" class="product-tabbed-heades__header{% if is_first_tab %} current{% endif %}">
+                  {{ section.settings[app_header_key] }}
+                </div>
+                {% assign app_id = app_id | plus: 1 %}
+              {%- when 'custom_liquid' -%}
+                <div data-tab="tab-{{ tab_header_id }}" class="product-tabbed-heades__header{% if is_first_tab %} current{% endif %}">
+                  {{ block.settings.tab_header }}
+                </div>
+            {% endcase %}
+            {% assign is_first_tab = false %}
+          {% endfor %}    
+        </div>
+        <div  class="product-tabbed-content__tabs">
+          {% assign is_first_tab = true %}
+          {% assign app_id = 1 %}
+          {% for block in section.blocks %}
+            {% assign tab_header_id = block.settings.tab_header | replace: ' ', '-' | downcase %}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                {% assign app_header_key = 'tab_header_app_' | append: app_id %}
+                {% assign tab_header_id = section.settings[app_header_key] | replace: ' ', '-' | downcase %}
+                <div id="tab-{{ tab_header_id }}" class="product-tabbed-tabs__tab{% if is_first_tab %} current{% endif %}">
+                  {% render block %}
+                </div>
+                {% assign app_id = app_id | plus: 1 %}
+              
+              {%- when 'custom_liquid' -%}
+                <div id="tab-{{ tab_header_id }}" class="product-tabbed-tabs__tab{% if is_first_tab %} current{% endif %}">
+                  {{ block.settings.custom_liquid }}
+                </div>
+            {% endcase %}
+            {% assign is_first_tab = false %}
+          {% endfor %}    
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Product tabbed content",
+    "tag": "section",
+    "class": "product-tabbed-content",
+    "settings": [
+      {
+        "type": "text",
+        "id": "tab_header_app_1",
+        "label": "Tab Name app 1",
+        "info": "Name for tab"
+      },
+      {
+        "type": "text",
+        "id": "tab_header_app_2",
+        "label": "Tab Name app 2",
+        "info": "Name for tab"
+      },
+      {
+        "type": "text",
+        "id": "tab_header_app_3",
+        "label": "Tab Name app 3",
+        "info": "Name for tab"
+      },
+      {
+        "type": "text",
+        "id": "tab_header_app_4",
+        "label": "Tab Name app 4",
+        "info": "Name for tab"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product tabbed content",
+        "category": "Custom"
+      }
+    ],
+    "blocks": [
+      {
+          "type": "@app"
+
+      },
+      {
+        "type": "custom_liquid",
+        "name": "Custom liquid",
+        "settings": [
+          {
+            "type": "liquid",
+            "id": "custom_liquid",
+            "label": "Custom liquid",
+            "info": "Add app snippets or other Liquid code to create advanced customizations."
+          },
+          {
+            "type": "text",
+            "id": "tab_header",
+            "label": "Tab Name",
+            "info": "Name for tab"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+  $(document).ready(function(){
+    $('.product-tabbed-content .product-tabbed-heades__header').click(function(){
+      var tab_id = $(this).attr('data-tab');
+  
+      $('.product-tabbed-heades__header').removeClass('current');
+      $('.product-tabbed-tabs__tab').removeClass('current');
+  
+      $(this).addClass('current');
+      $("#"+tab_id).addClass('current');
+    })
+  })
+  
+{% endjavascript %}

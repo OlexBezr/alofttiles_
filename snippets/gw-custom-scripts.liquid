@@ -1,0 +1,58 @@
+<style>
+  .ssw-link-fave-menu {
+    display: inline-flex;
+    padding: 0 5px;
+    align-items: center;
+    font-size: 20px;
+  }
+  .ssw-link-fave-menu:hover {
+    color:var(--color-accent);
+  }
+  .ssw-counter-fave-menu {
+    font-size: 15px;
+  }
+  
+  #create_customer .ssw-accept-wrapper {
+    display: none;
+  }
+</style>
+
+{% if template contains 'product' %}
+
+<script>
+  window.addEventListener('sswhelperload', () => { 
+    if(typeof sswRun === 'function' && window.innerWidth <=1068) {
+      sswRun(function(){
+        const WishlistButton = setInterval(function(){
+          if(ssw('#widget-fave-html').length){
+
+            ssw('.flickity-viewport').prepend(ssw('#widget-fave-html'));
+            clearInterval(WishlistButton);
+          }
+        }, 1000);
+      });
+    }
+  })
+</script>
+
+{% endif %}
+
+{% comment %} 
+<script>
+  window.addEventListener('sswhelperload', () => { 
+    if(typeof sswRun === 'function') {
+      sswRun(function(){
+        const WishlistButton = setInterval(function(){
+          if(ssw("#ssw-page #ssw-fave-page-side-bar .ssw-fave-product-price").length){
+            ssw(".ssw-fave-product-price").each(function() {
+              var priceText = $(this).text();
+              $(this).text(priceText + ' per sq. ft.');
+            });
+            clearInterval(WishlistButton);
+          }
+        }, 1000);
+      });
+    }
+  })
+</script>
+{% endcomment %}

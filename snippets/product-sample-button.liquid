@@ -1,0 +1,45 @@
+{% for product_variant in product.variants %}
+  {% if product_variant.title == 'Sample' %}
+    <div class="sample-add-to-cart-wrapper">
+      
+      <product-form class="product-form" data-section="{{ section.id }}" data-hide-errors="{{ gift_card_recipient_feature_active }}">
+  		<div class="product-form__error-message-wrapper form-notification error" role="alert" hidden>
+            {% render 'svg-icons' with 'thb-error' %}
+            <span class="product-form__error-message"></span>
+          </div>
+  		{%- form 'product', product, id: product_form_id, class: 'form order-sample', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            <input type="hidden" name="id" value="{{ product_variant.id }}" disabled>
+            {%- if gift_card_recipient_feature_active -%}
+              {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+            {%- endif -%}
+            <div class="product-add-to-cart-container">
+              <div class="form-notification error" style="display:none;"></div>
+              <div class="add_to_cart_holder">
+                    {%- if block.settings.show_quantity_selector -%}
+                    <div id="quantity-{{ section.id }}" {{ block.shopify_attributes }}>
+                      <input type="hidden" id="Quantity-{{ section.id }}" name="quantity" form="{{ product_form_id }}" value="1">
+                    </div>
+                    {%- endif -%}
+                    <button type="submit" name="add" id="AddToCart" class="single_add_to_cart_button button {% unless product_variant.available %}sold-out{% endunless %}" {% if product_variant.available == false %}disabled{% endif %}>
+                        <span>
+                          Order a Sample
+                        </span>
+                        {% if width_description != false %}
+                          <span class="small-text">
+                            $5.99. Ships Free in 48 hours!
+                          </span>
+                        {% endif %}
+                        <span class="loading-overlay">
+                            {% render 'svg-icons' with 'thb-loading' %}
+                        </span>
+                    </button>
+                    {%- if show_dynamic_checkout -%}
+                  {{ form | payment_button }}
+                {%- endif -%}
+              </div>
+            </div>
+  		{%- endform -%}
+  	</product-form>
+  </div>
+  {% endif %}
+{% endfor %}

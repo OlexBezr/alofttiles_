@@ -1,0 +1,16 @@
+<!-- start Product Samples -->
+<script type="text/javascript">
+  window.ProductSample = window.ProductSample || {};
+  if(typeof ProductSample === 'undefined') {
+    var ProductSample = {};
+  };
+  {%- if customer -%}
+    if (!ProductSample.customer) {
+      ProductSample.customer = {
+        id: {{ customer.id }},
+        email: "{{ customer.email }}"
+      };
+    };
+  {%- endif -%}
+</script>
+<!-- end Product Samples -->

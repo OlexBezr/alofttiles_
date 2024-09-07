@@ -1,0 +1,21 @@
+{% if product.metafields.custom.color_name and colors_template != 'small' %}
+  <div class="active-color">
+    <strong>Color:</strong> {{ product.metafields.custom.color_name }}
+  </div>
+{% endif %}
+<div class="color-variations-wrapper">
+  {% for product_variant in product.metafields.custom_variation.color.value %}
+  {% assign classActive = '' %}
+  {% if product_variant.id == product.id %}
+    {% assign classActive = 'active' %}
+  {% endif %}
+  <a class="color-variation {{ classActive }}" href="{{ product_variant.url }}">
+    <div class="color-variation__image">
+      {% if product_variant.metafields.custom.color_image %}
+        <img src="{{ product_variant.metafields.custom.color_image | image_url }}" width="50" height="50" loading='lazy'>
+      {% endif %}
+    </div>
+  </a>
+  {% endfor %}
+</div>
+

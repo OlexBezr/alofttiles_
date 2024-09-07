@@ -1,0 +1,340 @@
+{%- liquid
+   
+	if use_variant
+    assign target = product.selected_or_first_available_variant
+  else
+    assign target = product
+  endif
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+	assign available = target.available | default: false
+  assign money_price = price | money
+  if settings.currency_code_enabled
+    assign money_price = price | money_with_currency
+  endif
+
+	if target == product and product.price_varies
+    assign money_price = 'products.product.price.from_price_html' | t: price: money_price
+  endif
+
+-%}
+{% if product.metafields.product.product_type == 'mosaic' or product.metafields.product.product_type == 'box'%}
+<div class="custom-block">
+  <div class="open-calculate">How much do I need?</div>
+  <div class="calculate-wrapper">
+    <div class="calculate-hidden-fields">
+      <p>Calculate how many {% if product.metafields.product.product_type == 'mosaic' %}sheets{% else %}boxes{% endif %} I need:</p>
+
+      <div class="units-radios">
+        <input type="hidden" class='active-unit' value='Feet'>
+        <div class="bg-active-unit _left"></div> 
+        <div class="units-radios__unit _active" data-unit="feet">
+          Feet
+        </div>
+        <div class="units-radios__unit" data-unit="inches">
+          Inches
+        </div>
+        
+      </div>
+      
+      <div class="user-inputs">
+       <div class="input-wrapper">
+          <input type="number" class="input_width">
+          <span>Width</span>
+       </div>
+       <div class="input-wrapper">
+          <input type="number" class="input_length">
+          <span>Length</span>
+       </div>
+       
+      </div>
+      <div class="calculete-btn">calculate</div>
+    </div>
+    <div class="user-inputs">
+     
+     <div class="input-wrapper">
+        <input type="number" class="input_sq_ft">
+        <span>{{ 'products.product.sq_ft' | t }}</span>
+     </div>
+     <div class="input-wrapper">
+        <input type="number" class="input_box">
+        <span 
+          data-text-one="{% if product.metafields.product.product_type == 'mosaic' %}sheet{% else %}{{ 'products.product.box' | t }}{% endif %}" 
+          data-text-more="{% if product.metafields.product.product_type == 'mosaic' %}sheets{% else %}boxes{% endif %}"
+        >
+            {% if product.metafields.product.product_type == 'mosaic' %}sheet{% else %}{{ 'products.product.box' | t }}{% endif %}
+        </span>
+     </div>
+     
+    </div>
+     <div class="cover-break" >
+        <input type="checkbox" class="checkbox10extra" id="checkbox10extra">
+        <label class="grout-label" for="checkbox10extra">
+          <span>Add 10% for waste and reserve (recommended)</span>
+        </label>
+     </div>
+     <div class="total-price" >
+        <span class="label">Total Price:</span>
+        <span class="currency">$</span><span class="culced-price">0.00</span>
+        
+     </div>
+  </div>
+</div>
+{% elsif product.metafields.product.product_type == 'piece' %}
+<div class="custom-block">
+  <div class="calculate-wrapper">
+    <div class="user-inputs">
+     <div class="input-wrapper">
+        <input type="number" class="input_box">
+        <span
+          data-text-one="piece" 
+          data-text-more="pieces"
+          > Piece</span>
+     </div>
+    </div>
+       <div class="cover-break" >
+        <input type="checkbox" class="checkbox10extra" id="checkbox10extra">
+        <label class="grout-label" for="checkbox10extra">
+          <span>Add 10% for waste and reserve (recommended)</span>
+        </label>
+     </div>
+     <div class="total-price" >
+        <span class="label">Total Price:</span>
+        <span class="currency">$</span><span class="culced-price">0.00</span>
+     </div>
+  </div>
+</div>
+{% endif %}
+
+
+
+{% comment %} 
+========= Calculator Code ==========
+{% endcomment %}
+
+<script>
+window.onload = function() {
+  let shop_currency = Shopify.currency.active
+  const product_sqft = {% if product.metafields.product.sqft %} {{ product.metafields.product.sqft }} {% else %}1{% endif %}
+  
+  if(shop_currency == 'USD') {
+    shop_currency = '$'
+  }else {
+    shop_currency = '$'
+  }
+  {% if product.metafields.product.product_type == 'mosaic' or product.metafields.product.product_type == 'box'%}
+    const original_price_per_box = parseFloat(document.querySelector('.product-price-container .price ins .amount').innerText.split(shop_currency)[1]),
+          original_price_per_sq_ft = parseFloat((original_price_per_box / product_sqft).toFixed(4))
+    
+    let current_price_per_box = original_price_per_box
+
+    let original_sqft = product_sqft,
+        current_sqft = original_sqft
+  
+    let input_sqft = document.querySelector('.calculate-wrapper input.input_sq_ft'),
+        input_box  = document.querySelector('.calculate-wrapper input.input_box'),
+  
+        input_active_unit = document.querySelector('.calculate-wrapper input.active-unit'),
+        active_unit = input_active_unit.value,
+        units_background = document.querySelector('.units-radios .bg-active-unit'),
+      
+        input_width = document.querySelector('.calculate-wrapper input.input_width'),
+        input_length = document.querySelector('.calculate-wrapper input.input_length'),
+        btn_calculete = document.querySelector('.calculate-wrapper .calculete-btn'),
+  
+      
+        input_quantity = document.querySelector('.add_to_cart_holder input[name="quantity"]'),
+        checkbox10extra = document.querySelector('.calculate-wrapper input.checkbox10extra')
+    function echo_description(span, count) {
+      if(count > 1) {
+        span.innerText = span.getAttribute('data-text-more')
+      }else {
+        span.innerText = span.getAttribute('data-text-one')
+      }
+    }
+    function inches_to_feet(inches){
+      return inches / 12
+    }
+    // смена еденица измерения
+    document.querySelectorAll('.units-radios__unit').forEach(unit => {
+      unit.addEventListener('click', function() {
+        let unit_name = this.getAttribute('data-unit')
+        if(unit_name =='feet') {
+          units_background.classList.remove('_right')
+          units_background.classList.add('_left')
+          document.querySelectorAll('.units-radios__unit')[1].classList.remove('_active')
+          document.querySelectorAll('.units-radios__unit')[0].classList.add('_active')
+          
+        }else if(unit_name ="inches") {
+          units_background.classList.add('_right')
+          units_background.classList.remove('_left')
+          document.querySelectorAll('.units-radios__unit')[0].classList.remove('_active')
+          document.querySelectorAll('.units-radios__unit')[1].classList.add('_active')
+          
+        }
+        input_active_unit.value = unit_name 
+        active_unit = unit_name
+  
+        btn_calculete.click()
+          
+      })
+    })
+    
+    // при просчете длинны и высоты
+    btn_calculete.addEventListener('click', function() {
+      let need_sqft = (input_width.value * input_length.value).toFixed(4)
+      if(active_unit == 'inches') 
+        need_sqft = (inches_to_feet(input_width.value) * inches_to_feet(input_length.value)).toFixed(4)
+
+      original_sqft = need_sqft
+      current_sqft = need_sqft
+      input_box.value = Math.ceil(need_sqft / product_sqft)
+      input_sqft.value = need_sqft
+      calc_total_price()
+    })
+    // при вводе в sq ft
+    input_sqft.addEventListener('input', function() {
+      let need_sqft = this.value
+
+      original_sqft = need_sqft * 1
+      current_sqft = original_sqft
+      input_box.value = Math.ceil(need_sqft / product_sqft)
+      calc_total_price()
+    })
+  
+    // при вводе в box
+    input_box.addEventListener('input', function() {
+      
+      let need_boxes = this.value
+      
+      original_sqft = (need_boxes * product_sqft).toFixed(4)
+      current_sqft = original_sqft
+      input_sqft.value = (need_boxes * product_sqft).toFixed(4)
+      calc_total_price()
+    })
+    
+    
+    // при добавлении 10%
+    checkbox10extra.addEventListener('input', function() {
+
+      if(checkbox10extra.checked) {
+        input_sqft.value = (original_sqft * 1.1).toFixed(4)
+      }else {
+        input_sqft.value = (original_sqft * 1).toFixed(4) 
+      }
+      current_sqft = input_sqft.value
+      calc_total_price()
+    })
+  
+  
+    function calc_total_price(){
+      let total_price
+      input_box.value = Math.ceil(current_sqft / product_sqft)
+
+      echo_description($(input_box).next()[0],input_box.value)
+      total_price = input_box.value * current_price_per_box
+      
+      document.querySelector('.calculate-wrapper .total-price .culced-price').innerHTML = total_price.toFixed(2)
+      input_quantity.value = input_box.value
+    }
+  
+    // Установить дефолтное значение
+    input_box.value = 1
+    input_sqft.value = (1 * product_sqft).toFixed(4)
+    calc_total_price()
+  
+  
+  
+    let open_calculator_btn = document.querySelector('.custom-block .open-calculate'),
+        hidden_fields = document.querySelector('.calculate-wrapper .calculate-hidden-fields')
+  
+    open_calculator_btn.addEventListener('click', function() {
+      if(hidden_fields.style.display == 'block') {
+        hidden_fields.style.display = 'none'
+      }else {
+        hidden_fields.style.display = 'block'
+      }
+    })
+
+
+
+
+
+
+  
+  {% elsif product.metafields.product.product_type == 'piece' %}
+
+        
+    const original_price_per_box = parseFloat(document.querySelector('.product-price-container .price ins .amount').innerText.split(shop_currency)[1])
+    let current_price_per_box = original_price_per_box
+      
+    let input_box  = document.querySelector('.calculate-wrapper input.input_box'),
+        checkbox10extra = document.querySelector('.calculate-wrapper input.checkbox10extra'),
+        input_quantity = document.querySelector('.add_to_cart_holder input[name="quantity"]')
+
+      function echo_description(span, count) {
+        if(count > 1) {
+          span.innerText = span.getAttribute('data-text-more')
+        }else {
+          span.innerText = span.getAttribute('data-text-one')
+        }
+      }
+      function calc_total_price(){
+        let need_boxes = input_box.value,
+            total_price
+        
+        // Если чекбокс на +10% включен
+        if(checkbox10extra.checked) {
+          current_price_per_box = original_price_per_box * 1.1
+        }else {
+          current_price_per_box = original_price_per_box
+        }
+
+        
+        total_price = need_boxes * current_price_per_box
+        echo_description($(input_box).next()[0], need_boxes)
+        
+        document.querySelector('.calculate-wrapper .total-price .culced-price').innerHTML = total_price.toFixed(2)
+        input_quantity.value = need_boxes
+      }
+  
+      input_box.value = 1
+      calc_total_price()
+
+      // при вводе в box
+      input_box.addEventListener('input', function() {
+        
+        let need_boxes = this.value
+        if(this.value <= 1 || this.value == '') {
+          need_boxes = 1
+        }
+        calc_total_price()
+      })
+  
+      // при вводе в quantity
+      input_quantity.addEventListener('change', chacnge_quantity)
+      input_quantity.addEventListener('input', chacnge_quantity)
+      function chacnge_quantity() {
+        let need_boxes = this.value
+        
+        input_box.value = need_boxes
+        
+        calc_total_price()
+      }
+
+      // при добавлении 10%
+      checkbox10extra.addEventListener('input', function() {
+  
+        if(checkbox10extra.checked) {
+          input_box.value = Math.ceil(input_box.value * 1.1)
+        }else {
+          input_box.value = Math.ceil(input_box.value * 1)
+        }
+
+        calc_total_price()
+      })
+      
+  {% endif %}
+  
+}
+</script>

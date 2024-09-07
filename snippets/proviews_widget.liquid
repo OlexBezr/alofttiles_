@@ -1,0 +1,49 @@
+{% render 'proviews_rating_schema' %}
+<!-- Proviews Widget Start -->
+<div aria-hidden="true" class="prorw-hide prorw_current_product_info" type="hidden" id="prorw_current_product_info" data-prorw-shop-name='{{shop.name}}' data-prorw-product-url='{{shop.url}}{{product.url}}' data-prorw-product-title='{{product.title}}' data-prorw-product-type='{{product.type}}' data-prorw-product-id='{{product.id}}' name="prorw_current_product_info" ></div>   
+<h2 class="prorw-heading prorw_reviews_widget_title" id="prorw_reviews_widget_title">Customer Reviews</h2>
+<div aria-hidden="true" class="prorw-messages">
+  <div aria-hidden="true" class="prorw-thank-you">
+    <h3 aria-hidden="true" class="prorw_user_reply_message" id="prorw_user_reply_message">Thank you for submitting your review</h3>
+  </div>
+</div>
+<div id="prorw_review_summary" class="prorw-summary-header prorw_review_summary">
+  <div id="prorw_review_summary_calculation_review" class="prorw_review_summary_calculation_review prorw_review_summary_calculation_bar">{{product.metafields.proviews.calculationReview}}</div>
+  <div id="prorw_review_summary_actions" class="prorw-summary-actions prorw_review_summary_actions">
+    <div class="prorw-review-header-images-actions prorw_review_summary_actions_filters" id="prorw_review_summary_actions_filters"></div>
+    <div class="prorw-button-header-actions prorw_review_summary_actions_buttons" id="prorw_review_summary_actions_buttons">
+      <button aria-label="Press Enter Key to Write a Review about this product" type="button"  class="prorw-summary-actions-newreview prorw_review_summary_action_write_review" id="prorw_review_summary_action_write_review">Write a Review</button>
+      <button aria-label="Press Enter Key to Ask a Question about this product" type="button"  class="prorw-summary-actions-newquestion prorw_review_summary_action_write_question" id="prorw_review_summary_action_write_question" style="">Ask a Question</button>
+    </div>
+  </div>
+</div>
+<div id="prorw_content" class="prorw_content prorw-content">
+  
+  <div id="prorw_tabmenu_container" class="prorw_tabmenu_container prorw-tabmenu-container">
+    <ul id="prorw_tabs_menu" class="prorw_tabs_menu prorw-tabs-menu" data-prorw-default-tab="prorw_reviews_tab" role="tabs">
+      <li class="prorw_reviews_tab prorw-tabs-menu-links active" data-prorw-content="prorw_reviews_container" id="prorw_reviews_tab"  data-type="reviews" data-count="{% if product.metafields.proviews.totalReviewCount != blank %} {{product.metafields.proviews.totalReviewCount}} {% else %} 0 {% endif %} " role="tablist" aria-label="Reviews">Reviews</li>
+      <li class="prorw-tabs-menu-links prorw_questions_tab" data-prorw-content="prorw_questions_container" id="prorw_questions_tab" data-type="questions" style="" data-count="{% if product.metafields.proviews.totalQuestionCount != blank %} {{product.metafields.proviews.totalQuestionCount}} {% else %} 0 {% endif %}" aria-label="Questions" role="tablist" data-new-tab="">Questions</li>
+    </ul>
+  </div>
+  <div id="prorw_reviews_container" class="prorw_reviews_container prorw-tab-content" >
+      {% render 'proviews_reviews_widget' %}
+  </div>
+  <div id="prorw_questions_container" class="prorw_questions_container prorw-tab-content prorw-hide">
+      {% render 'proviews_questions_widget' %}
+  </div>
+  {% if product.metafields.proviews.totalReviewCount == blank or product.metafields.proviews.totalReviewCount == "0" %}
+  <div aria-hidden="true" class="prorw-write-first-review-container">  
+      <div aria-hidden="true" class="prorw-first-review-messages" >
+          <span aria-hidden="true" class="prorw-preview-badge"> 
+              <i aria-hidden="true" class="prorw-icon prorw-fa-star"></i> 
+              <i aria-hidden="true" class="prorw-icon prorw-fa-star"></i> 
+              <i aria-hidden="true" class="prorw-icon prorw-fa-star"></i> 
+              <i aria-hidden="true" class="prorw-icon prorw-fa-star"></i> 
+              <i aria-hidden="true" class="prorw-icon prorw-fa-star"></i> 
+          </span>
+          <div aria-hidden="true" class="prorw-first-review-txt prorw_first_review_message" id= "prorw_first_review_message" >Be the first to review this item</div>
+      </div>
+  </div>
+  {% endif %}
+</div>
+<!-- Proviews Widget End -->

@@ -1,0 +1,12 @@
+<div class="specifications-table">
+  <ul class="specs-difantions">
+    
+    {% for specs in product.metafields.custom.specifications.value.specifications %}
+    <li>
+      <div class="spec-name">{{ specs.name }}</div>
+      <div class="spec-value">{{ specs.value }}</div>
+      
+    </li>
+    {% endfor %}
+  </ul>
+</div>

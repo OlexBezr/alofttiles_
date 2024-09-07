@@ -1,0 +1,137 @@
+.custom-block .open-calculate {
+  text-decoration: underline;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+.calculate-wrapper {
+    background: #F0F0F0;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #103A3A;
+    display: inline-block;
+    border-radius: 10px;
+    margin-bottom: 10px
+}
+.calculate-wrapper .units-radios {
+  border-radius: 30px;
+  background: #ffffff;
+  display: inline-flex;
+  justify-content:center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.calculate-wrapper .units-radios__unit {
+  width: 80px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.6s;
+  
+}
+.calculate-wrapper .units-radios__unit._active {
+  color: #ffffff;
+  z-index: 1;
+}
+.calculate-wrapper .units-radios .bg-active-unit {
+    width: 80px;
+    height:100%;
+    padding: 5px;
+    background: #171717;
+    position: absolute;
+    transition: 0.6s;
+    border-radius: 30px;
+    left:0;
+  
+}
+.calculate-wrapper .units-radios .bg-active-unit._left {
+  left:0;
+  top: 0;
+}
+.calculate-wrapper .units-radios .bg-active-unit._right {
+  left: 80px;
+  top: 0;
+}
+.calculate-wrapper .calculete-btn {
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  background: #171717;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 15px 0;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.calculate-wrapper .calculate-hidden-fields {
+    display: none;
+}
+.calculate-wrapper .user-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+;
+}
+.calculate-wrapper .user-inputs .input-wrapper {
+    min-height: 63px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px 5px 5px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    max-width: 48%;
+    overflow: hidden;
+}
+.calculate-wrapper .user-inputs .input-wrapper input {
+    padding: 5px;
+    margin-bottom: 6px;
+    font-size: 15px;
+    border: none;
+    height: initial;
+    text-align: center;
+}
+.calculate-wrapper .user-inputs .input-wrapper span {
+  font-size: 13px;
+}
+.calculate-wrapper .user-inputs .input-wrapper input:focus,
+.calculate-wrapper .user-inputs .input-wrapper input:active {
+    outline: none;
+    border:none;
+}
+.calculate-wrapper .calc-btn {
+    min-height: 34px ;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    padding: 5px;
+    text-transform: uppercase;
+    background: #103A3A;
+    margin: 10px 0;
+    border-radius: 5px;
+
+}
+.calculate-wrapper .cover-break {
+    margin-top: 10px;
+}
+.calculate-wrapper .total-price {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+.calculate-wrapper input::-webkit-outer-spin-button,
+.calculate-wrapper input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.add_to_cart_holder .quantity {
+  display: none;
+}
