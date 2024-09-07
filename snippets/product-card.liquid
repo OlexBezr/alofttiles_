@@ -74,9 +74,17 @@
 	    </a>
 	  </figure>
 		<div class="product-card-info">
+  {% comment %}
           {%- if settings.show_products_rating and product_card_product.metafields.reviews.rating.value != blank -%}
             <div class="star-rating" style="--star-rating: {{ product_card_product.metafields.reviews.rating.value.rating }};"></div>
           {%- endif -%}
+  {% endcomment %}
+
+{% capture the_snippet_review_avg %}{% render 'ssw-widget-avg-rate-listing', product: product_card_product %}{% endcapture %}
+{% unless the_snippet_review_avg contains 'Liquid error' %}
+{{ the_snippet_review_avg }}
+{% endunless %}    
+  
           {%- if settings.show_products_vendor -%}
             <div class="product-card-vendor"><a href="{{ product_card_product.vendor | url_for_vendor }}" title="{{ product_card_product.vendor | escape }}">{{ product_card_product.vendor }}</a></div>
           {%- endif -%}
@@ -84,7 +92,24 @@
           {% render 'product-card-price', product: product_card_product %}
           {% render 'product-card-swatch', product: product_card_product, sizes: sizes %}
           {% render 'product-variations-color', product: product_card_product, colors_template: 'small' %}
-          {% render 'product-sample-button', product: product_card_product, width_description: false %}
+          {% if product_card_product.metafields.product.product_type == 'bundle' %}
+            {% if product_card_product.metafields.product.list_bundle_products %}
+              {% assign list_bundle = "" %}
+              {% for product_bondle in product_card_product.metafields.product.list_bundle_products.value %}
+                 {% assign list_bundle = list_bundle | append: product_bondle.variants.first.id | append: ","  %}
+              {% endfor %}  
+              {% assign list_bundle = list_bundle | split: "," | compact %}
+              
+              <button class="product_cart_add_to_cart bundle_add_button single_add_to_cart_button button " style="width: 100%;" data-list-products='{{ list_bundle | json }}'>
+                <span>add to cart</span>
+                 <div class="loading-overlay">
+                     {% render 'svg-icons' with 'thb-loading' %}
+                 </div>
+              </button>
+            {% endif %}
+          {% else %}
+            {% render 'product-sample-button', product: product_card_product, width_description: false, with_sample: true %}
+          {% endif %}
   
           <div class="js-product-samples" data-sample="{{ product | json | url_encode }}"></div>
 	  </div>
@@ -131,3 +156,4 @@
 	</div>
 </product-card>
 {%- endif -%}
+

@@ -296,3 +296,7 @@ https://flickity.metafizzy.co
       border-color: #fff; }
       .slideshow .flickity-nav:hover svg path {
         stroke: var(--color-accent); }
+
+.line-child {
+  line-height: 130%;
+}

@@ -1,0 +1,25 @@
+{% if product.metafields.custom_variation.option.value  %}
+  <hr style="margin: 10px 0;">
+  <div class="option-variation-title">
+    <strong>Options:</strong>
+  </div>
+  <div class="option-variations-wrapper">
+    {% for product_variant in product.metafields.custom_variation.option.value %}
+    {% assign classActive = '' %}
+    {% if product_variant.id == product.id %}
+      {% assign classActive = 'active' %}
+    {% endif %}
+    <a class="option-variation {{ classActive }}" href="{{ product_variant.url }}">
+      {% if product_variant.metafields.custom.option_image %}
+        <div class="option-variation__image">
+          <img src="{{ product_variant.metafields.custom.option_image | image_url }}" width="50" height="50" loading='lazy'>
+        </div>
+      {% endif %}
+      {% if product_variant.metafields.custom.option_name %}
+          <div class="option-variation__name">{{ product_variant.metafields.custom.option_name }}</div>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+{% endif %}
+  

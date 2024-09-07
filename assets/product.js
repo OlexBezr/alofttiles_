@@ -21,15 +21,15 @@ if (!customElements.get('variant-selects')) {
          }
       })
     }
-    if(typeof Masonry == 'function') {
+    // if(typeof Masonry == 'function') {
 
-      var masonry = new Masonry('.product-desktop-gallery .product-images-masonry', {
-         columnWidth: '.product-desktop-gallery .column-width',
-          percentPosition: true,
-          itemSelector: '.product-desktop-gallery .product-images__slide-masonry',
-          gutter: 10
-      });
-    }
+    //   var masonry = new Masonry('.product-desktop-gallery .product-images-masonry', {
+    //      columnWidth: '.product-desktop-gallery .column-width',
+    //       percentPosition: true,
+    //       itemSelector: '.product-desktop-gallery .product-images__slide-masonry',
+    //       gutter: 10
+    //   });
+    // }
 
   if(typeof $(window.body).ezPlus == 'function') {
     document.querySelectorAll('.product-desktop-gallery .product-single__media.add-zoom-image img').forEach(el => {
@@ -695,8 +695,29 @@ if (!customElements.get('product-form')) {
             this.handleErrorMessage(response.description);
             return;
           }
-
+ 
           this.renderContents(response);
+          console.log(this.form)
+          if($(this.form).hasClass('product-type-sample') || $(this.form).hasClass('order-sample')) {
+            if(response.quantity >= 3) {
+              let errorQuantityWrapper = document.querySelector('[data-error-for="'+response.key+'"]')
+              
+              let quantityWrapper = document.querySelector('.quantity[data-id="'+response.key+'"]')
+              
+              errorQuantityWrapper.querySelector('.product-quantity-message-wrapper').style.display = 'block'
+              
+              function sleep(ms) {
+                  return new Promise(resolve => setTimeout(resolve, ms));
+              }
+              async function wait(ms) {
+                await sleep(ms);
+                quantityWrapper.querySelector('.qty').value = 1
+                quantityWrapper.querySelector('.plus').click()
+              }
+              wait(3000)
+              
+            }
+          }
         })
         .catch((e) => {
           console.error(e);

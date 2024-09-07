@@ -1,0 +1,29 @@
+{%- if message_for == 'other' or message_for == 'sample' -%}
+  {% assign wrapper_class = 'block' %}
+  {% if hide_on_first %}
+    {% assign wrapper_class = 'none' %}
+  {% endif %}
+  
+  <div class="product-quantity-message-wrapper" style="display: {{ wrapper_class }}; text-align: left;">
+    <div class="product-quantity-message {% if color == 'red' %}_red{% endif %}">
+      <div class="product-quantity-message__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="23" viewBox="0 0 22 23" fill="none">
+          <circle cx="11" cy="11.5" r="11" fill="#777777"/>
+          <path d="M10.533 13.6691L10.221 9.63906V7.00006H11.365V9.63906L11.053 13.6691H10.533ZM10.793 16.2301C10.5157 16.2301 10.312 16.1607 10.182 16.0221C10.0607 15.8834 10 15.7014 10 15.4761V15.3071C10 15.0817 10.0607 14.8997 10.182 14.7611C10.312 14.6224 10.5157 14.5531 10.793 14.5531C11.0703 14.5531 11.2697 14.6224 11.391 14.7611C11.521 14.8997 11.586 15.0817 11.586 15.3071V15.4761C11.586 15.7014 11.521 15.8834 11.391 16.0221C11.2697 16.1607 11.0703 16.2301 10.793 16.2301Z" fill="white"/>
+        </svg>
+      </div>
+      <div class="product-quantity-message__text">
+        {% if message_for == 'other' %}
+          {% if message_type == 'small' %}
+             We anticipate receiving the material in the next 2-6 weeks. If you want the exact estimated time of arrival, please <a href="/pages/contact">contact our team</a>.
+          {% else %}
+            This item is currently out of stock, but you can pre-order it. We expect new stock in 2-6 weeks. For a specific arrival date,
+            please <a href="/pages/contact">contact our team</a>.
+          {% endif %}
+        {% elsif message_for == 'sample' %}
+           The requested quantity exceeds the maximum allowed amount of samples for this product.
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{%- endif -%}

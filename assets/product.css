@@ -18,7 +18,6 @@ Utilities
 Add to Cart.
 */
 .product-form {
-  margin-top: 30px;
   display: block; }
 
 .add_to_cart_holder {
@@ -271,6 +270,7 @@ https://flickity.metafizzy.co
   position: absolute;
   width: 100%;
   height: 100%;
+  min-height: 100vw;
   will-change: transform; }
 
 /* draggable */
@@ -647,10 +647,11 @@ Content
   display: none;
 }
 .product-sku {
+  display: inline-block;
   font-size: 13px;
   letter-spacing: 1px;
   opacity: 0.6;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   margin-top: 7px;
 }
 .thb-product-detail .product-title {
@@ -934,10 +935,10 @@ Share
   align-items: center;
   flex-direction: column;
   font-size: 15px;
-  color: #ffffff;
-  font-weight: 500;
+  color: #171717;
+  font-weight: 800;
   letter-spacing: 1px;
-  background: #777777;
+  background: #F2EEE3;
 }
 .sample-add-to-cart-wrapper .single_add_to_cart_button .small-text {
   text-transform: initial;
@@ -1336,11 +1337,18 @@ Utilities
 }
 .product-desktop-gallery .product-images-masonry {
   width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 .product-images__slide-masonry {
-  width: calc(50% - 10px);
+  /* width: calc(50% - 10px); */
+  width: 100%;
   float: left;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-bottom: 10px; */
 }
 .product-images__slide-masonry:after {
   content: '';
@@ -1348,7 +1356,8 @@ Utilities
   clear: both;
 }
 .product-desktop-gallery .column-width {
-  width: calc(50% - 10px);
+  /* width: calc(50% - 10px); */
+  display: none;
 }
 .product-desktop-gallery .product-single__media-zoom {
   display: none;
@@ -1398,7 +1407,7 @@ Utilities
 }
 
 .ssw-wishlist-btn__wrapper {
-  background: #ffffff;
+
   border-radius: 5px;
 }
 ul.shopify-tabs {
@@ -1479,9 +1488,47 @@ ul.shopify-tabs {
     top: 0;
     bottom: 0;
     right: 0;
-    z-index: 100;
+    z-index: 100000;
     background: rgba(0,0,0,0.4);
+}
+.photoviewer-modal {
+    z-index: 100001 !important;
 }
 .ssw-faveappbtn {
   display: none !important;
+}
+
+.product-view-tile-link {
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 18px;
+    border: 2px solid #000000;
+    margin: 10px 0;
+    line-height: 1;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--button-letter-spacing, .2em);
+}
+.bondle_products_list {
+    /* list-style:decimal; */
+    list-style: none;
+    margin-left: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.bondle_products_list .item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.bondle_products_list .item img {
+    min-width: 50px; min-height: 50px;
+}
+
+.bondle_products_list .item .color_image {
+    border-radius: 50%;
 }

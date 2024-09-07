@@ -1,0 +1,78 @@
+{%- liquid
+   assign product_ideas = product.metafields.custom.post_product_ideas.value
+ 
+-%}
+{% if product_ideas %}
+  {{ 'slick.min.js' | asset_url | script_tag }}
+  {{ 'slick.css' | asset_url | stylesheet_tag }}
+  {{ 'slick-theme.css' | asset_url | stylesheet_tag }}
+  {{ 'product-ideas.css' | asset_url | stylesheet_tag }}
+  {{ 'product-ideas.js' | asset_url | script_tag }}
+  
+  
+
+  <div class="product-ideas-wrapper">
+    <div class="row">
+      <div class="small-12">
+        <div class="section-header">
+          <h2 class="h3">Explore Design Ideas For This Tile</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12">
+        <div class="product-ideas">
+          {% for post_idea in product_ideas %}
+            {% assign product_id = 0 %}
+            {% assign images = post_idea.images.value %}
+            <div class="banner-idea-wrapper">
+              <div class="banner-idea">
+                <span class="created-by">Created by <span class="semibold">AloftTiles</span></span>
+                <a href="{{ product.url }}" class="product-idea _main">
+                  <div class="product-idea__image">
+                    {%- render 'responsive-image', class: 'product-secondary-image', image: post_idea.main_image.value, sizes: '345x345,596x596' -%}
+                  </div>
+                  <div class="product-idea__title-wrapper">
+                      <div class="product-idea__title">
+                        {{ product.first_available_variant.sku }}
+                      </div>
+                  </div>
+                </a>
+                {% for idea_product in post_idea.product_ideas.value %}
+                  {% assign price = idea_product.selected_or_first_available_variant.price  %}
+                  {% assign price_pre_sqft = price | divided_by: idea_product.metafields.product.sqft %}
+                  <a href="{{ idea_product.url }}" class="product-idea">
+                    <div class="product-idea__image">
+                      {% assign img_iter = 0 %}
+                      {% if images %}
+                        {% for image in images %}
+                          {% if img_iter == product_id %}
+                            {%- render 'responsive-image', class: 'product-secondary-image', image: image, sizes: '345x345,596x596' -%}
+                          {% endif %}
+                          {% assign img_iter = img_iter | plus: 1 %}
+                        {% endfor %}
+                      {% endif %}
+                      
+                    </div>
+                    <div class="product-idea__title-wrapper">
+                        <div class="product-idea__title">
+                          {{ idea_product.first_available_variant.sku }}
+                        </div>
+                        <div class="product-idea__price">
+                            <span class="price-container__price price">
+                              <ins><span class="amount">{{ price_pre_sqft | money }}</span></ins>
+                            </span>
+                            <span class="price-container__description"> {{ 'products.product.per_sq_ft' | t }}</span>
+                       </div>
+                    </div>
+                  </a>
+                  {% assign product_id = product_id | plus: 1 %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

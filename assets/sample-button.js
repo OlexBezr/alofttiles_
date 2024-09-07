@@ -55,8 +55,28 @@ window.onload = function() {
               this.handleErrorMessage(response.description);
               return;
             }
-  
+           
             this.renderContents(response);
+           if(response.quantity >= 3) {
+              let errorQuantityWrapper = document.querySelector('[data-error-for="'+response.key+'"]')
+              
+              let quantityWrapper = document.querySelector('.quantity[data-id="'+response.key+'"]')
+
+              if(errorQuantityWrapper) {
+                errorQuantityWrapper.querySelector('.product-quantity-message-wrapper').style.display = 'block'
+              }
+              
+              function sleep(ms) {
+                  return new Promise(resolve => setTimeout(resolve, ms));
+              }
+              async function wait(ms) {
+                await sleep(ms);
+                quantityWrapper.querySelector('.qty').value = 1
+                quantityWrapper.querySelector('.plus').click()
+              }
+              wait(3000)
+              
+            }
           })
           .catch((e) => {
             console.error(e);
@@ -93,6 +113,7 @@ window.onload = function() {
           elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
           if (typeof CartDrawer !== 'undefined') {
             new CartDrawer();
+     
           }
           if (typeof Cart !== 'undefined') {
             new Cart().renderContents(parsedState);

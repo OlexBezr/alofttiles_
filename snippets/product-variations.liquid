@@ -1,0 +1,24 @@
+{%- liquid 
+  assign variations_options = product.metafields.custom_variation.option.value | json
+-%}
+{%  if variations_options == 'null' %}
+  {% render 'product-variations-color'%}
+  {% if product.metafields.custom.view_collectiion.value.url %}
+    <a href="{{ product.metafields.custom.view_collectiion.value.url }}"  style="text-decoration: underline; font-size: 15px;">
+    View Collection
+    </a>
+  {% endif %}
+{% endif %}
+
+
+{%  if variations_options == 'null' %}
+  {% render 'product-variations-size' %}
+{% else %}
+  {% render 'product-variations-option' %}
+  {% if product.metafields.custom.view_collectiion.value.url %}
+    <a href="{{ product.metafields.custom.view_collectiion.value.url }}"  style="text-decoration: underline; font-size: 15px;">
+    View Collection
+    </a>
+  {% endif %}
+{% endif %}
+<hr style="margin: 10px 0;">

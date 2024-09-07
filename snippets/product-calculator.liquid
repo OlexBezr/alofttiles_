@@ -1,10 +1,11 @@
 {%- liquid
    
-	if use_variant
+  if use_variant
     assign target = product.selected_or_first_available_variant
   else
     assign target = product
   endif
+   
   assign compare_at_price = target.compare_at_price
   assign price = target.price | default: 1999
 	assign available = target.available | default: false
@@ -53,11 +54,11 @@
     <div class="user-inputs">
      
      <div class="input-wrapper">
-        <input type="number" class="input_sq_ft">
+        <input type="number" class="input_sq_ft" value="{{ product.metafields.product.sqft }}">
         <span>{{ 'products.product.sq_ft' | t }}</span>
      </div>
      <div class="input-wrapper">
-        <input type="number" class="input_box">
+        <input type="number" class="input_box" value="1">
         <span 
           data-text-one="{% if product.metafields.product.product_type == 'mosaic' %}sheet{% else %}{{ 'products.product.box' | t }}{% endif %}" 
           data-text-more="{% if product.metafields.product.product_type == 'mosaic' %}sheets{% else %}boxes{% endif %}"
@@ -113,18 +114,37 @@
 {% endcomment %}
 
 <script>
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function() {
+  
+  function countDecimalPlaces(number) {
+      // Преобразуем число в строку, чтобы извлечь часть после запятой
+      var numberString = number.toString();
+  
+      // Проверяем, есть ли точка (запятая) в строке
+      if (numberString.indexOf('.') !== -1) {
+          // Если есть, вычисляем количество знаков после точки
+          return numberString.split('.')[1].length;
+      }
+  
+      // Если нет точки, возвращаем 0
+      return 0;
+  }
   let shop_currency = Shopify.currency.active
   const product_sqft = {% if product.metafields.product.sqft %} {{ product.metafields.product.sqft }} {% else %}1{% endif %}
-  
+
   if(shop_currency == 'USD') {
     shop_currency = '$'
+  }else if(shop_currency == 'EUR') {
+    shop_currency = '€'
   }else {
     shop_currency = '$'
   }
   {% if product.metafields.product.product_type == 'mosaic' or product.metafields.product.product_type == 'box'%}
+    console.log(document.querySelector('.product-price-container .price ins .amount').innerText.split(shop_currency))
     const original_price_per_box = parseFloat(document.querySelector('.product-price-container .price ins .amount').innerText.split(shop_currency)[1]),
-          original_price_per_sq_ft = parseFloat((original_price_per_box / product_sqft).toFixed(4))
+          original_price_per_sq_ft = parseFloat((original_price_per_box / product_sqft).toFixed(5))
+
+    const max_quantity = {% if product.selected_or_first_available_variant.inventory_quantity %} {{ product.selected_or_first_available_variant.inventory_quantity }} {% else %}0{% endif %};
     
     let current_price_per_box = original_price_per_box
 
@@ -145,6 +165,11 @@ window.onload = function() {
       
         input_quantity = document.querySelector('.add_to_cart_holder input[name="quantity"]'),
         checkbox10extra = document.querySelector('.calculate-wrapper input.checkbox10extra')
+
+    let quantity_message_wrapper = document.querySelector('.product-quantity-message-wrapper')
+
+    let now_sqft = product_sqft; // for calculete
+    
     function echo_description(span, count) {
       if(count > 1) {
         span.innerText = span.getAttribute('data-text-more')
@@ -155,6 +180,15 @@ window.onload = function() {
     function inches_to_feet(inches){
       return inches / 12
     }
+    function hide_or_show_quantity_message(now_quantity=1) {
+      if(max_quantity < now_quantity && quantity_message_wrapper) {
+        quantity_message_wrapper.style.display = 'block'
+      }else if(quantity_message_wrapper){
+        quantity_message_wrapper.style.display = 'none'
+      }
+    }
+    hide_or_show_quantity_message()
+        
     // смена еденица измерения
     document.querySelectorAll('.units-radios__unit').forEach(unit => {
       unit.addEventListener('click', function() {
@@ -182,14 +216,14 @@ window.onload = function() {
     
     // при просчете длинны и высоты
     btn_calculete.addEventListener('click', function() {
-      let need_sqft = (input_width.value * input_length.value).toFixed(4)
+      let need_sqft = input_width.value * input_length.value
       if(active_unit == 'inches') 
-        need_sqft = (inches_to_feet(input_width.value) * inches_to_feet(input_length.value)).toFixed(4)
+        need_sqft = inches_to_feet(input_width.value) * inches_to_feet(input_length.value)
 
       original_sqft = need_sqft
       current_sqft = need_sqft
       input_box.value = Math.ceil(need_sqft / product_sqft)
-      input_sqft.value = need_sqft
+      input_sqft.value = current_sqft.toFixed(2)
       calc_total_price()
     })
     // при вводе в sq ft
@@ -198,6 +232,7 @@ window.onload = function() {
 
       original_sqft = need_sqft * 1
       current_sqft = original_sqft
+        
       input_box.value = Math.ceil(need_sqft / product_sqft)
       calc_total_price()
     })
@@ -207,9 +242,11 @@ window.onload = function() {
       
       let need_boxes = this.value
       
-      original_sqft = (need_boxes * product_sqft).toFixed(4)
+      original_sqft = need_boxes * product_sqft
       current_sqft = original_sqft
-      input_sqft.value = (need_boxes * product_sqft).toFixed(4)
+      input_sqft.value = original_sqft.toFixed(2)
+      // input_box.value = need_boxes
+        
       calc_total_price()
     })
     
@@ -218,29 +255,44 @@ window.onload = function() {
     checkbox10extra.addEventListener('input', function() {
 
       if(checkbox10extra.checked) {
-        input_sqft.value = (original_sqft * 1.1).toFixed(4)
+        current_sqft = original_sqft * 1.1
       }else {
-        input_sqft.value = (original_sqft * 1).toFixed(4) 
+        current_sqft = original_sqft * 1
       }
-      current_sqft = input_sqft.value
+      input_sqft.value = current_sqft.toFixed(2)
       calc_total_price()
     })
   
-  
+    function roundNumber(num, precision) {
+    	let factor = Math.pow(10, precision);
+    
+    	return Math.round(num * factor) / factor;
+    }
     function calc_total_price(){
       let total_price
-      input_box.value = Math.ceil(current_sqft / product_sqft)
-
-      echo_description($(input_box).next()[0],input_box.value)
-      total_price = input_box.value * current_price_per_box
-      
+      let now_quantity = roundNumber(current_sqft / product_sqft, 10)
+      // fix error js 
+      let num_after_dot = now_quantity.toFixed(2).toString().split('.')[1] - 0
+      console.log(now_quantity)
+      console.log(num_after_dot)
+      console.log(Math.round(now_quantity))
+      if((countDecimalPlaces(now_quantity) >= 14 || countDecimalPlaces(now_quantity) <= 16) && num_after_dot >= 70) {
+        now_quantity = Math.round(now_quantity)
+      }else {
+        now_quantity = Math.ceil(now_quantity)
+      }
+      echo_description($(input_box).next()[0], now_quantity)
+      total_price = now_quantity * current_price_per_box
       document.querySelector('.calculate-wrapper .total-price .culced-price').innerHTML = total_price.toFixed(2)
-      input_quantity.value = input_box.value
+      input_quantity.value = now_quantity
+      input_box.value = now_quantity
+        
+      hide_or_show_quantity_message(now_quantity)
     }
   
     // Установить дефолтное значение
     input_box.value = 1
-    input_sqft.value = (1 * product_sqft).toFixed(4)
+    input_sqft.value = product_sqft.toFixed(2)
     calc_total_price()
   
   
@@ -335,6 +387,6 @@ window.onload = function() {
       })
       
   {% endif %}
+});
   
-}
 </script>

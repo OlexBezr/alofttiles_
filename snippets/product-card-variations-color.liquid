@@ -4,6 +4,7 @@
   </div>
 {% endif %}
 <div class="color-variations-wrapper">
+
   {% for product_variant in product.metafields.custom_variation.color.value %}
   {% assign classActive = '' %}
   {% if product_variant.id == product.id %}

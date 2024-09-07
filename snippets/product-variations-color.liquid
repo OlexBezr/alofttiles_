@@ -1,21 +1,36 @@
+{% assign show_colors = 4 %}
+{% assign color_count = 0 %}
+
 {% if product.metafields.custom.color_name and colors_template != 'small' %}
+  <hr style="margin: 10px 0;">
   <div class="active-color">
     <strong>Color:</strong> {{ product.metafields.custom.color_name }}
   </div>
 {% endif %}
-<div class="color-variations-wrapper">
-  {% for product_variant in product.metafields.custom_variation.color.value %}
-  {% assign classActive = '' %}
-  {% if product_variant.id == product.id %}
-    {% assign classActive = 'active' %}
-  {% endif %}
-  <a class="color-variation {{ classActive }}" href="{{ product_variant.url }}">
-    <div class="color-variation__image">
-      {% if product_variant.metafields.custom.color_image %}
-        <img src="{{ product_variant.metafields.custom.color_image | image_url }}" width="50" height="50" loading='lazy'>
+{% if product.metafields.custom_variation.color.value %}
+  <div class="color-variations-wrapper">
+    {% for product_variant in product.metafields.custom_variation.color.value %}
+      {% if color_count < show_colors or colors_template != 'small' %}
+        {% assign classActive = '' %}
+        {% if product_variant.id == product.id %}
+          {% assign classActive = 'active' %}
+        {% endif %}
+        <a class="color-variation {{ classActive }}" href="{{ product_variant.url }}">
+          <div class="color-variation__image">
+            {% if product_variant.metafields.custom.color_image %}
+              <img src="{{ product_variant.metafields.custom.color_image | image_url }}" width="50" height="50" loading='lazy'>
+            {% endif %}
+          </div>
+        </a>
       {% endif %}
-    </div>
-  </a>
-  {% endfor %}
-</div>
-
+      {% assign color_count = color_count | plus: 1 %}
+    {% endfor %}
+    {% if color_count > show_colors and colors_template == 'small'%}
+      {% assign count_more_colors =  color_count | minus: show_colors  %}
+      <a href ="{{ product.url }}" class="show-more-colors">
+        <div class="circle"></div>
+        <span>{{ count_more_colors }} more</span>
+      </a>
+    {% endif %}
+  </div>
+{% endif %}

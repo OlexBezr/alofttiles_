@@ -1,3 +1,41 @@
+// disable scale on iphone
+if (/iPhone/.test(navigator.userAgent) && !window.MSStream)
+{
+    jQuery(document).on("focus", "input, textarea, select", function()
+    {
+        jQuery('meta[name=viewport]').remove();
+        jQuery('head').append('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">');
+    });
+
+    jQuery(document).on("blur", "input, textarea, select", function()
+    {
+        jQuery('meta[name=viewport]').remove();
+        jQuery('head').append('<meta name="viewport" content="width=device-width, initial-scale=1">');
+    });
+}
+// card-product - color variations
+document.addEventListener("DOMContentLoaded", function() {
+  if(document.querySelector('.product-card .color-variations-wrapper') && window.innerWidth <= 480) {
+    document.querySelectorAll('.color-variations-wrapper').forEach( (color_variations) => {
+      if(color_variations.querySelector('.show-more-colors')) {
+        
+        let count = 0
+        let count_remmoved = 0
+        let count_show_more = parseInt(color_variations.querySelector('.show-more-colors span').innerHTML)
+        color_variations.querySelectorAll('.color-variation').forEach(color_var => {
+          if(count >= 3) {
+            count_remmoved+=1
+            color_var.style.display = 'none'
+          }
+          count+=1
+        })
+        color_variations.querySelector('.show-more-colors span').innerHTML = (count_show_more + count_remmoved) + ' more'
+      }
+    })
+  }
+});
+
+
 function debounce(fn, wait) {
   let t;
   return (...args) => {
@@ -23,8 +61,15 @@ if (!customElements.get('quantity-selector')) {
   class QuantityInput extends HTMLElement {
     constructor() {
       super();
+      this.id = this.getAttribute('data-id');
+      console.log(this.id)
+      if(this.id == 'null') {
+        console.log('here')
+        return false;
+      }
       this.input = this.querySelector('.qty');
       this.step = this.input.getAttribute('step');
+      this.productType = this.getAttribute('data-type-product') ? this.getAttribute('data-type-product') : ''; 
       this.changeEvent = new Event('change', {
         bubbles: true
       });
@@ -35,7 +80,12 @@ if (!customElements.get('quantity-selector')) {
       // Add functionality to buttons
       this.subtract.addEventListener('click', () => this.change_quantity(-1 * this.step));
       this.add.addEventListener('click', () => this.change_quantity(1 * this.step));
-
+      // if (this.productType === 'Sample') {
+      //   if(this.input.value > 2) {
+      //     this.input.value = 2;
+      //     this.input.dispatchEvent(this.changeEvent);
+      //   }
+      // }
     }
     connectedCallback() {
       this.classList.add('buttons_added');
@@ -58,6 +108,28 @@ if (!customElements.get('quantity-selector')) {
       }
       // Change quantity
       quantity += change;
+
+      let errorQuantityWrapper = document.querySelector('[data-error-for="'+this.getAttribute('data-id')+'"]')
+      
+      if(quantity >= 3 && this.productType === 'Sample') {
+        errorQuantityWrapper.querySelector('.product-quantity-message-wrapper').style.display = 'block'
+        quantity = 2
+       // function sleep(ms) {
+       //      return new Promise(resolve => setTimeout(resolve, ms));
+       //  }
+       //  async function wait(ms, _this) {
+       //    await sleep(ms);
+       //    quantity = Math.max(quantity, 1);
+       //    console.log(_this)
+       //    _this.input.value = quantity;
+    
+       //    _this.input.dispatchEvent(_this.changeEvent);
+       //  }
+       //  wait(3000, this)
+        return;
+      }else if(this.productType === 'Sample') {
+        errorQuantityWrapper.querySelector('.product-quantity-message-wrapper').style.display = 'none'
+      }
 
       // Ensure quantity is always a number
       quantity = Math.max(quantity, 1);
@@ -173,6 +245,7 @@ if (!customElements.get('product-card')) {
 
       let formData = new FormData(this.form);
 
+      console.log("here")
       formData.append('id', this.quick_add.dataset.productId);
       formData.append('quantity', 1);
       formData.append('sections', this.getSectionsToRender().map((section) => section.section));
@@ -925,3 +998,114 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+ // ---custom
+if(document.querySelector('.bundle_add_button')) {
+  $(document).on('click', '.bundle_add_button', function(e) {
+    e.preventDefault()
+    let button = this
+    $(button).addClass('loading')
+    let productIds = JSON.parse($(button).attr('data-list-products'));
+    let cart;
+    let currentIndex = 0;
+
+    function update_cart(start=0) {
+      $.ajax({
+        type: 'GET',
+        url: '/cart.js',
+        dataType: 'json',
+        success: function(response) {
+          cart = response
+          console.log(cart)
+          if(start) {
+            processProduct();
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Error getting cart:', error);
+        }
+      });
+    }
+    // Функция для проверки количества товара в корзине
+    function checkProductInCart(cart, productId) {
+      for (let item of cart.items) {
+        if (item.id == productId) {
+          return item.quantity;
+        }
+      }
+      return 0;
+    }
+    function addToCartAjax(productId, quantity) {
+      return new Promise(function(resolve, reject) {
+        $.ajax({
+          type: 'POST',
+          url: '/cart/add',
+          data: {
+            id: productId,
+            quantity: quantity
+          },
+          success: function() {
+            console.log('Product added to cart successfully.');
+            resolve();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error adding product to cart.');
+            reject(textStatus);
+          }
+        });
+      });
+    }
+
+    function processProduct() {
+     
+      if (currentIndex < productIds.length) {
+        var productId = productIds[currentIndex];
+        currentIndex++;
+        const currentQuantity = checkProductInCart(cart, productId);
+        let errorMessageWrapper = document.querySelector('.product-information .product-quantity-message-wrapper')
+        if(errorMessageWrapper) {
+          errorMessageWrapper.style.display = 'none'
+        }
+        if (currentQuantity < 2) {
+          addToCartAjax(productId, 1)
+            .then(processProduct)
+            .catch(function(error) {
+              console.error('Error in addToCartAjax:', error);
+            });
+        }
+        else{
+          if(errorMessageWrapper) {
+            errorMessageWrapper.style.display = 'block'
+          }
+          processProduct()
+        }
+          
+      } else {
+       
+         $.ajax({
+          type: 'GET',
+          url: '/',
+          success: function(res) {
+            let new_minicart =  new DOMParser().parseFromString(res, 'text/html').querySelector('#Cart-Drawer').innerHTML,
+                count =  new DOMParser().parseFromString(res, 'text/html').querySelector('.thb-item-count').innerHTML;
+
+            $('.thb-item-count').html(count)
+            document.querySelector('#Cart-Drawer').innerHTML = new_minicart;
+             new CartDrawer();
+            
+          },
+        });
+        $(button).removeClass('loading')
+        
+        console.log('All products added to cart successfully.');
+      }
+    }
+
+    update_cart(1);
+        
+  })
+}
+
+
+
+// ---custom

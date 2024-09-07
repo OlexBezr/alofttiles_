@@ -1,13 +1,16 @@
 {{ 'product.css' | asset_url | stylesheet_tag }}
 {{ 'product-calculator.css' | asset_url | stylesheet_tag }}
+
+{% comment %}
 {{ 'masonry.js' | asset_url | script_tag }}
+{% endcomment %}
 {{ 'image-zoom.js' | asset_url | script_tag }}
 {{ 'socialshopwave-custom.css' | asset_url | stylesheet_tag }}
 
 {{ 'photo-viewer.min.css' | asset_url | stylesheet_tag }}
 {{ 'photo-viewer.min.js' | asset_url | script_tag }}
 
-
+{% render 'product-show-or-hide-quantity-message' %}
 
 {%- liquid
 	assign full_width = section.settings.full_width
@@ -255,6 +258,8 @@
     </div>
   </div>
 </div>
+
+{% render 'product-sticky-button' %}
 
 
 {% assign popups = section.blocks | where: "type", "popup" %}

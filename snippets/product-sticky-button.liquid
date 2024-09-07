@@ -1,0 +1,70 @@
+{{ 'product-sticky-button.css' | asset_url | stylesheet_tag }}
+{{ 'product-sticky-button.js' | asset_url | script_tag }}
+
+<div class="sticky-product-button-wrapper">
+  <div class="row full-width-row">
+    <div class="small-12">
+      <div class="sticky-product-button">
+
+          <div class="sticky-product-button__left">
+            <div class="sticky-product-button__image">
+              {%- for media in product.media -%}
+                {%- case media.media_type -%}
+                  {% when 'image' %}
+                    {%- render 'responsive-image', image: media.preview_image, sizes: '345x345,596x596' -%}
+                    {% break %}
+                {% endcase %}
+              {% endfor %}
+            </div>
+            <div>
+              <div class="sticky-product-button__title">{{ product.title }}</div>
+              <div class="sticky-product-button__price">
+                {% if product.metafields.product.product_type == 'sample' or product.metafields.product.product_type == 'bundle' %}
+                  {% assign price = product.metafields.product.original_product.value.selected_or_first_available_variant.price  %}
+                  {% assign price_pre_sqft = price | divided_by: product.metafields.product.original_product.value.metafields.product.sqft %}
+                {% else %}
+                  {% assign price = product.selected_or_first_available_variant.price  %}
+                  {% assign price_pre_sqft = price | divided_by: product.metafields.product.sqft %}
+                {% endif %}
+                <span class="price-container__price price">
+                  <ins><span class="amount">{{ price_pre_sqft | money }}</span></ins>
+                </span>
+                <span class="price-container__description">
+                  {% if product.metafields.product.product_type =='bundle' or product.metafields.product.product_type =='piece' %}
+                    {% render 'product-price' %}
+                  {% else %}
+                    {{ 'products.product.per_sq_ft' | t }}
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+            
+          </div>
+          
+          <div class="sticky-product-button__right">
+            <a class="temp-link" data-tab="tab-details" href="#">Details</a>
+            <a class="temp-link" data-tab="tab-specifications" href="#">Specifications</a>
+            <a class="temp-link" data-tab="tab-reviews" href="#">Reviews</a>
+            {% render 'product-download-spec' %}
+            {% if product.metafields.product.product_type =='bundle' %}
+              {% assign list_bundle = "" %}
+              {% for product_bondle in product.metafields.product.list_bundle_products.value %}
+                {% assign list_bundle = list_bundle | append: product_bondle.variants.first.id | append: ","  %}
+              {% endfor %}
+              {% assign list_bundle = list_bundle | split: "," | compact %}
+               <button class="bundle_add_button single_add_to_cart_button button " style="width: 100%;" data-list-products='{{ list_bundle | json }}'>
+                <span>add to cart</span>
+                 <div class="loading-overlay">
+                     {% render 'svg-icons' with 'thb-loading' %}
+                 </div>
+              </button>
+            {% else %}
+              {% render 'product-sample-button' with_sample: true %}
+            {% endif %}
+          </div>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>

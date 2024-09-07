@@ -8,44 +8,121 @@
 	{%- endcase -%}
 {%- endcapture -%}
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ dir }}">
-<head>
+  <head>
+	<!-- Added by AVADA SEO Suite -->
+	{% include 'avada-seo' %}
+	<!-- /Added by AVADA SEO Suite -->
+    <!-- Pinterest -->
+    <meta name="p:domain_verify" content="296eb2551811dfc1b05d86b7c5061a56"/>
 
-  <meta name="facebook-domain-verification" content="ieoft1bfrxy328kt74imb5todru6n7" />
-  
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
-	<meta name="theme-color" content="{{ settings.color_body_bg }}">
-	<link rel="canonical" href="{{ canonical_url }}">
-	<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-	{% render 'head-preload' %}
+    <!-- Event snippet for Page view conversion page -->
+    <script>
+      gtag('event', 'conversion', {'send_to': 'AW-11391488498/VmLRCJXFvvcYEPKj8bcq'});
+    </script>
 
-	{% if settings.favicon != blank -%}
-		<link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
-	{%- endif %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11391488498"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-	<title>
-		{{ page_title }}
-		{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}
-		{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
-		{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
-	</title>
+      gtag('config', 'AW-11391488498');
+    </script>
 
-	{% if page_description %}
-	<meta name="description" content="{{ page_description | escape }}">
-	{% endif %}
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '386020887092316');
+      fbq('track', 'PageView');
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=386020887092316&ev=PageView&noscript=1"
+    ></noscript>
+    <!-- End Meta Pixel Code -->
 
-	{%- unless settings.heading_font.system? and settings.body_font.system? -%}
-		<link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-	{%- endunless -%}
+    <meta name="facebook-domain-verification" content="ieoft1bfrxy328kt74imb5todru6n7">
 
-	{% render 'social-meta-tags' %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <meta name="theme-color" content="{{ settings.color_body_bg }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {% render 'head-preload' %}
 
-	{{ 'app.css' | asset_url | stylesheet_tag }}
+    {% if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif %}
 
-	{% render 'head-variables' %}
+    <title>
+      {{ page_title }}
+      {% if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+      {%- endif %}
+      {% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
+      {% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
 
-	<script>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {%- unless settings.heading_font.system? and settings.body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    {% render 'social-meta-tags' %}
+
+    {{ 'app.css' | asset_url | stylesheet_tag }}
+
+    {% render 'head-variables' %}
+
+    <style>
+      .Autoketing-Tpi__SelectBox {
+        display: none;
+      }
+      .Autoketing-Tpi__global__lg-24 {
+        display: none!important;
+      }
+      .AkTopPin__AddCart {
+        display: none!important;
+      }
+      .AkTopPin__product-content__item-detail__title {
+        color: #171717 !important;
+      }
+      .Autoketing-Tpi__review-rating__Review {
+        display: none !important;
+      }
+      .AkTopPin__product-content__item-detail .AkTopPin__product-content__item-detail__title {
+        font-weight: inherit !important;
+        font-family: inherit !important;
+        color: inherit !important;
+      }
+      .AkTopPin__product-content__item-detail__title {
+        -webkit-line-clamp: unset !important;
+        height: unset !important;
+        font-size: calc(var(--font-product-title-scale, 1) * .9375rem) !important;
+      }
+      @media (max-width: 765px) {
+        .VueCarousel-inner {
+          flex-basis: 100% !important;
+        }
+      }
+    </style>
+
+    <script>
 		window.theme = window.theme || {};
 		theme = {
 			settings: {
@@ -71,65 +148,101 @@
 				requiresTerms: `{{ 'sections.cart.terms_confirm' | t }}`,
 			}
 		};
-	</script>
-	{{ content_for_header }} <!-- Header hook for plugins -->
+    </script>
+    {{ content_for_header }}
+    <!-- Header hook for plugins -->
 
-	<script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
 
- {% include 'product-samples-tracking' %}
-  <!--CPC-->
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-  <!--CPC-->
-  <script src='https://calcapi.printgrid.io/shopify/calculator.js'></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" rel="preload"></script>
+    {% include 'product-samples-tracking' %}
+    <!-- CPC -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- CPC -->
+    <script src="https://calcapi.printgrid.io/shopify/calculator.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" rel="preload"></script>
 
-                      {% include 'bss-product-labels-configs' %}
-                        </head>
-                 
-<body class="animations-{{ settings.animations }} button-uppercase-{{ settings.button_uppercase }} navigation-uppercase-{{ settings.navigation_uppercase }} product-title-uppercase-{{ settings.product_title_uppercase }} {% if customer %} customer-logged-in{% endif %} template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} template-{{ template | replace: '.', '-' | handle }}">
-	<a class="screen-reader-shortcut" href="#main-content">{{ 'accessibility.skip_to_text' | t }}</a>
-	<div id="wrapper">
-		{% sections 'header-group' %}
-		<div role="main" id="main-content">
-			{{ content_for_layout }}
-		</div>
-		{% sections 'footer-group' %}
-		{% render 'cart-drawer' %}
-		{% render 'product-drawer' %}
-		<div class="click-capture"></div>
-	</div>
+    {% include 'bss-product-labels-configs' %}
+  {% include "next-inSearch" %}</head>
+
+  <body class="animations-{{ settings.animations }} button-uppercase-{{ settings.button_uppercase }} navigation-uppercase-{{ settings.navigation_uppercase }} product-title-uppercase-{{ settings.product_title_uppercase }} {% if customer %} customer-logged-in{% endif %} template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} template-{{ template | replace: '.', '-' | handle }}">
+    <a class="screen-reader-shortcut" href="#main-content">{{ 'accessibility.skip_to_text' | t }}</a>
+    <div id="wrapper">
+      {% sections 'header-group' %}
+      <div role="main" id="main-content">
+        {{ content_for_layout }}
+      </div>
+      {% sections 'footer-group' %}
+      {% render 'cart-drawer' %}
+      {% render 'product-drawer' %}
+      <div class="click-capture"></div>
+    </div>
+
+    {{ 'vendor.min.js' | asset_url | script_tag }}
+    {% if settings.animations %}
+      {{ 'animations.min.js' | asset_url | script_tag }}
+      <script>
+        gsap.defaults({
+        	ease: Power4.easeOut
+        });
+        gsap.registerPlugin(ScrollTrigger);
+      </script>
+    {% endif %}
+    {% if settings.enable_quick_view or settings.enable_quick_add %}
+      {{ 'product.js' | asset_url | script_tag }}
+    {% endif %}
+    {{ 'slideshow.js' | asset_url | script_tag }}
+    {{ 'app.js' | asset_url | script_tag }}
+    <script type="module" src="{{ 'scroll-shadow.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+    {%- if settings.free_shipping -%}
+      {{ 'free-shipping.js' | asset_url | script_tag }}
+      {{ 'free-shipping.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if request.design_mode -%}
+      {{ 'theme-editor.js' | asset_url | script_tag }}
+    {%- endif -%}
+    {% render 'back-to-top' %}
+
+  <style> 
+    .AkTopPin__product-content__Item-view-more {
+      display: none;
+    }
+
+    .VueCarousel-slide {
+      margin-bottom: 100px;
+    }
+
+    .AkTopPin_Nav {
+      margin-top: 80px;
+    }
+
+     .AkTopPin_Nav--next {
+      margin-top: 80px;
+    }
+    @media screen and (max-width: 479px) {
+       .AkTopPin_Nav {
+          margin-top: 180px;
+        }
+       .AkTopPin_Nav--next {
+          margin-top: 180px;
+        }
+    }
+    .VueCarousel-navigation *, .VueCarousel-navigation :hover, .VueCarousel-navigation :active {
+      outline: none !important;
+    }
+ </style> 
     
-	{{ 'vendor.min.js' | asset_url | script_tag }}
-	{% if settings.animations %}
-		{{ 'animations.min.js' | asset_url | script_tag }}
-		<script>
-			gsap.defaults({
-				ease: Power4.easeOut
-			});
-			gsap.registerPlugin(ScrollTrigger);
-		</script>
-	{% endif %}
-	{% if settings.enable_quick_view or settings.enable_quick_add %}
-		{{ 'product.js' | asset_url | script_tag }}
-	{% endif %}
-	{{ 'slideshow.js' | asset_url | script_tag }}
-	{{ 'app.js' | asset_url | script_tag }}
-	<script type="module" src="{{ 'scroll-shadow.js' | asset_url }}" defer="defer"></script>
-	<script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
-	{%- if settings.free_shipping -%}
-		{{ 'free-shipping.js' | asset_url | script_tag }}
-		{{ 'free-shipping.css' | asset_url | stylesheet_tag }}
-	{%- endif -%}
-	{%- if request.design_mode -%}
-		{{ 'theme-editor.js' | asset_url | script_tag }}
-	{%- endif -%}
-	{% render 'back-to-top' %}
+    {% include 'swymSnippet' %}
+    {% render 'gw-custom-scripts' %}
 
-
-
-
-{% include 'swymSnippet' %}
-  {% render 'gw-custom-scripts' %}
-
-{% include 'easy-options' %}{% if content_for_header contains 'product_label' %}{% include 'bss-product-label-js' %}{% include 'bss-label-style-css' %}{% include 'bss-product-label-fonts' %}{% endif %}</body>
+    {% include 'easy-options' -%}
+    {%- if content_for_header contains 'product_label' -%}
+      {%- include 'bss-product-label-js' -%}
+      {%- include 'bss-label-style-css' -%}
+      {%- include 'bss-product-label-fonts' -%}
+    {%- endif %}
+  {% include 'ba-discounts' %}
+</body>
 </html>

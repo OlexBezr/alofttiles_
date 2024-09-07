@@ -52,6 +52,15 @@
       </span>
     </div>
   </div>
+{% elsif product_type == 'bundle' %}
+    {% assign total_price = 0 %}
+    {% for product_boundle in product.metafields.product.list_bundle_products.value %}
+      {% assign total_price = total_price | plus: product_boundle.selected_or_first_available_variant.price %}
+      
+    {% endfor %}
+    <span class="price">
+    	<ins><span class="amount">{{  total_price | money  }}</span></ins>
+    </span>
 {% else %}
   <span class="price">
       

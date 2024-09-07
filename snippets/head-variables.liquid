@@ -53,6 +53,20 @@
 -%}
 
 {% style %}
+  
+  @font-face {
+	font-family: "DaiBannaSIL";
+	src: url("https://cdn.shopify.com/s/files/1/0808/6664/0190/files/DaiBannaSIL.woff?v=1700829403") format("woff2");
+}
+    @font-face {
+	font-family: "Cormorant";
+	src: url("https://cdn.shopify.com/s/files/1/0808/6664/0190/files/Cormorant.woff?v=1700830182") format("woff2");
+}
+      @font-face {
+	font-family: "Cormorant-SemiBold";
+	src: url("https://cdn.shopify.com/s/files/1/0808/6664/0190/files/Cormorant-SemiBold.woff?v=1700830576") format("woff2");
+}
+  
 	{{ body_font | font_face: font_display: 'swap' }}
 
 	{%- if body_font_500 -%}

@@ -201,7 +201,79 @@
       </span>
     </div>
   </div>
+{% elsif product.metafields.product.product_type == 'sample' %}
+  {% assign price_pre_sqft = price | divided_by: product.metafields.product.sqft %}
+
+  {% if product.metafields.product.original_product.value %}
+    {% assign original_product = product.metafields.product.original_product.value %}
+    {% assign price_pre_sqft = original_product.selected_or_first_available_variant.price | divided_by: original_product.metafields.product.sqft %}
+  
+  {% endif %}
+  <div class='custom-prices-wrapper price-type-mosaic'>
+    {%- if show_badges and compare_at_price > price or available == false  -%}
+        <span class="badges">
+            {%- if compare_at_price > price %}
+            <span class="badge onsale">
+            {{ 'products.product.on_sale' | t }}
+          </span>
+            {% endif %}
+            {%- if available == false -%}
+          <span class="badge out-of-stock">
+            {{ 'products.product.sold_out' | t }}
+          </span>
+            {% endif %}
+        </span>
+    {% endif %}
+    <div class="prices">
+       <span class="price-pre-box price-container">
+        <span class="price-container__price price">
+        	{%- unless product.price_varies == false and product.compare_at_price_varies %}
+        		{% if compare_at_price != null and compare_at_price != 0 and price != compare_at_price %}
+        			<del>
+        				<span class="amount">
+        					{% if settings.currency_code_enabled %}
+        						{{ compare_at_price | money_with_currency }}
+        					{% else %}
+        						{{ compare_at_price | money }}
+        					{% endif %}
+        				</span>
+        			</del>
+        		{% endif %}
+        	{%- endunless -%}
+        	<ins><span class="amount">{{ money_price }}</span></ins>
+        	<small class="unit-price {% if product.selected_or_first_available_variant.unit_price_measurement == nil %} hidden{% endif %}">
+        		<span>{{- product.selected_or_first_available_variant.unit_price | money -}}</span>
+            <span class="unit-price-separator">/</span>
+        		<span>
+              {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+                {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+              {%- endif -%}
+              {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+            </span>
+        	</small>
+        	
+        </span>
+        <span class="price-container__description">per sample</span>
+        <span class="sqft">(<strong><span class="amount">{{ price_pre_sqft | money }}</span></strong> per sq.ft)</span>
+      </span>
+     
+    </div>
+  </div>
+{% elsif product.metafields.product.product_type == 'bundle' %}
+
+  {% assign total_price = 0 %}
+  {% for product_boundle in product.metafields.product.list_bundle_products.value %}
+    {% assign total_price = total_price | plus: product_boundle.selected_or_first_available_variant.price %}
+  {% endfor %}
+  
+
+  <span class="price">
+      
+  	<ins><span class="amount">{{  total_price | money  }}</span></ins>
+  	
+  </span>
 {% else %}
+  
   <span class="price">
       
   	{%- unless product.price_varies == false and product.compare_at_price_varies %}
@@ -243,4 +315,5 @@
   		</span>
   	{% endif %}
   </span>
+
 {% endif %}

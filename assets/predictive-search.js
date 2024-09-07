@@ -117,7 +117,7 @@ class PredictiveSearch {
 
     this.predictiveSearchResults.classList.add('loading');
     
-    fetch(`${theme.routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&${encodeURIComponent('resources[type]')}=product&${encodeURIComponent('resources[limit]')}=10&section_id=predictive-search&${encodeURIComponent('resources[options][fields]')}=variants.sku,variants.title,title`)
+    fetch(`${theme.routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&${encodeURIComponent('resources[type]')}=product&${encodeURIComponent('resources[limit]')}=10&section_id=predictive-search&${encodeURIComponent('resources[options][fields]')}=variants.sku,variants.title,title,tag&${encodeURIComponent('resources[options][collections]')}=${encodeURIComponent(searchTerm)}`)
       .then((response) => {
         this.predictiveSearchResults.classList.remove('loading');
         if (!response.ok) {
@@ -129,9 +129,12 @@ class PredictiveSearch {
         return response.text();
       })
       .then((text) => {
-        const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
-
-        this.renderSearchResults(resultsMarkup);
+        const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search');
+        if(resultsMarkup.querySelector('.search-results').innerHTML == '') {
+          this.renderSearchResults(resultsMarkup.innerHTML);
+        }else {
+          this.renderSearchResults(resultsMarkup.innerHTML);
+        }
       })
       .catch((error) => {
         throw error;
@@ -141,7 +144,7 @@ class PredictiveSearch {
   renderSearchResults(resultsMarkup) {
     this.predictiveSearchResults.innerHTML = resultsMarkup;
     
-    if(document.querySelector('.search-results-container').innerHTML == '') {
+    if(document.querySelector('.search-results').innerHTML == '') {
       document.querySelector('.search-results-container').innerHTML = 'no results'
     }
 

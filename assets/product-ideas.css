@@ -1,0 +1,181 @@
+.product-ideas-wrapper .banner-idea {
+  display: flex!important;
+  flex-wrap: wrap;
+  align-items: stretch;
+  border: 1px solid #171717;
+  border-radius: 1px;
+  justify-content: center;
+  padding: 30px 10px 10px;
+  gap: 5px;
+  position: relative;
+}
+.product-ideas-wrapper .banner-idea .created-by {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  font-size: 14px;
+}
+.product-ideas-wrapper .semibold {
+   /* font-family: "Nunito semibold" */
+  font-weight: 800;
+ }
+.product-ideas-wrapper .banner-idea-wrapper {
+  padding:10px;
+}
+@media(max-width: 900px) {
+  .product-ideas-wrapper .banner-idea-wrapper {
+    padding:7px;
+  } 
+  .product-ideas-wrapper .product-ideas.slick-slider {
+    transform: translate(-60px, 0);
+    width: calc(100% + 60px);
+  }
+  .product-ideas-wrapper .slick-slide {
+    opacity: 1;
+    transition: 0.3s;
+  }
+  /* .product-ideas-wrapper .slick-slide:not(.slick-active) {
+     opacity: 0.5;
+  } */
+}
+@media(max-width: 480px) {
+  .product-ideas-wrapper .product-ideas.slick-slider {
+    transform: translate(-20px, 0);
+    width: calc(100% + 20px);
+  }
+}
+
+.product-ideas-wrapper .product-idea {
+  display: flex ;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  width: calc(50% - 3px);
+  padding: 15px 10px;
+  background: #F6F6F6;
+  transition: 0.3s;
+}
+
+.product-ideas-wrapper .product-idea:nth-last-child(1):nth-child(odd){
+  width: 100%;
+}
+.product-ideas-wrapper .product-idea:hover {
+  background: #EDEDED;
+}
+.product-ideas-wrapper .product-idea._main {
+  width: 100%;
+}
+
+.product-ideas-wrapper .product-idea__image {
+  max-width: 180px;
+  max-height: 180px;
+  margin-bottom: 15px;
+  width: 80px;
+}
+
+.product-ideas-wrapper .product-idea._main .product-idea__image {
+  max-width: 240px;
+  max-height: 240px;
+  width: 120px
+}
+.product-ideas-wrapper .product-idea._main .product-idea__image img {
+  width: 100%;
+}
+
+@media(max-width: 560px) {
+    
+  .product-ideas-wrapper .product-idea._main .product-idea__image {
+    width: 125px;
+  }
+  .product-ideas-wrapper .product-idea__image {
+    width: 100px;
+  }
+}
+.product-ideas-wrapper .product-idea__title-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  line-height: 0.9;
+}
+.product-ideas-wrapper .product-idea._main .product-idea__title-wrapper {
+  align-items: flex-start;
+
+}
+.product-ideas-wrapper .product-idea__title {
+  text-align: center; 
+  color: #000000;
+  font-size: 13px;
+  line-height:1.5;
+}
+.product-ideas-wrapper .product-idea._main .product-idea__title {
+  text-align: left;
+}
+
+
+.product-ideas-wrapper .product-idea__price {
+  gap: 6px;
+  color: #000000;
+}
+.product-ideas-wrapper .product-idea__price .price, .product-ideas-wrapper .price-container__description {
+  font-size: 13px;
+  display: inline-block;
+}
+@media(max-width: 480px) {
+  .product-ideas-wrapper .product-idea__title {
+    font-size: 10px;
+  }
+  .product-ideas-wrapper .product-idea__price .price, .product-ideas-wrapper .price-container__description {
+    font-size: 10px;
+  }
+}
+
+
+/* .product-ideas-wrapper .slick-prev,
+.product-ideas-wrapper .slick-next {
+  position: rel
+} */
+.product-ideas-wrapper .slick-prev,
+.product-ideas-wrapper .slick-next {
+  width: 30px;
+  height: 30px;
+}
+.product-ideas-wrapper .slick-prev:before,
+.product-ideas-wrapper .slick-prev:after,
+.product-ideas-wrapper .slick-next:before,
+.product-ideas-wrapper .slick-next:after {
+  content: '';
+  position:absolute;
+  width: 25px;
+  height: 2px;
+  background: #000000;
+  transition: 0.3s;
+}
+.product-ideas-wrapper .slick-prev:hover:before,
+.product-ideas-wrapper .slick-prev:hover:after,
+.product-ideas-wrapper .slick-next:hover:before,
+.product-ideas-wrapper .slick-next:hover:after {
+  background: #777777;
+}
+.product-ideas-wrapper .slick-next:after {
+  transform: rotate(45deg);
+  top: 5px;
+  left: 8px;
+}
+.product-ideas-wrapper .slick-next:before {
+  transform: rotate(-45deg);
+  top: 21px;
+  left: 8px;
+}
+.product-ideas-wrapper .slick-prev:after {
+  transform: rotate(-45deg);
+  top: 5px;
+  right: 8px;
+}
+.product-ideas-wrapper .slick-prev:before {
+  transform: rotate(45deg);
+  top: 21px;
+  right: 8px;
+}
+
+
+

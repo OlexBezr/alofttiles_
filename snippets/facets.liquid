@@ -8,6 +8,7 @@
     Usage:
     {% render 'facets', results: collection, enable_filtering: true, enable_sorting: true, collapse_on_larger_devices: false %}
 {% endcomment %}
+{{ 'custom-instock-button.js' | asset_url | script_tag }}
 
 {%- liquid
   assign sort_by = results.sort_by | default: results.default_sort_by
@@ -33,9 +34,14 @@
 					<div class="facets__wrapper">
 						<label class="facets__label">{{ 'products.facets.filter_by_label' | t }}</label>
 						{%- for filter in results.filters -%}
+                          {% assign slug = filter.label | downcase | escape %}
 							{% case filter.type %}
 				        {% when 'boolean' or 'list' %}
-								<details class="thb-filter js-filter" data-index="{{ forloop.index }}">
+                                {% if slug == "in stock" %}
+                                  {% render 'custom-instock-button' %}
+                                {% endif %}
+								<details class="thb-filter js-filter" data-index="{{ forloop.index }}" data-slug="{{ slug }}">
+
 									<summary class="thb-filter-title">{{ filter.label | escape }}</summary>
 									<div class="thb-filter-dropdown">
 										<scroll-shadow>
@@ -92,7 +98,12 @@
 																endif
 															-%}
 															<label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="facet-checkbox{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}" style="--bg-color: {{ color_value | downcase | escape }};{%- if bg_value -%} --option-color-image: url('{{ bg_value | escape }}');{%- endif -%}">
-																{{ value.label | escape }}
+  																{% assign slug = filter.label | downcase | escape  %}  
+                                                                {% if slug == "in stock" %}
+                                                                  In Stock & Ready to Ship
+                                                                {% else %}
+                                                                  {{ value.label | escape }}
+                                                                {% endif %}
 															</label>
 
 															{% if show_counts %}<span class="count">({{ value.count }})</span>{% endif %}
@@ -246,10 +257,12 @@
 		<facet-remove class="active-facets">
       {%- for filter in results.filters -%}
         {%- for value in filter.active_values -%}
+          {% if value.label != 'Yes' %}
           <a href="{{ value.url_to_remove }}" class="active-facets__button">
             {{ value.label | escape }}
 						{% render 'svg-icons' with 'thb-filter-remove' %}
           </a>
+          {% endif %}
         {%- endfor -%}
         {% if filter.type == "price_range" %}
           {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
@@ -301,9 +314,12 @@
 						<input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
 					{% endif %}
 					{%- for filter in results.filters -%}
+                        {% assign slug = filter.label | escape | downcase %}
 						{% case filter.type %}
+                         
 							{% when 'boolean' or 'list' %}
-							<div class="thb-filter js-filter" data-index="mobile-{{ forloop.index }}">
+
+							<div class="thb-filter js-filter" data-index="mobile-{{ forloop.index }}" data-slug="{{ slug }}">
 								<div class="thb-filter-title">{{ filter.label | escape }}</div>
 								<div class="thb-filter-dropdown">
 									<div class="thb-filter-dropdown__inner">
@@ -347,7 +363,11 @@
 														endif
 													-%}
 													<label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="facet-checkbox{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}" style="--bg-color: {{ color_value | downcase | escape }};{%- if bg_value -%} --option-color-image: url('{{ bg_value | escape }}');{%- endif -%}">
-														{{ value.label | escape }}
+														  {% if filter.type == 'boolean' and forloop.index == 9 %}
+                                                            In Stock & Ready to Ship
+                                                          {% else %}
+                                                            {{ value.label | escape }}
+                                                          {% endif %}
 													</label>
 													{% if show_counts %}<span class="count">({{ value.count }})</span>{% endif %}
 												</li>
@@ -458,3 +478,8 @@
 </div>
 </FacetFiltersFormMobile>
 {%- endif -%}
+<div class="row">
+  <div class="small-12">
+    {% render 'custom-instock-button' with echo_type: "mobile" %}
+  </div>
+</div>

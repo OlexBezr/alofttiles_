@@ -24,9 +24,9 @@
     margin: 0 auto;
     height: 36px;
     width: 36px;
-    border: 1px solid var(--color-form-border);
+ 
     border-radius: 3px;
-    background: #fff;
+  
 }
 
 .ssw-wishlist-btn-counter {
@@ -178,4 +178,8 @@ quick-view.product-card-quickview {
 
 .ssw-modal-body input::placeholder {
     color: #bfc0bf !important;
+}
+
+.ssw-review-sticker.ssw-review-sticker-buyer {
+    background-color: #2EE16B;
 }

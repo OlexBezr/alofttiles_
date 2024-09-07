@@ -1,0 +1,19 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    (function() {
+      const max_quantity = {% if product.selected_or_first_available_variant.inventory_quantity %} {{ product.selected_or_first_available_variant.inventory_quantity }} {% else %}0{% endif %};
+      let quantity_message_wrapper = document.querySelector('.product-quantity-message-wrapper')
+      
+      function hide_or_show_quantity_message(now_quantity=1) {
+        if(max_quantity < now_quantity && quantity_message_wrapper) {
+          quantity_message_wrapper.style.display = 'block'
+        }else if(quantity_message_wrapper){
+          quantity_message_wrapper.style.display = 'none'
+        }
+      }
+      {% if product.metafields.product.product_type != 'bundle' %}
+      hide_or_show_quantity_message()
+      {% endif %}
+    }());
+  });
+</script>

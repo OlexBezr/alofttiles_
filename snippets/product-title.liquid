@@ -1,4 +1,9 @@
 <div class="product-title-container" {{ block.shopify_attributes }}>
   <h1 class="product-title">{{ product.title }}</h1>
 </div>
-<p class="product-sku">SKU: {{ product.selected_or_first_available_variant.sku }}</p>
+<span class="product-sku">
+  SKU: {{ product.selected_or_first_available_variant.sku }}
+</span>
+{% render 'product-download-spec' %}
+<br>
+

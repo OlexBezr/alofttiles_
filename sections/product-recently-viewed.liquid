@@ -1,0 +1,173 @@
+{{ 'slick.min.js' | asset_url | script_tag }}
+{{ 'slick.css' | asset_url | stylesheet_tag }}
+{{ 'slick-theme.css' | asset_url | stylesheet_tag }}
+{{- 'product-grid.css' | asset_url | stylesheet_tag -}}
+
+<div class="products-recently-viewed-wrapper">
+  <div class="featured-collection featured-collection--full-width-true swipe-on-mobile section-spacing">
+      <div class="section-header">
+        <h2 class="h3">Recently Viewed Product</h2>
+      </div>
+      <div class="products-recently-viewed products">
+      </div>
+  </div>
+</div>
+
+<div class="this-recently-product" style="display: none;">
+  {% if product %}
+    {% render 'product-card', product_card_product: product %}
+  {% endif %}
+</div>
+
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+  // Получаем handle текущего продукта
+  var productHandle = window.location.pathname.split('/').pop();
+
+  // Получаем текущие данные из localStorage (handle и html)
+  var storedProducts = localStorage.getItem('recentlyViewedProducts');
+  var recentlyViewedProducts = storedProducts ? JSON.parse(storedProducts) : [];
+
+  // Проверяем, не содержится ли текущий продукт уже в списке
+  var existingIndex = recentlyViewedProducts.findIndex(function(product) {
+    return product.handle === productHandle;
+  });
+
+  // Если продукт уже есть, удаляем его, чтобы не было дубликатов
+  if (existingIndex !== -1) {
+    recentlyViewedProducts.splice(existingIndex, 1);
+  }
+
+  // Ваш код для получения HTML текущего продукта
+  var currentProductHtml = document.querySelector('.this-recently-product') ? document.querySelector('.this-recently-product').innerHTML.trim() : '';
+
+
+  // Добавляем текущий продукт в начало списка
+  if(currentProductHtml != '') {
+    recentlyViewedProducts.unshift({ handle: productHandle, html: currentProductHtml });
+  }
+
+  // Ограничиваем количество продуктов до 15
+  if (recentlyViewedProducts.length > 15) {
+    recentlyViewedProducts.pop();
+  }
+
+  // Сохраняем обновленный список в localStorage
+  localStorage.setItem('recentlyViewedProducts', JSON.stringify(recentlyViewedProducts));
+
+  // Функция для отображения продуктов на странице
+  function renderRecentlyViewedProducts() {
+    var productsHtml = '';
+    recentlyViewedProducts.forEach(function(product) {
+      productsHtml += product.html;
+    });
+
+    // Вставляем HTML на страницу
+    var productContainer = document.querySelector('.products-recently-viewed');
+    if (productContainer) {
+      document.querySelector('.products-recently-viewed-wrapper').style.display = 'block'
+      if(productsHtml != '') {
+        productContainer.innerHTML = productsHtml;
+      }else {
+        jQuery('.products-recently-viewed-wrapper .section-header').css('margin-bottom', '15px')
+        productContainer.innerHTML = '<p style="font-size: 14px; text-align: center;">You do not currently have any recently viewed products.</p>';
+      }
+    }
+  }
+
+
+    // Функция для установки одинаковой высоты всем продуктам
+  function setEqualHeight() {
+    var elements = document.querySelectorAll('.products-recently-viewed .product-card');
+    var maxHeight = 0;
+
+    // Находим максимальную высоту
+    elements.forEach(function(element) {
+      element.style.height = 'initial'
+      var elementHeight = element.offsetHeight;
+      if (elementHeight > maxHeight) {
+        maxHeight = elementHeight;
+      }
+    });
+
+    // Устанавливаем максимальную высоту для всех элементов
+    elements.forEach(function(element) {
+      element.style.height = maxHeight + 40 + 'px';
+    });
+  }
+  function slickArrowTop() {
+    let img_height = document.querySelector('.products-recently-viewed .product-featured-image').offsetHeight
+    jQuery('.slick-next, .slick-prev').css('top', img_height / 2 +'px')
+  }
+   
+  // Вызываем функцию для отображения продуктов при загрузке страницы
+  renderRecentlyViewedProducts();
+   if(document.querySelector('.products-recently-viewed .product-card')) {
+     jQuery('.products-recently-viewed').slick({
+        dots: true,
+        // infinite: document.querySelectorAll('.products-recently-viewed .product-card').length > 4,
+        arrows: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        adaptiveHeight: true,
+        // centerMode:  document.querySelectorAll('.products-recently-viewed .product-card').length > 4,
+        // centerPadding: '60px',
+        cssEase: 'linear',
+        draggable: false,
+        responsive: [
+          {
+            breakpoint: 900,
+            settings: {
+              arrows: false,
+              slidesToShow: 2,
+              slidesToScroll: 1,
+              adaptiveHeight: true,
+              centerMode: true,
+              centerPadding: '60px',
+              draggable: true
+            }
+          },
+          {
+            breakpoint: 630,
+            settings: {
+              infinite: false,
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              arrows: false,
+              dots: true,
+              centerMode: true,
+              centerPadding: '40px',
+              draggable: true,
+            }
+          }
+        ]
+      });
+    setEqualHeight();
+    slickArrowTop()
+   }
+   
+
+  window.addEventListener('resize', slickArrowTop)
+  window.addEventListener('resize', setEqualHeight)
+});
+</script>
+
+{% schema %}
+  {
+    "name": "Recently viewed Products",
+    "tag": "section",
+    "class": "product-recently-viewed",
+    "settings": [],
+      "presets": [
+      {
+        "name": "Recently viewed Products",
+        "category": "Custom"
+      }
+    ],
+    "blocks": [
+      {
+          "type": "@app"
+      }
+    ]
+  }
+{% endschema %}

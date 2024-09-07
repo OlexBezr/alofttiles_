@@ -1,0 +1,20 @@
+
+{% if product.metafields.custom_variation.size.value %}
+  <hr style="margin: 10px 0;">
+  <div class="size-variation-title">
+    <strong>Sizes:</strong>
+  </div>
+  <div class="size-variations-wrapper">
+    {% for product_variant in product.metafields.custom_variation.size.value %}
+    {% assign classActive = '' %}
+    {% if product_variant.id == product.id %}
+      {% assign classActive = 'active' %}
+    {% endif %}
+    <a class="size-variation {{ classActive }}" href="{{ product_variant.url }}">
+      {% if product_variant.metafields.custom.size_name %}
+          <div class="size-variation__name">{{ product_variant.metafields.custom.size_name }}</div>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+{% endif %}

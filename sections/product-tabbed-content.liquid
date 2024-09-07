@@ -16,12 +16,15 @@
                   {{ section.settings[app_header_key] }}
                 </div>
                 {% assign app_id = app_id | plus: 1 %}
+                {% assign is_first_tab = false %}
               {%- when 'custom_liquid' -%}
-                <div data-tab="tab-{{ tab_header_id }}" class="product-tabbed-heades__header{% if is_first_tab %} current{% endif %}">
-                  {{ block.settings.tab_header }}
-                </div>
+                {% if block.settings.custom_liquid != '' and block.settings.custom_liquid != ' '%}
+                  <div data-tab="tab-{{ tab_header_id }}" class="product-tabbed-heades__header{% if is_first_tab %} current{% endif %}">
+                    {{ block.settings.tab_header }}
+                  </div>
+                  {% assign is_first_tab = false %}
+                {% endif %}
             {% endcase %}
-            {% assign is_first_tab = false %}
           {% endfor %}    
         </div>
         <div  class="product-tabbed-content__tabs">
@@ -37,13 +40,16 @@
                   {% render block %}
                 </div>
                 {% assign app_id = app_id | plus: 1 %}
+                {% assign is_first_tab = false %}
               
               {%- when 'custom_liquid' -%}
-                <div id="tab-{{ tab_header_id }}" class="product-tabbed-tabs__tab{% if is_first_tab %} current{% endif %}">
-                  {{ block.settings.custom_liquid }}
-                </div>
+                {% if block.settings.custom_liquid != '' and block.settings.custom_liquid != ' ' %}
+                  <div id="tab-{{ tab_header_id }}" class="product-tabbed-tabs__tab{% if is_first_tab %} current{% endif %}">
+                    {{ block.settings.custom_liquid }}
+                  </div>
+                  {% assign is_first_tab = false %}
+                {% endif %}
             {% endcase %}
-            {% assign is_first_tab = false %}
           {% endfor %}    
         </div>
       </div>
@@ -51,7 +57,16 @@
   </div>
 </div>
 
-
+<script>
+  if(!document.querySelector('.specifications-table')) {
+    document.querySelector('#tab-specifications').style.display = 'none'
+    document.querySelector('#tab-specifications').classList.remove('current')
+    document.querySelector('div[data-tab="tab-specifications"]').style.display = 'none'
+    document.querySelector('div[data-tab="tab-specifications"]').classList.remove('current')
+    document.querySelector('div[data-tab="tab-reviews"]').classList.add('current')
+    document.querySelector('#tab-reviews').classList.add('current')
+  }
+</script>
 {% schema %}
   {
     "name": "Product tabbed content",

@@ -101,6 +101,8 @@
 						<input type="submit" value="{{ 'contact.form.send' | t }}" class="button full">
 					</div>
 				</div>
+          {% if form.posted_successfully? %} <script> window.location = "/pages/thank-you"; </script> 
+ {% endif %} 
 			{% endform %}
 		</div>
 		{%- if text_blocks.size > 0 -%}

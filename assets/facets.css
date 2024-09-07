@@ -15,11 +15,11 @@ Utilities
   grid-template-columns: max-content 1fr;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
-  margin-bottom: 20px;
   padding: 13px 15px;
   font-size: 0.8125rem;
   background: var(--bg-body, #fff);
   position: sticky;
+  margin-bottom: 15px;
   top: 0;
   left: 0;
   z-index: 45; }

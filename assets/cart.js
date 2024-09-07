@@ -43,7 +43,8 @@ class Cart {
     this.debouncedOnChange = debounce((event) => {
       this.onChange(event);
     }, 300);
-
+   
+    
     this.container.addEventListener('change', this.debouncedOnChange.bind(this));
 
     this.termsCheckbox();
@@ -86,7 +87,7 @@ class Cart {
       sections: this.getSectionsToRender().map((section) => section.section),
       sections_url: window.location.pathname
     });
-
+    console.log(body)
     dispatchCustomEvent('line-item:change:start', {
       quantity: quantity
     });
