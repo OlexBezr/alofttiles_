@@ -119,24 +119,6 @@ class FacetFiltersForm extends HTMLElement {
   static renderProductGridContainer(html) {
     document.getElementById('ProductGridContainer').innerHTML = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductGridContainer').innerHTML;
 
-    if(document.querySelector('.product-card .color-variations-wrapper') && window.innerWidth <= 480) {
-      document.querySelectorAll('.color-variations-wrapper').forEach( (color_variations) => {
-        if(color_variations.querySelector('.show-more-colors')) {
-          
-          let count = 0
-          let count_remmoved = 0
-          let count_show_more = parseInt(color_variations.querySelector('.show-more-colors span').innerHTML)
-          color_variations.querySelectorAll('.color-variation').forEach(color_var => {
-            if(count >= 3) {
-              count_remmoved+=1
-              color_var.style.display = 'none'
-            }
-            count+=1
-          })
-          color_variations.querySelector('.show-more-colors span').innerHTML = (count_show_more + count_remmoved) + ' more'
-        }
-      })
-    }
   }
 
   static renderProductCount(html) {

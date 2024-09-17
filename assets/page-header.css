@@ -86,4 +86,4 @@ Utilities
         margin-right: 5px;
         vertical-align: middle; }
       .page-header.my-account-header p a {
-        font-weight: 500; }
+        font-weight: var(--font-body-medium-weight, 500); }

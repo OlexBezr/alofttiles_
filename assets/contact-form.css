@@ -8,7 +8,7 @@ Variables
 Utilities
 */
 .contact-form .section-header {
-  padding: 50;
+  padding: 0;
   margin-left: 0;
   text-align: left; }
 
@@ -26,7 +26,6 @@ Utilities
   font-size: 0.9375rem;
   line-height: 1.5rem; }
 
-
 .contact-form--text-column .contact-form-block {
   margin-bottom: 35px; }
 
@@ -35,4 +34,4 @@ Utilities
   text-align: center; }
 
 .contact-form--center .contact-form {
-  margin:  auto; }
+  margin: 0 auto; }

@@ -1,14 +1,19 @@
 <link rel="preload" as="style" href="{{ 'app.css' | asset_url }}">
-{% if template == 'product' -%}
+{% if template contains 'product' -%}
 <link rel="preload" as="style" href="{{ 'product.css' | asset_url }}">
 {% liquid
 	if product.selected_or_first_available_variant.featured_media.preview_image
-		assign image = product.selected_or_first_available_variant.featured_media.preview_image
-		render 'responsive-preload', image: image, sizes: '375x0,640x0,960x0'
+		assign product_image = product.selected_or_first_available_variant.featured_media.preview_image
+	elsif product.featured_media
+		assign product_image = product.featured_media.preview_image
 	endif
--%}
+	if product_image
+		render 'responsive-preload', image: product_image, sizes: '375x0,580x0,1160x0'
+	endif
+%}
 {%- endif %}
-{% if template == 'collection' -%}
+{% if template contains 'collection' -%}
+<link rel="preload" as="style" href="{{ 'page-header.css' | asset_url }}">
 {% liquid
 	if collection.featured_image
 		assign image = collection.featured_image
@@ -20,14 +25,15 @@
 -%}
 {%- endif %}
 {% if settings.animations %}
-<link rel="preload" as="script" href="{{ 'animations.min.js' | asset_url }}">
+{{ 'animations.min.js' | asset_url | preload_tag: as: 'script' }}
 {% endif %}
-<link rel="preload" as="script" href="{{ 'vendor.min.js' | asset_url }}">
-<link rel="preload" as="script" href="{{ 'app.js' | asset_url }}">
+{{ 'vendor.min.js' | asset_url | preload_tag: as: 'script' }}
+{{ 'app.js' | asset_url | preload_tag: as: 'script' }}
+{{ 'slideshow.js' | asset_url | preload_tag: as: 'script' }}
 
 <script>
 window.lazySizesConfig = window.lazySizesConfig || {};
-window.lazySizesConfig.expand = 150;
+window.lazySizesConfig.expand = 250;
 window.lazySizesConfig.loadMode = 1;
 window.lazySizesConfig.loadHidden = false;
 </script>

@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Habitat",
     "theme_author": "Fuel Themes",
-    "theme_version": "2.1.1",
+    "theme_version": "4.0.0",
     "theme_documentation_url": "https://documentation.fuelthemes.net/article-categories/habitat/",
     "theme_support_url": "https://fuelthemes.net/contact/"
   },
@@ -453,6 +453,18 @@
         "id": "social_share_pinterest",
         "label": "Pin on Pinterest",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "social_share_whatsapp",
+        "label": "Share via WhatsApp",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "social_share_clipboard",
+        "label": "Copy to clipboard",
+        "default": true
       }
     ]
   },
@@ -543,6 +555,26 @@
       },
       {
         "type": "select",
+        "id": "sale_badge_type",
+        "options": [
+          {
+            "value": "sale",
+            "label": "Sale"
+          },
+          {
+            "value": "save_amount",
+            "label": "Save amount"
+          },
+          {
+            "value": "save_percentage",
+            "label": "Save percentage"
+          }
+        ],
+        "default": "sale",
+        "label": "Sale badge type"
+      },
+      {
+        "type": "select",
         "id": "badge_position",
         "options": [
           {
@@ -592,6 +624,65 @@
         "id": "color_badge_sale",
         "label": "Sale",
         "default": "#c25b41"
+      },
+      {
+        "type": "color",
+        "id": "color_badge_preorder",
+        "label": "Pre-Order",
+        "default": "#666666"
+      },
+      {
+        "type": "header",
+        "content": "Custom badges",
+        "info": "For each group below you may enter a set of product tags that will appear as badges in a given color"
+      },
+      {
+        "id": "custom_product_badge_group_1_tag_names",
+        "type": "text",
+        "label": "Badge tags - 1",
+        "info": "Separate tags by comma. For example: New, Best seller"
+      },
+      {
+        "id": "custom_product_badge_group_1_color",
+        "type": "color",
+        "label": "Badge color",
+        "default": "#000000"
+      },
+      {
+        "id": "custom_product_badge_group_2_tag_names",
+        "type": "text",
+        "label": "Badge tags - 2",
+        "info": "Separate tags by comma. For example: New, Best seller"
+      },
+      {
+        "id": "custom_product_badge_group_2_color",
+        "type": "color",
+        "label": "Badge color",
+        "default": "#111111"
+      },
+      {
+        "id": "custom_product_badge_group_3_tag_names",
+        "type": "text",
+        "label": "Badge tags - 3",
+        "info": "Separate tags by comma. For example: New, Best seller"
+      },
+      {
+        "id": "custom_product_badge_group_3_color",
+        "type": "color",
+        "label": "Badge color",
+        "default": "#222222"
+      },
+      {
+        "type": "text",
+        "id": "custom_product_badge_group_4_tag_names",
+        "label": "Badge tags - 4",
+        "info": "Separate tags by comma. For example: New, Best seller"
+      },
+      {
+        "id": "custom_product_badge_group_4_color",
+        "type": "color",
+        "label": "Badge color",
+        "default": "#333333"
       }
     ]
   },
@@ -607,11 +698,38 @@
         "content": "[Learn more about color swatches.](https://documentation.fuelthemes.net/kb/how-do-i-set-up-product-variant-swatches/)"
       },
       {
+        "type": "text",
+        "id": "color_swatches_variant_option",
+        "label": "Variant option for swatches",
+        "info": "Variant option name to use for displaying swatches. Use a comma separated list to support multiple options: Color, Style, Finish"
+      },
+      {
         "type": "textarea",
         "id": "color_swatches",
         "label": "Custom colors",
         "placeholder": "Black: #000000\nWhite: #F3F3F3\nBlue: blue.png",
         "info": "Follow the format: <Color>: <HEX Color>. Example: Purple: #7000AA. Each custom color must be on a new line."
+      },
+      {
+        "type": "header",
+        "content": "Siblings"
+      },
+      {
+        "type": "select",
+        "id": "sibling_style",
+        "label": "Sibling style",
+        "options": [
+          {
+            "value": "swatch",
+            "label": "Color swatches"
+          },
+          {
+            "value": "image",
+            "label": "Product image"
+          }
+        ],
+        "default": "image",
+        "info": "This setting is for Siblings block inside Product templates."
       }
     ]
   },
@@ -703,6 +821,17 @@
         "type": "checkbox",
         "id": "currency_code_enabled",
         "label": "Show currency codes",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "E-mail signup",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "email_terms_conditions_enable",
+        "label": "Enable GDPR checkbox",
         "default": false
       }
     ]

@@ -26,7 +26,7 @@
 <div class="row{% if full_width %} full-width-row-full{% endif %}">
 	<div class="small-12 columns">
 		<div class="image-with-text-slideshow grid--image-{{ desktop_image_width }} {{ desktop_layout }} {{ content_position }} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
-			<div class="image-with-text-slideshow__image carousel inner-carousel {{ image_carousel_class }}" data-fade="true">
+			<slide-show class="image-with-text-slideshow__image carousel inner-carousel {{ image_carousel_class }}" data-fade="true">
 				{% for block in section.blocks %}
 					<div class="image-with-text-slideshow__image-slide carousel__slide">
 						<div class="image-with-text-slideshow__image-media {{ mobile_height }} {{ desktop_height }}">
@@ -36,15 +36,15 @@
 								{% assign width = '375x500' | append: ',' | append: master_width %}
 								{%- render 'responsive-image', image: image, sizes: width -%}
 							{% else %}
-								{% assign index = forloop.index | modulo: 2 | plus: 1 %}
-								{{ 'lifestyle-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
+								{%- assign index = forloop.index | modulo: 2 | plus: 1 -%}
+								{{ 'hero-apparel-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
 							{% endif %}
 						</div>
 					</div>
 				{% endfor %}
-			</div>
+			</slide-show>
 
-			<div class="image-with-text-slideshow__content carousel inner-carousel" data-dots="{{ dots }}" data-autoplay="{{ autoplay }}" data-fade="true">
+			<slide-show class="image-with-text-slideshow__content carousel inner-carousel" data-dots="{{ dots }}" data-autoplay="{{ autoplay }}" data-fade="true">
 				{% for block in section.blocks %}
 					<div class="image-with-text-slideshow__content-content carousel__slide {{ desktop_height }}" {{ block.shopify_attributes }}>
 						{% if block.settings.heading %}
@@ -58,7 +58,7 @@
 		        {% endif %}
 					</div>
 				{% endfor %}
-			</div>
+			</slide-show>
 		</div>
 	</div>
 </div>

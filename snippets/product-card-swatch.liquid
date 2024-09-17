@@ -29,7 +29,7 @@
 
 								for variant in product.variants
 									if variant.title contains value
-										if variant.image.id == product.featured_image.id
+										if variant.image.id and variant.image.id == product.featured_image.id
 											assign active = 'active'
 										endif
 										if variant.image
@@ -70,6 +70,13 @@
 									assign bg_value = color_value | file_url
 									assign color_value = 'var(--bg-body)'
 								endif
+
+								if value.swatch.image
+									assign bg_url = value.swatch.image | image_url: width: variant_image_size
+									assign swatch_focal_point = value.swatch.image.presentation.focal_point
+								elsif value.swatch.color
+									assign color_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+								endif
 							-%}
 							<div class="product-card-swatch {{ active }}" style="--option-color: {{ color_value | downcase | escape }}; {%- if bg_value -%} --option-color-image: url('{{ bg_value | escape }}');{%- endif -%}" data-srcset="{{- srcset | slice: 0, l | strip_newlines -}}" data-href="{{ variant_url }}">
 								<span class="visually-hidden" for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
@@ -79,6 +86,7 @@
 						{%- endfor -%}
 					</div>
 				{% endif %}
+				{% break %}
 			{% endif %}
 		{%- endfor -%}
 	{%- endunless -%}

@@ -8,7 +8,7 @@
 	<div class="side-panel-inner">
 		<div class="side-panel-header">
 			<div>
-				<h4>{{ 'general.cart_drawer.title' | t }}</h4>
+				<span class="h4">{{ 'general.cart_drawer.title' | t }}</span>
 				<side-panel-close class="side-panel-close">{{ 'general.close' | t }}</side-panel-close>
 			</div>
 		</div>
@@ -21,11 +21,10 @@
 						endif
 					-%}
 					{% for item in cart.items %}
-        
-					<div class="product-cart-item"  id="CartDrawerItem-{{ item.index | plus: 1 }}">
+					<div class="product-cart-item" id="CartDrawerItem-{{ item.index | plus: 1 }}">
 						<div class="product-cart-item-image">
 							{% if item.image %}
-								{%- render 'responsive-image', image: item.image, sizes: '168x0' -%}
+								{%- render 'responsive-image', image: item.image, sizes: '168x0', priority: 'low' -%}
 							{% else %}
 								<div class="thb-placeholder" style="width: 100px;">
 									{{ 'product-1' | placeholder_svg_tag }}
@@ -36,9 +35,25 @@
 							</div>
 						</div>
 						<div>
-							<a href="{{ item.product.url }}" title="{{ item.product.title | escape }}" class="cart-product-link">{{ item.product.title }}
-<span class='booster-cart-item-success-notes' data-key='{{item.key}}'></span><span class='booster-cart-item-upsell-notes' data-key='{{item.key}}'></span></a>
-                      {% render 'product-card-price', product: item %}
+							<a href="{{ item.url }}" title="{{ item.product.title | escape }}" class="cart-product-link">{{ item.product.title }}</a>
+					    <span class="price">
+								{%- if item.original_line_price != item.final_line_price -%}
+								 <del><span class="amount">{{ item.original_line_price | money }}</span></del>
+								 <ins><span class="amount">{{ item.final_line_price | money }}</span></ins>
+								{%- else -%}
+								 <ins><span class="amount">{{ item.original_line_price | money }}</span></ins>
+								{%- endif -%}
+								{%- if item.variant.available and item.unit_price_measurement -%}
+									<small class="unit-price">
+										{{ item.variant.unit_price | money }}
+										<span class="unit-price-separator">/</span>
+										{%- if item.variant.unit_price_measurement.reference_value != 1 -%}
+										{{- item.variant.unit_price_measurement.reference_value -}}
+										{%- endif -%}
+										{{ item.variant.unit_price_measurement.reference_unit }}
+									</small>
+								{%- endif -%}
+							</span>
 							{% if item.selling_plan_allocation %}
 							<div class="properties">
 								<span class="selling-plan">{{ item.selling_plan_allocation.selling_plan.name }}</span>
@@ -77,7 +92,7 @@
 								{%- endfor -%}
 							</ul>
 							{%- endif -%}
-							<quantity-selector class="quantity cart-update small-qty" data-id="{{ item.key | escape }}" data-type-product="{{ item.variant.title }}">
+							<quantity-selector class="quantity cart-update small-qty" data-id="{{ item.key | escape }}">
 							 <button class="minus" type="button" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">{% render 'svg-icons' with 'minus' %}</button>
 							 <input
 							 type="number"
@@ -90,10 +105,6 @@
 							{% elsif item.variant.inventory_management != null and item.variant.inventory_quantity > 0 %}
 								max="{{ item.variant.inventory_quantity }}"
 							{% endif %}
-                            {% if item.variant.title == 'Sample' %}
-                            max="3"
-                            {% endif %}
-                               
 							 step="{{ item.variant.quantity_rule.increment }}"
 							 class="qty"
 							 data-index="{{ item.index | plus: 1 }}"
@@ -104,22 +115,13 @@
 							<a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="remove" data-index="{{ item.index | plus: 1 }}">{% render 'svg-icons' with 'trash' %}</a>
 						</div>
 					</div>
-                       <div data-error-for="{{ item.key | escape }}">
-                        {% assign max_quantity = item.product.selected_or_first_available_variant.inventory_quantity | plus: 0 %}
-                        {% assign now_quantity = item.quantity | plus: 0 %}
-                        {%- if now_quantity > max_quantity and item.product.metafields.product.product_type != 'sample' and item.variant.title != 'Sample' -%}
-                          {% render 'product-quantity-message' with message_type: 'small', message_for: 'other' %}
-                        {%- endif -%}
-                        {% render 'product-quantity-message' with message_type: 'small', hide_on_first: true, message_for: 'sample', color: 'red' %}
-                        
-                      </div>
 					{% endfor %}
 				</div>
 			{%- else -%}
 				<div class="cart-drawer__empty-cart">
 					{% render 'svg-icons' with 'thb-empty-cart' %}
 					<p>{{ 'general.cart_drawer.cart_empty' | t }}</p>
-					<a class="button accent2" href="{{collections['all-collections'].url}}"><span>{{ 'general.cart_drawer.start_shopping' | t }}</span></a>
+					<a class="button accent2" href="{{ routes.all_products_collection_url }}"><span>{{ 'general.cart_drawer.start_shopping' | t }}</span></a>
 				</div>
 			{%- endif -%}
 			{%- if cart != empty and settings.cart_recommendations -%}
@@ -128,9 +130,9 @@
 						<p class="product-recommendations-drawer__heading">{{ 'general.cart_drawer.you_may_also_like' | t }}</p>
 						<scroll-shadow>
 					    <div class="product-recommendations-drawer__products">
-					      {% for recommendation in recommendations.products %}
+					      {%- for recommendation in recommendations.products -%}
 					        {% render 'product-card-small' product_small: recommendation %}
-					      {% endfor %}
+					      {%- endfor -%}
 					    </div>
 						</scroll-shadow>
 				  {% endif %}
@@ -141,7 +143,7 @@
 			<div class="side-panel-footer">
 				{%- if settings.cart_drawer_notes_enable -%}
 				<button type="button" class="order-note-toggle" id="order-note-toggle" aria-controls="mini-cart-note">{{ 'general.cart_drawer.add_order_note' | t }}</button>
-				<div class="order-note-toggle__content">
+				<div class="order-note-toggle__content" id="mini-cart-note">
 					<label for="mini-cart__notes">{{ 'general.cart_drawer.add_order_note' | t }}</label>
 					<textarea name="note" id="mini-cart__notes" rows="5">{{ cart.note }}</textarea>
 					<button class="button full"><span>{{ 'general.cart_drawer.save' | t }}</span></button>
@@ -176,9 +178,9 @@
 					</div>
 					<span class="amount">
 						{% if settings.currency_code_enabled %}
-							<span class="wh-original-cart-total"><span class='wh-original-price'>{{ cart.total_price | money_with_currency }}</span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div>
+							{{ cart.total_price | money_with_currency }}
 						{% else %}
-							<span class="wh-original-cart-total"><span class='wh-original-price'>{{ cart.total_price | money }}</span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div>
+							{{ cart.total_price | money }}
 						{% endif %}
 					</span>
 		    </div>

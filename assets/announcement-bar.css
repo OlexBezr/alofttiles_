@@ -51,7 +51,11 @@ Utilities
     margin: 0; }
   .announcement-bar select {
     color: var(--color-announcement-bar-text, var(--color-accent3));
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    background: var(--color-announcement-bar-bg, var(--color-accent)); }
+    .announcement-bar select option {
+      background: var(--color-announcement-bar-bg, var(--color-accent));
+      color: var(--color-announcement-bar-text, var(--color-accent3)); }
   .announcement-bar .thb-localization-forms {
     display: none;
     justify-content: flex-end; }

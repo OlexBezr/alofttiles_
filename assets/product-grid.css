@@ -20,20 +20,6 @@ Utilities
 .collection-container--full-width-true .products.row {
   max-width: none; }
 
-.products .column-2 {
-  width: 50%;
-  padding-right: 0.46875rem;
-  padding-left: 0.46875rem;
-  /* display: flex;
-  align-items:center;
-  justify-content:center; */
-}
-@media(max-width:765px) {
-  .products .column-2 {
-    width: 100%;
-    
-  }
-}
 .products {
   list-style: none; }
   .products.carousel {
@@ -62,15 +48,16 @@ Utilities
   .product-card.text-center .product-card-info {
     padding: 0 5%; }
   .product-card .product-featured-image {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     position: relative; }
     @media only screen and (min-width: 768px) {
       .product-card .product-featured-image {
-        margin-bottom: 5px; } }
-    .product-card .product-featured-image.thb-hover:hover .product-primary-image {
-      opacity: 0; }
-    .product-card .product-featured-image.thb-hover:hover .product-secondary-image {
-      opacity: 1; }
+        margin-bottom: 25px; } }
+    @media (hover: hover) {
+      .product-card .product-featured-image.thb-hover:hover .product-primary-image {
+        opacity: 0; }
+      .product-card .product-featured-image.thb-hover:hover .product-secondary-image {
+        opacity: 1; } }
     .product-card .product-featured-image-link {
       display: block;
       position: relative;
@@ -113,18 +100,23 @@ Utilities
     display: block; }
     .product-title-uppercase-true .product-card .product-card-title {
       text-transform: uppercase; }
-  .product-card .badge {
+  .product-card--badges {
     position: absolute;
-    z-index: 30; }
-    .product-card .badge.bottom {
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    gap: 5px; }
+    .product-card--badges.bottom {
       bottom: 10px; }
-    .product-card .badge.left {
-      left: 10px; }
-    .product-card .badge.top {
+    .product-card--badges.left {
+      left: -6px;
+      align-items: flex-start; }
+    .product-card--badges.top {
       top: 10px; }
-    .product-card .badge.right {
-      right: -6px; }
-    .product-card .badge.top.right + .product-card-quickview {
+    .product-card--badges.right {
+      right: -6px;
+      align-items: flex-end; }
+    .product-card--badges.top.right + .product-featured-image-link .product-card-quickview {
       right: auto;
       left: 10px; }
   .product-card .product-card-quickview {
@@ -146,7 +138,7 @@ Utilities
       overflow: hidden;
       line-height: 34px;
       font-size: 0.625rem;
-      font-weight: 600;
+      font-weight: var(--font-body-bold-weight, 600);
       letter-spacing: 0.2em;
       padding-right: 0;
       white-space: nowrap;

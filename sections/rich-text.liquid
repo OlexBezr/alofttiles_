@@ -27,13 +27,18 @@
 				{%- when 'heading' -%}
 					<h3 class="{{ block.settings.size }}" {{ block.shopify_attributes }}>{{ block.settings.text | newline_to_br }}</h3>
 				{%- when 'text' -%}
-					<div class="rte {{ block.settings.size }}" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+					<div class="rte {{ block.settings.size }}" {{ block.shopify_attributes }}>
+						{{ block.settings.text }}
+						{{ block.settings.custom_liquid }}
+					</div>
 				{%- when 'button' -%}
 					{% if block.settings.link_label != blank %}
 						<a class="button{% if block.settings.button_outline %} outline{%- endif -%}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}><span>{{ block.settings.link_label }}</span></a>
 					{% endif %}
 				{%- when 'space' -%}
-					 <div style="height: {{ block.settings.height | append: 'px' }}" {{ block.shopify_attributes }}></div>
+					<div style="height: {{ block.settings.height | append: 'px' }}" {{ block.shopify_attributes }}></div>
+				{%- when 'custom_liquid' -%}
+    			{{ block.settings.custom_liquid }}
 			{%- endcase -%}
 		{% endfor %}
 	</div>
@@ -191,6 +196,12 @@
 						"default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
 					},
 					{
+						"type": "liquid",
+						"id": "custom_liquid",
+						"label": "Custom liquid",
+						"info": "Add app snippets or other Liquid code to create advanced customizations."
+					},
+					{
 		        "type": "select",
 		        "id": "size",
 		        "label": "Size",
@@ -251,7 +262,19 @@
             "default": 50
           }
         ]
-      }
+      },
+			{
+				"type": "custom_liquid",
+				"name": "Custom liquid",
+				"settings": [
+					{
+						"type": "liquid",
+						"id": "custom_liquid",
+						"label": "Custom liquid",
+						"info": "Add app snippets or other Liquid code to create advanced customizations."
+					}
+				]
+			}
     ],
     "presets": [
       {

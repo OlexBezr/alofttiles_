@@ -163,7 +163,7 @@ https://flickity.metafizzy.co
   .collection-tabs__list-link {
     margin: 0 20px;
     color: var(--color-accent);
-    font-weight: 500;
+    font-weight: var(--font-body-medium-weight, 500);
     opacity: 0.6;
     position: relative;
     padding: 2px 0;

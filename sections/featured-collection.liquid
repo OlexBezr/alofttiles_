@@ -28,6 +28,11 @@
 	if featured_collection.all_products_count > product_limit
     assign more_in_collection = true
   endif
+
+	assign tag = 'ul'
+	if display_type == 'carousel'
+		assign tag = 'slide-show'
+	endif
 -%}
 <div class="featured-collection featured-collection--full-width-{{ full_width }}{% if mobile_swipe %} swipe-on-mobile{% endif %} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
 	{% render 'section-header', section_heading: section_heading, section_description: section_description %}
@@ -77,30 +82,29 @@
 		{% endif %}
 		{%- for block in collections -%}
 			<div class="featured-collection__collection" {{ block.shopify_attributes }}>
-				<ul id="product-grid-{{ section.id }}-{{ block.id }}" class="products row {{ display_type }}">
+				<{{ tag }} id="product-grid-{{ section.id }}-{{ block.id }}" class="products row {{ display_type }}">
 					{% if display_type == 'carousel' %}
 						{{ featured_collection_title_card }}
 					{% endif %}
 					{%- if featured_collection != blank -%}
 						{%- for product in featured_collection.products limit: block.settings.product_limit -%}
-							<li class="{{ columns_class }} columns  {% if display_type == 'carousel' %}carousel__slide{% endif %}" data-collection="{{ block.settings.collection.handle }}">
-								{% render 'product-card', product_card_product: product %}
-							</li>
+							<div class="{{ columns_class }} columns  {% if display_type == 'carousel' %}carousel__slide{% endif %}" data-collection="{{ block.settings.collection.handle }}">
+								{% render 'product-card', product_card_product: product, index: forloop.index %}
+							</div>
 						{%- endfor -%}
 					{%- else -%}
 						{%- for i in (1..product_limit) -%}
-						<li class="{{ columns_class }} columns  {% if display_type == 'carousel' %}carousel__slide{% endif %}" data-collection="collection-{{ block.id }}">
+						<div class="{{ columns_class }} columns  {% if display_type == 'carousel' %}carousel__slide{% endif %}" data-collection="collection-{{ block.id }}">
 							{% render 'product-card' %}
-						</li>
+						</div>
 						{%- endfor -%}
 					{%- endif -%}
 					{%- if display_type == 'carousel' -%}
 						{%- if product_limit > columns_desktop -%}
-						<div class="flickity-nav flickity-prev" tabindex="0">{% render 'svg-icons' with 'carousel-prev' %}</div>
-						<div class="flickity-nav flickity-next" tabindex="0">{% render 'svg-icons' with 'carousel-next' %}</div>
+						{%- render 'slideshow-arrows' -%}
 						{%- endif -%}
 					{%- endif -%}
-				</ul>
+				</{{ tag }}>
 			</div>
 		{%- endfor -%}
 	</div>
@@ -114,6 +118,7 @@
 {% schema %}
 {
   "name": "Featured collection",
+  "class": "section-featured-collection",
 	"max_blocks": 2,
   "settings": [
     {

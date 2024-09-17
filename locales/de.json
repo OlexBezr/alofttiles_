@@ -11,10 +11,10 @@
       "you_may_also_like": "Sie können auch mögen",
       "add_order_note": "Spezielle Bestellanweisungen",
       "save": "Sparen",
-			"free_shipping": {
-				"spend_more_for_free_shipping_html": "Geben Sie <span>{{ amount }}<\/span> mehr für KOSTENLOSEN Versand aus.",
-				"free_shipping_applied_at_checkout": "KOSTENLOSER Versand wird beim Checkout angewendet"
-			}
+      "free_shipping": {
+        "spend_more_for_free_shipping_html": "Geben Sie <span>{{ amount }}<\/span> mehr für KOSTENLOSEN Versand aus.",
+        "free_shipping_applied_at_checkout": "KOSTENLOSER Versand wird beim Checkout angewendet"
+      }
     },
     "meta": {
       "page": "Seite",
@@ -48,8 +48,10 @@
       "vimeo": "Vimeo",
       "tiktok": "TikTok",
       "linkedin": "Linkedin",
-      "wechat": "WeChat"
-    }
+      "wechat": "WeChat",
+      "whatsapp": "WhatsApp"
+    },
+    "copied_to_clipboard": "In die Zwischenablage kopiert"
   },
   "search": {
     "heading": "Suchergebnisse",
@@ -110,7 +112,9 @@
       "add_to_cart": "In den Warenkorb legen",
       "choose_options": "Optionen wählen",
       "sold_out": "Ausverkauft",
+      "save_html": "Spare {{ saved_amount }}",
       "unavailable": "Nicht verfügbar",
+      "pre_order": "Vorbestellen",
       "price": {
         "from_price_html": "Ab {{ price }}",
         "regular_price": "Normaler Preis",
@@ -129,12 +133,12 @@
         "increase": "Erhöhe die Menge für {{ product }}",
         "decrease": "Verringere die Menge für {{ product }}"
       },
-			"inventory": {
-				"only_x_left": "{{ quantity }} auf Lager",
-	      "x_units_available": "{{ quantity }} Einheiten verfügbar",
-	      "low_stock": "Begrenzter Vorrat",
-	      "in_stock": "Auf Lager"
-	    },
+      "inventory": {
+        "only_x_left": "{{ quantity }} auf Lager",
+        "x_units_available": "{{ quantity }} Einheiten verfügbar",
+        "low_stock": "Begrenzter Vorrat",
+        "in_stock": "Auf Lager"
+      },
       "pickup_availability": {
         "heading": "Pickup Availability",
         "view_store_info": "Shop-Informationen anzeigen",
@@ -145,11 +149,15 @@
         "unavailable": "Verfügbarkeit für Abholungen konnte nicht geladen werden",
         "refresh": "Aktualisieren"
       },
+      "view_product_details": "Produktdetails ansehen",
       "product_drawer": {
         "select_options": "Optionen wählen"
       },
       "xr_button": "In deinem Bereich ansehen",
-      "xr_button_label": "\"Ansicht in deinem Raum\" lädt den Artikel in ein Augmented-Reality-Fenster"
+      "xr_button_label": "\"Ansicht in deinem Raum\" lädt den Artikel in ein Augmented-Reality-Fenster",
+      "siblings": {
+        "label": "Farbe"
+      }
     },
     "facets": {
       "apply": "Anwenden",
@@ -187,9 +195,9 @@
       "my_account": "Mein Konto",
       "login": "Anmeldung",
       "cart": "Warenkorb",
-			"products": "Produkte",
-			"articles": "Artikel",
-			"suggestions": "Vorschläge"
+      "products": "Produkte",
+      "articles": "Artikel",
+      "suggestions": "Vorschläge"
     },
     "404": {
       "not_found": "Seite nicht gefunden",
@@ -217,9 +225,20 @@
         "total": "Gesamtsumme",
         "quantity": "Anzahl"
       },
-			"terms": "Ich stimme den AGB zu",
+      "terms": "Ich stimme den AGB zu",
       "terms_html": "Ich stimme den <a href='{{ url }}' target='_blank'>Nutzungsbedingungen<\/a> zu",
-      "terms_confirm": "Sie müssen den Verkaufsbedingungen zustimmen, um zur Kasse gehen zu können"
+      "terms_confirm": "Sie müssen den Verkaufsbedingungen zustimmen, um zur Kasse gehen zu können",
+      "shipping_estimator": {
+        "estimate_shipping": "Versand schätzen",
+        "country": "Land",
+        "province": "Staat",
+        "zip_code": "Postleitzahl",
+        "submit": "Schätzen",
+        "no_results": "Entschuldige, wir liefern leider niche an Deine Adresse.",
+        "one_result": "Es gibt eine Versandklasse für Deine Adresse:",
+        "multiple_results": "Es gibt mehrere Versandklassen für Deine Adresse:",
+        "error": "Ein oder mehrere Fehler sind beim Abrufen der Versandklassen aufgetreten:"
+      }
     },
     "collection_template": {
       "empty": "Keine Produkte gefunden",
@@ -227,9 +246,10 @@
       "load_more": "Mehr laden"
     },
     "signup": {
-      "enter_your_email": "Geben sie ihre E-Mailadresse ein"
+      "enter_your_email": "Geben sie ihre E-Mailadresse ein",
+      "i_agree": "Ich bin damit einverstanden, Marketing-E-Mails und Sonderangebote zu erhalten"
     },
-		"countdown_banner": {
+    "countdown_banner": {
       "days": "Tage",
       "hours": "Stunden",
       "minutes": "Minuten",
@@ -254,9 +274,9 @@
     "shop_the_look": {
       "view_product": "Produkt anzeigen"
     },
-		"more_from_vendor": {
-			"more_from_html": "Mehr von {{ vendor }}"
-		}
+    "more_from_vendor": {
+      "more_from_html": "Mehr von {{ vendor }}"
+    }
   },
   "localization": {
     "country_label": "Land/Region",
@@ -281,7 +301,8 @@
       "submit_register": "Ein Konto erstellen",
       "already_have_an_account": "Sie haben bereits ein Konto?",
       "submit": "Einreichen",
-      "cancel": "Absagen"
+      "cancel": "Absagen",
+      "alternate_provider_separator": "oder"
     },
     "recover_password": {
       "title": "Setze dein Passwort zurück",
@@ -337,7 +358,7 @@
       "total": "Gesamtsumme",
       "none": "Du hast noch keine Bestellungen aufgegeben."
     },
-		"activate_account": {
+    "activate_account": {
       "title": "Konto aktivieren",
       "subtext": "Erstelle ein Passwort, um dein Konto zu aktiveren.",
       "password": "Passwort",
@@ -405,7 +426,9 @@
       "name": "Name",
       "message_label": "Nachricht (optional)",
       "message": "Nachricht",
-      "max_characters": "Maximal {{ max_chars }} Zeichen"
+      "max_characters": "Maximal {{ max_chars }} Zeichen",
+      "send_on": "JJJJ-MM-TT",
+      "send_on_label": "Senden am (optional)"
     }
   }
 }

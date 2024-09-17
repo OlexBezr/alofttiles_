@@ -61,7 +61,7 @@ Utilities
     display: flex;
     flex-grow: 0;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 19px;
     border-top: 1px solid var(--color-border); }
     @media only screen and (min-width: 768px) {
       .mobile-menu-drawer .thb-mobile-menu-footer {
@@ -72,9 +72,9 @@ Utilities
         text-align: right; }
       .mobile-menu-drawer .thb-mobile-menu-footer .shopify-localization-form > div {
         margin-left: 0;
-        margin-right: 20px; }
+        margin-right: 10px; }
         [dir="rtl"] .mobile-menu-drawer .thb-mobile-menu-footer .shopify-localization-form > div {
-          margin-left: 20px;
+          margin-left: 10px;
           margin-right: 0; }
       .mobile-menu-drawer .thb-mobile-menu-footer .shopify-localization-form .select {
         margin-bottom: 0; }
@@ -118,10 +118,10 @@ Utilities
   .mobile-menu li summary {
     text-transform: uppercase;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: var(--font-body-bold-weight, 600);
     letter-spacing: 0.1em;
     display: block;
-    padding: 10px 15px;
+    padding: 19px 15px;
     border-bottom: 1px solid var(--color-border);
     width: 100%; }
     @media only screen and (min-width: 768px) {
@@ -133,10 +133,8 @@ Utilities
     padding-right: 50px; }
     [dir="rtl"] .mobile-menu li .parent-link {
       padding-right: 15px;
-       padding-top: 10px;
-      padding-bottom: 10px;
       padding-left: 50px; }
-    .mobile-menu li .parent-link span {
+    .mobile-menu li .parent-link .link-forward {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -145,7 +143,7 @@ Utilities
       right: 0;
       height: 100%;
       width: 50px; }
-      .mobile-menu li .parent-link span:after {
+      .mobile-menu li .parent-link .link-forward:after {
         content: "";
         display: block;
         width: 0;
@@ -154,7 +152,7 @@ Utilities
         border-width: 6px 5px 0 5px;
         border-color: var(--color-accent) transparent transparent transparent;
         margin-top: -2px; }
-      [dir="rtl"] .mobile-menu li .parent-link span {
+      [dir="rtl"] .mobile-menu li .parent-link .link-forward {
         right: auto;
         left: 0; }
   .mobile-menu li .submenu-open > .parent-link {
@@ -168,8 +166,6 @@ Utilities
     width: 100%;
     padding: 15px 0;
     margin-left: 0;
-    padding-top: 5px;
-    padding-bottom: 5px;
     list-style: none;
     border-bottom: 1px solid var(--color-border); }
     .mobile-menu .sub-menu .parent-link {

@@ -22,6 +22,12 @@
 		else
 			assign mobile_image_height = 500
 	endcase
+
+	assign priority = false
+
+	if section.index == 1
+		assign priority = 'high'
+	endif
 %}
 <div class="row{% if full_width %} full-width-row-full{% endif %}">
 	<div class="small-12 columns">
@@ -37,7 +43,7 @@
 						if section.settings.mobile_image
 							assign class = 'image-with-text-overlay--desktop'
 						endif
-						render 'responsive-image', image: image, sizes: width, class: class
+						render 'responsive-image', image: image, sizes: width, class: class, priority: priority
 					-%}
 				{%- else -%}
 					{{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder_svg_tag' }}
@@ -48,7 +54,7 @@
 						assign master_width = image.src.width | append: 'x' | append: image.src.height
 						assign width = '375x' | append: mobile_image_height | append: ',' | append: master_width
 
-						render 'responsive-image', image: image, sizes: width, class: 'image-with-text-overlay--mobile'
+						render 'responsive-image', image: image, sizes: width, class: 'image-with-text-overlay--mobile', priority: priority
 					-%}
 				{%- endif -%}
 			</div>

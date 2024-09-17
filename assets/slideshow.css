@@ -209,8 +209,6 @@ https://flickity.metafizzy.co
         height: 100%;
         object-fit: cover; }
       .slideshow__slide-bg svg {
-        padding: 50px;
-        fill: var(--bg-body, #fff);
         opacity: 0.5; }
       .slideshow__slide-bg:after {
         content: "";
@@ -296,7 +294,3 @@ https://flickity.metafizzy.co
       border-color: #fff; }
       .slideshow .flickity-nav:hover svg path {
         stroke: var(--color-accent); }
-
-.line-child {
-  line-height: 130%;
-}

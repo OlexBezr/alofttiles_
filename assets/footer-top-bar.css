@@ -19,7 +19,7 @@ Utilities
         text-align: right; } }
   .footer-top-bar p {
     font-size: 1.25rem;
-    font-weight: 500;
+    font-weight: var(--font-body-medium-weight, 500);
     margin: 0;
     letter-spacing: 0.02em; }
     @media only screen and (min-width: 768px) {

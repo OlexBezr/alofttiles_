@@ -11,10 +11,10 @@
       "you_may_also_like": "También te puede interesar",
       "add_order_note": "Añadir nota de pedido",
       "save": "Ahorrar",
-			"free_shipping": {
-				"spend_more_for_free_shipping_html": "Gasta <span>{{ amount }}<\/span> más para el envío GRATIS.",
-				"free_shipping_applied_at_checkout": "El envío GRATIS se aplicará al finalizar la compra"
-			}
+      "free_shipping": {
+        "spend_more_for_free_shipping_html": "Gasta <span>{{ amount }}<\/span> más para el envío GRATIS.",
+        "free_shipping_applied_at_checkout": "El envío GRATIS se aplicará al finalizar la compra"
+      }
     },
     "meta": {
       "page": "Página",
@@ -48,8 +48,10 @@
       "vimeo": "Vimeo",
       "tiktok": "TikTok",
       "linkedin": "Linkedin",
-      "wechat": "WeChat"
-    }
+      "wechat": "WeChat",
+      "whatsapp": "WhatsApp"
+    },
+    "copied_to_clipboard": "Copiado al portapapeles"
   },
   "search": {
     "heading": "Resultados de búsqueda",
@@ -110,7 +112,9 @@
       "add_to_cart": "Agregar al carrito",
       "choose_options": "Elegir opciones",
       "sold_out": "Agotado",
+      "save_html": "Guardar {{ saved_amount }}",
       "unavailable": "No disponible",
+      "pre_order": "Reservar",
       "price": {
         "from_price_html": "A partir de {{ price }}",
         "regular_price": "Precio habitual",
@@ -129,12 +133,12 @@
         "increase": "Increase quantity for {{ product }}",
         "decrease": "Decrease quantity for {{ product }}"
       },
-			"inventory": {
-				"only_x_left": "{{ quantity }} en stock",
-	      "x_units_available": "{{ quantity }} unidades disponibles",
-	      "low_stock": "Stock limitado",
-	      "in_stock": "En stock"
-	    },
+      "inventory": {
+        "only_x_left": "{{ quantity }} en stock",
+        "x_units_available": "{{ quantity }} unidades disponibles",
+        "low_stock": "Stock limitado",
+        "in_stock": "En stock"
+      },
       "pickup_availability": {
         "heading": "Pickup Availability",
         "view_store_info": "View store information",
@@ -145,11 +149,15 @@
         "unavailable": "Couldn't load pickup availability",
         "refresh": "Refresh"
       },
+      "view_product_details": "Ver detalles del producto",
       "product_drawer": {
         "select_options": "Seleccione opciones"
       },
       "xr_button": "Ver en tu espacio",
-      "xr_button_label": "Ver en tu espacio, carga el artículo en la ventana de realidad aumentada"
+      "xr_button_label": "Ver en tu espacio, carga el artículo en la ventana de realidad aumentada",
+      "siblings": {
+        "label": "Color"
+      }
     },
     "facets": {
       "apply": "Aplicar",
@@ -190,9 +198,9 @@
       "my_account": "Mi cuenta",
       "login": "Acceso",
       "cart": "Carrito",
-			"products": "Productos",
-			"articles": "Artículos",
-			"suggestions": "Sugerencias"
+      "products": "Productos",
+      "articles": "Artículos",
+      "suggestions": "Sugerencias"
     },
     "404": {
       "not_found": "Página no encontrada",
@@ -220,9 +228,20 @@
         "total": "Total",
         "quantity": "Cantidad"
       },
-			"terms": "Estoy de acuerdo con los términos y condiciones",
+      "terms": "Estoy de acuerdo con los términos y condiciones",
       "terms_html": "Estoy de acuerdo con los <a href='{{ url }}' target='_blank'>términos y condiciones<\/a>",
-      "terms_confirm": "Debes estar de acuerdo con los términos y condiciones de venta para pagar"
+      "terms_confirm": "Debes estar de acuerdo con los términos y condiciones de venta para pagar",
+      "shipping_estimator": {
+        "estimate_shipping": "Estimación de envío",
+        "country": "País",
+        "province": "Provincia",
+        "zip_code": "Código postal",
+        "submit": "Estimación",
+        "no_results": "Lo sentimos, no realizamos envíos a su dirección",
+        "one_result": "Hay una tarifa de envío para su dirección:",
+        "multiple_results": "Hay varias tarifas de envío para su dirección:",
+        "error": "Se ha producido uno o más errores al recuperar las tarifas de envío:"
+      }
     },
     "collection_template": {
       "empty": "No se encontró ningún producto",
@@ -230,9 +249,10 @@
       "load_more": "Carga más"
     },
     "signup": {
-      "enter_your_email": "Ingrese su dirección de correo electrónico"
+      "enter_your_email": "Ingrese su dirección de correo electrónico",
+      "i_agree": "Acepto recibir correos electrónicos de marketing y ofertas especiales."
     },
-		"countdown_banner": {
+    "countdown_banner": {
       "days": "Días",
       "hours": "Horas",
       "minutes": "Minutos",
@@ -257,9 +277,9 @@
     "shop_the_look": {
       "view_product": "Ver el producto"
     },
-		"more_from_vendor": {
-			"more_from_html": "Más de {{ vendor }}"
-		}
+    "more_from_vendor": {
+      "more_from_html": "Más de {{ vendor }}"
+    }
   },
   "localization": {
     "country_label": "País/región",
@@ -284,7 +304,8 @@
       "submit_register": "Crear cuenta",
       "already_have_an_account": "Ya tienes una cuenta?",
       "submit": "Enviar",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "alternate_provider_separator": "o"
     },
     "recover_password": {
       "title": "Restablecer tu contraseña",
@@ -340,7 +361,7 @@
       "total": "Total",
       "none": "Aún no has realizado ningún pedido."
     },
-		"activate_account": {
+    "activate_account": {
       "title": "Activar cuenta",
       "subtext": "Crea tu contraseña para activar tu cuenta.",
       "password": "Contraseña",
@@ -408,7 +429,9 @@
       "name": "Nombre",
       "message_label": "Mensaje (opcional)",
       "message": "Mensaje",
-      "max_characters": "{{ max_chars }} caracteres máx."
+      "max_characters": "{{ max_chars }} caracteres máx.",
+      "send_on": "AAAA-MM-DD",
+      "send_on_label": "Enviar el (opcional)"
     }
   }
 }

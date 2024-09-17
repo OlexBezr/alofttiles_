@@ -27,7 +27,7 @@ class PredictiveSearch {
       document.querySelector('.header-section').classList.toggle('search-open');
 
       if (document.querySelector('.header-section').classList.contains('search-open')) {
-        setTimeout(function() {
+        setTimeout(function () {
           _this.input.focus({
             preventScroll: true
           });
@@ -39,19 +39,10 @@ class PredictiveSearch {
     });
 
     // Close.
-    if(this.close_button) {
-      this.close_button.addEventListener('click', (event) => {
-        this.close();
-        event.preventDefault();
-      });  
-    }
-    if(document.querySelector('.thb-quick-search--results-container')) {
-     
-      document.querySelector('.thb-quick-search--results-container').addEventListener('mouseleave', function() {
-        document.querySelector('.thb-quick-search--results').classList.remove('active')
-      })  
-      
-    }
+    this.close_button.addEventListener('click', (event) => {
+      this.close();
+      event.preventDefault();
+    });
     document.addEventListener('keyup', (event) => {
       if (event.key === 'Escape') {
         this.close();
@@ -64,7 +55,7 @@ class PredictiveSearch {
 
     this.category_toggle.forEach((link) => {
       link.addEventListener('click', (event) => {
-        [].forEach.call(this.category_toggle, function(el) {
+        [].forEach.call(this.category_toggle, function (el) {
           el.classList.remove('active');
         });
         link.classList.add('active');
@@ -95,7 +86,6 @@ class PredictiveSearch {
     this.getSearchResults(searchTerm);
   }
 
-
   onFormSubmit(event) {
     if (!this.getQuery().length) {
       event.preventDefault();
@@ -116,25 +106,21 @@ class PredictiveSearch {
     const queryKey = searchTerm.replace(" ", "-").toLowerCase();
 
     this.predictiveSearchResults.classList.add('loading');
-    
-    fetch(`${theme.routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&${encodeURIComponent('resources[type]')}=product&${encodeURIComponent('resources[limit]')}=10&section_id=predictive-search&${encodeURIComponent('resources[options][fields]')}=variants.sku,variants.title,title,tag&${encodeURIComponent('resources[options][collections]')}=${encodeURIComponent(searchTerm)}`)
+
+    fetch(`${theme.routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&${encodeURIComponent('resources[type]')}=product,article,query&${encodeURIComponent('resources[limit]')}=10&section_id=predictive-search`)
       .then((response) => {
         this.predictiveSearchResults.classList.remove('loading');
         if (!response.ok) {
           var error = new Error(response.status);
-          this.close();
           throw error;
         }
 
         return response.text();
       })
       .then((text) => {
-        const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search');
-        if(resultsMarkup.querySelector('.search-results').innerHTML == '') {
-          this.renderSearchResults(resultsMarkup.innerHTML);
-        }else {
-          this.renderSearchResults(resultsMarkup.innerHTML);
-        }
+        const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
+
+        this.renderSearchResults(resultsMarkup);
       })
       .catch((error) => {
         throw error;
@@ -143,16 +129,7 @@ class PredictiveSearch {
 
   renderSearchResults(resultsMarkup) {
     this.predictiveSearchResults.innerHTML = resultsMarkup;
-    
-    if(document.querySelector('.search-results').innerHTML == '') {
-      document.querySelector('.search-results-container').innerHTML = 'no results'
-    }
 
-    document.querySelectorAll('.search-results-container .cart-product-link').forEach((el) => {
-      el.addEventListener('click', function() {
-        window.location.href = this.getAttribute('href')
-      })
-    })
     this.predictiveSearchResults.classList.add('active');
 
     this.categoryToggle();
@@ -171,20 +148,3 @@ window.addEventListener('load', () => {
     new PredictiveSearch();
   }
 });
-(function () {
-  if(!document.querySelector('.thb-quick-search--form .thb-search-icon')) return 
-
-  function get_parent_form(el) {
-    if(el == window.body) {
-      return false
-    }
-    if(jQuery(el).hasClass('searchform')) {
-      return el;
-    }else {
-      return get_parent_form(el.parentNode)
-    }
-  }
-  document.querySelector('.thb-quick-search--form .thb-search-icon').addEventListener('click', function() {
-    get_parent_form(this).submit()
-  })
-}());

@@ -17,7 +17,7 @@
 <div class="testimonials section-spacing-padding{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}" style="--color-bg:{{ color_bg }};--color-text:{{ color_text }}">
 	{% render 'section-header', section_heading: section_heading, section_description: section_description %}
 	<div class="testimonials__inner text-{{ size }}">
-		<div class="testimonials__carousel carousel" data-autoplay="{{ autoplay }}" data-dots="true" data-align="center">
+		<slide-show class="testimonials__carousel carousel" data-autoplay="{{ autoplay }}" data-dots="true" data-align="center">
 			{% for block in section.blocks %}
 				<div class="testimonials__testimonial carousel__slide" {{ block.shopify_attributes }}>
 					<div class="testimonials__testimonial-inner">
@@ -38,12 +38,13 @@
 					</div>
 				</div>
 			{% endfor %}
-		</div>
+		</slide-show>
 	</div>
 </div>
 {% schema %}
   {
     "name": "Testimonials",
+  	"class": "section-testimonials",
     "settings": [
 			{
         "type": "text",

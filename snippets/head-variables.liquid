@@ -2,7 +2,16 @@
 	assign heading_font = settings.heading_font
 	assign body_font = settings.body_font
 	assign body_font_500 = body_font | font_modify: 'weight', '500'
+
+	unless body_font_500
+		assign body_font_500 = body_font | font_modify: 'weight', '600'
+	endunless
+
 	assign body_font_bold = body_font | font_modify: 'weight', '600'
+	unless body_font_bold
+		assign body_font_bold = body_font | font_modify: 'weight', '700'
+	endunless
+
 	assign body_font_italic = body_font | font_modify: 'style', 'italic'
 	assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
 
@@ -37,6 +46,7 @@
 	assign color_badge_text = settings.color_badge_text
 	assign color_badge_soldout = settings.color_badge_soldout
 	assign color_badge_sale = settings.color_badge_sale
+	assign color_badge_preorder = settings.color_badge_preorder
 	assign badge_corner_radius = settings.badge_corner_radius
 
 	assign color_inventory_instock = settings.color_inventory_instock
@@ -53,20 +63,6 @@
 -%}
 
 {% style %}
-  
-  @font-face {
-	font-family: "DaiBannaSIL";
-	src: url("https://cdn.shopify.com/s/files/1/0808/6664/0190/files/DaiBannaSIL.woff?v=1700829403") format("woff2");
-}
-    @font-face {
-	font-family: "Cormorant";
-	src: url("https://cdn.shopify.com/s/files/1/0808/6664/0190/files/Cormorant.woff?v=1700830182") format("woff2");
-}
-      @font-face {
-	font-family: "Cormorant-SemiBold";
-	src: url("https://cdn.shopify.com/s/files/1/0808/6664/0190/files/Cormorant-SemiBold.woff?v=1700830576") format("woff2");
-}
-  
 	{{ body_font | font_face: font_display: 'swap' }}
 
 	{%- if body_font_500 -%}
@@ -85,12 +81,12 @@
 	  {{ body_font_bold_italic | font_face: font_display: 'swap' }}
 	{%- endif -%}
 
-	{% if body_font != heading_font %}
+	{%- if body_font != heading_font -%}
 		{{ heading_font | font_face: font_display: 'swap' }}
 		{%- assign heading_font_400 = heading_font | font_modify: 'weight', '400' -%}
 
 		{%- if heading_font_400 -%}
-		  {{ heading_font_400 | font_face: font_display: 'swap' }}
+			{{ heading_font_400 | font_face: font_display: 'swap' }}
 		{%- endif -%}
 	{%- endif -%}
 
@@ -111,6 +107,8 @@
 	}
 	:root {
 		--font-body-scale: {{ settings.body_font_scale | divided_by: 100.0 }};
+		--font-body-medium-weight: {{ body_font_500.weight | default: '500' }};
+    --font-body-bold-weight: {{ body_font_bold.weight | default: '600' }};
 		--font-heading-scale: {{ settings.heading_font_scale | divided_by: 100.0 }};
 		--font-navigation-scale: {{ settings.navigation_font_scale | divided_by: 100.0 }};
 		--font-product-title-scale: {{ settings.product_title_font_scale | divided_by: 100.0 }};
@@ -136,7 +134,6 @@
 		--shopify-accelerated-checkout-skeleton-animation-duration: 0.25s;
 		--shopify-accelerated-checkout-button-border-radius: {{ button_border_radius | append: 'px' }};
 
-
 		{%- if color_announcement_bar_text -%}
 			--color-announcement-bar-text: {{ color_announcement_bar_text }};
 		{%- endif -%}
@@ -146,11 +143,11 @@
 
 		{%- if color_header_bg -%}
 			--color-header-bg: {{ color_header_bg }};
-			--color-header-bg-rgb: {{ color_header_bg | color_extract: 'red' }}, {{ color_header_bg | color_extract: 'green' }}, {{ color_header_bg | color_extract: 'blue' }};
+			--color-header-bg-rgb: {{ color_header_bg.rgb | replace: ' ' , ',' }};
 		{%- endif -%}
 		{%- if color_header_text -%}
 			--color-header-text: {{ color_header_text }};
-			--color-header-text-rgb: {{ color_header_text | color_extract: 'red' }}, {{ color_header_text | color_extract: 'green' }}, {{ color_header_text | color_extract: 'blue' }};
+			--color-header-text-rgb: {{ color_header_text.rgb | replace: ' ' , ',' }};
 		{%- endif -%}
 		{%- if color_header_links -%}
 			--color-header-links: {{ color_header_links }};
@@ -172,16 +169,10 @@
 		{%- if color_price -%}
 			--color-price: {{ color_price }};
 		{%- endif -%}
-		{%- if color_stars -%}
-			--color-star: {{ color_stars }};
-		{%- endif -%}
+		--color-star: {{ color_stars | default: '#f1b824' }};
 
-		{%- if section_spacing_mobile -%}
-			--section-spacing-mobile: {{ section_spacing_mobile | append: 'px' }};
-		{%- endif -%}
-		{%- if section_spacing_desktop -%}
-			--section-spacing-desktop: {{ section_spacing_desktop | append: 'px' }};
-		{%- endif -%}
+		--section-spacing-mobile: {{ section_spacing_mobile | default: 50 | append: 'px' }};
+		--section-spacing-desktop: {{ section_spacing_desktop | default: 100 | append: 'px' }};
 
 		{%- if button_border_radius -%}
 			--button-border-radius: {{ button_border_radius | append: 'px' }};
@@ -196,6 +187,22 @@
 		{%- if color_badge_sale -%}
 			--color-badge-sale: {{ color_badge_sale }};
 		{%- endif -%}
+		{%- if color_badge_preorder -%}
+			--color-badge-preorder: {{ color_badge_preorder }};
+		{%- endif -%}
+		{%- for index in (1..4) -%}
+			{%- capture tag_settings_key -%}custom_product_badge_group_{{ index }}_tag_names{%- endcapture -%}
+			{%- capture color_settings_key -%}custom_product_badge_group_{{ index }}_color{%- endcapture -%}
+			{%- unless settings[tag_settings_key] == blank -%}
+				{%- assign tags = settings[tag_settings_key] | downcase | split: ", " -%}
+				{%- for tag in tags -%}
+					.badge.{{ tag | downcase | handleize }}{%- if forloop.last != true -%},{%- endif -%}
+				{%- endfor -%}
+				{
+					background: {{ settings[color_settings_key] }};
+				}
+			{% endunless %}
+		{%- endfor -%}
 		{%- if badge_corner_radius -%}
 			--badge-corner-radius: {{ badge_corner_radius | append: 'px' }};
 		{%- endif -%}
@@ -216,7 +223,7 @@
 
 		{%- if color_footer_text -%}
 			--color-footer-text: {{ color_footer_text }};
-			--color-footer-text-rgb: {{ color_footer_text | color_extract: 'red' }}, {{ color_footer_text | color_extract: 'green' }}, {{ color_footer_text | color_extract: 'blue' }};
+			--color-footer-text-rgb: {{ color_footer_text.rgb | replace: ' ' , ',' }};
 		{%- endif -%}
 		{%- if color_footer_link -%}
 			--color-footer-link: {{ color_footer_link }};
@@ -226,7 +233,7 @@
 		{%- endif -%}
 		{%- if color_footer_border -%}
 			--color-footer-border: {{ color_footer_border }};
-			--color-footer-border-rgb: {{ color_footer_border | color_extract: 'red' }}, {{ color_footer_border | color_extract: 'green' }}, {{ color_footer_border | color_extract: 'blue' }};
+			--color-footer-border-rgb: {{ color_footer_border.rgb | replace: ' ' , ',' }};
 		{%- endif -%}
 		{%- if color_footer_bg -%}
 			--color-footer-bg: {{ color_footer_bg }};

@@ -44,5 +44,5 @@ Utilities
       padding-bottom: 0;
       padding-left: 0;
       color: var(--color-accent2);
-      font-weight: 500;
+      font-weight: var(--font-body-medium-weight, 500);
       height: auto; }

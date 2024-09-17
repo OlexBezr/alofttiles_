@@ -1,6 +1,9 @@
+{%- liquid
+	assign handle = option.name | replace: ' ', '-' | downcase | escape
+-%}
 {%- case option_type -%}
 {%- when 'dropdown' -%}
-	<fieldset class="product-form__input product-form__input--dropdown">
+	<fieldset class="product-form__input product-form__input--dropdown" data-index="option{{ forloop.index }}" data-handle="{{ handle }}">
 		<legend class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
 		  {{ option.name }}
 		</legend>
@@ -11,7 +14,13 @@
 				form="{{ product_form_id }}"
 			>
 		    {%- for value in option.values -%}
-		      <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+		      <option
+						value="{{ value | escape }}"
+						data-product-url="{{ value.product_url }}"
+						data-option-value-id="{{ value.id }}"
+						{% unless value.available %}disabled{% endunless %}
+						{% if option.selected_value == value %}selected="selected"{% endif %}
+					>
 		        {{ value }}
 		      </option>
 		    {%- endfor -%}
@@ -19,13 +28,15 @@
 		</div>
 	</fieldset>
 {%- when 'button' -%}
-	<fieldset class="product-form__input product-form__input--block">
+	<fieldset class="product-form__input product-form__input--block" data-index="option{{ forloop.index }}" data-handle="{{ handle }}">
 		<legend class="form__label">{{ option.name }}: <span class="form__label__value">{{ option.selected_value }}</span></legend>
 		{%- for value in option.values -%}
 			<input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
 						name="{{ option.name }}"
 						value="{{ value | escape }}"
 						form="{{ product_form_id }}"
+						data-product-url="{{ value.product_url }}"
+						data-option-value-id="{{ value.id }}"
 						{% if option.selected_value == value %}checked{% endif %}
 			>
 			<label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
@@ -49,13 +60,15 @@
 	assign key_array = key_array | remove_first: ',' | strip_newlines | downcase | split: ','
 	assign val_array = val_array | remove_first: ',' | split: ','
 	-%}
-	<fieldset class="product-form__input product-form__input--color">
+	<fieldset class="product-form__input product-form__input--color" data-index="option{{ forloop.index }}" data-handle="{{ handle }}">
 		<legend class="form__label">{{ option.name }}: <span class="form__label__value">{{ option.selected_value }}</span></legend>
 		{%- for value in option.values -%}
 			<input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
 						name="{{ option.name }}"
 						value="{{ value | escape }}"
 						form="{{ product_form_id }}"
+						data-product-url="{{ value.product_url }}"
+						data-option-value-id="{{ value.id }}"
 						{% if option.selected_value == value %}checked{% endif %}
 			>
 			{%- liquid
@@ -71,6 +84,13 @@
 				if color_value contains '.'
 					assign bg_value = color_value | file_url
 					assign color_value = 'var(--bg-body)'
+				endif
+
+				if value.swatch.image
+					assign bg_value = value.swatch.image | image_url: width: 40
+					assign swatch_focal_point = value.swatch.image.presentation.focal_point
+				elsif value.swatch.color
+					assign color_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
 				endif
 			-%}
 			<label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" style="--option-color: {{ color_value | downcase | escape }}; {%- if bg_value -%} --option-color-image: url('{{ bg_value | escape }}');{%- endif -%}">

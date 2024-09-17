@@ -254,7 +254,7 @@ Rating
   .testimonials__author {
     font-size: 0.875rem;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: var(--font-body-bold-weight, 600);
     letter-spacing: 0.2em;
     line-height: 1; }
   .testimonials .flickity-page-dots {

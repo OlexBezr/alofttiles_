@@ -24,6 +24,7 @@
 				autocapitalize="off"
 				autocomplete="email"
 				value="{{ form.email }}"
+				pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$"
 				{% if form.errors %}
 					autofocus
 					aria-invalid="true"
@@ -36,6 +37,13 @@
 			/>
 			<button class="submit" type="submit" aria-label="{{ 'sections.signup.enter_your_email' | t }}">{% render 'svg-icons' with 'signup-submit' %}</button>
 		</fieldset>
-
+		{%- if settings.email_terms_conditions_enable -%}
+			<div class="signup-container--terms">
+				<input type="checkbox" id="NewsletterTerms-{{ form.id }}" required>
+				<label for="NewsletterTerms-{{ form.id }}">
+					{{ 'sections.signup.i_agree' | t }}
+				</label>
+			</div>
+		{%- endif -%}
 	{% endform %}
 </div>

@@ -11,10 +11,10 @@
       "you_may_also_like": "Tu pourrais aussi aimer",
       "add_order_note": "Ajouter une note de commande",
       "save": "sauvegarder",
-			"free_shipping": {
-				"spend_more_for_free_shipping_html": "Dépensez <span>{{ amount }}<\/span> de plus pour la livraison GRATUITE.",
-				"free_shipping_applied_at_checkout": "La livraison GRATUITE sera appliquée à la caisse"
-			}
+      "free_shipping": {
+        "spend_more_for_free_shipping_html": "Dépensez <span>{{ amount }}<\/span> de plus pour la livraison GRATUITE.",
+        "free_shipping_applied_at_checkout": "La livraison GRATUITE sera appliquée à la caisse"
+      }
     },
     "meta": {
       "page": "Page",
@@ -48,8 +48,10 @@
       "vimeo": "Vimeo",
       "tiktok": "TikTok",
       "linkedin": "Linkedin",
-      "wechat": "WeChat"
-    }
+      "wechat": "WeChat",
+      "whatsapp": "WhatsApp"
+    },
+    "copied_to_clipboard": "Copié dans le presse-papier"
   },
   "search": {
     "heading": "Résultats de la recherche",
@@ -112,7 +114,9 @@
       "add_to_cart": "Ajouter au panier",
       "choose_options": "Choisissez les options",
       "sold_out": "Épuisé",
+      "save_html": "Épargnez {{ saved_amount }}",
       "unavailable": "Non disponible",
+      "pre_order": "Pre-commander",
       "price": {
         "from_price_html": "Du {{ price }}",
         "regular_price": "Prix habituel",
@@ -131,12 +135,12 @@
         "increase": "Augmenter la quantité de {{ product }}",
         "decrease": "Réduire la quantité de {{ product }}"
       },
-			"inventory": {
-				"only_x_left": "{{ quantity }} en stock",
-	      "x_units_available": "{{ quantity }} exemplaires disponibles",
-	      "low_stock": "Stock limité",
-	      "in_stock": "En stock"
-	    },
+      "inventory": {
+        "only_x_left": "{{ quantity }} en stock",
+        "x_units_available": "{{ quantity }} exemplaires disponibles",
+        "low_stock": "Stock limité",
+        "in_stock": "En stock"
+      },
       "pickup_availability": {
         "heading": "Disponibilité de ramassage",
         "view_store_info": "Afficher les informations de la boutique",
@@ -147,11 +151,15 @@
         "unavailable": "Impossible de charger la disponibilité du service de retrait",
         "refresh": "Actualiser"
       },
+      "view_product_details": "Voir les détails du produit",
       "product_drawer": {
         "select_options": "Sélectionnez les options"
       },
       "xr_button": "Afficher dans son espace",
-      "xr_button_label": "Affichage dans votre espace, charge l'article dans une fenêtre de réalité augmentée"
+      "xr_button_label": "Affichage dans votre espace, charge l'article dans une fenêtre de réalité augmentée",
+      "siblings": {
+        "label": "Couleur"
+      }
     },
     "facets": {
       "apply": "Appliquer",
@@ -188,13 +196,13 @@
     "header": {
       "search": "Recherch",
       "search_for": "Rechercher n'importe quoi",
-      "popular_searches": "RECHERCHES POPULAIRESS",
+      "popular_searches": "RECHERCHES POPULAIRES",
       "my_account": "Mon compte",
       "login": "Connexion",
       "cart": "Panier",
-			"products": "Des produits",
-			"articles": "Des articles",
-			"suggestions": "Suggestions"
+      "products": "Des produits",
+      "articles": "Des articles",
+      "suggestions": "Suggestions"
     },
     "404": {
       "not_found": "Page non trouvée",
@@ -222,9 +230,20 @@
         "total": "Total",
         "quantity": "Quantité"
       },
-			"terms": "J'accepte les termes et conditions",
+      "terms": "J'accepte les termes et conditions",
       "terms_html": "J'accepte les <a href='{{ url }}' target='_blank'>termes et conditions<\/a>",
-      "terms_confirm": "Vous devez accepter les conditions générales de vente pour valider"
+      "terms_confirm": "Vous devez accepter les conditions générales de vente pour valider",
+      "shipping_estimator": {
+        "estimate_shipping": "Estimer les frais d'envoi",
+        "country": "Pays",
+        "province": "Région",
+        "zip_code": "Code postal",
+        "submit": "Estimer",
+        "no_results": "Désolé, nous ne livrons pas à votre destination.",
+        "one_result": "Il y a un frais d'envoi pour votre adresse:",
+        "multiple_results": "Il y a plusieurs frais d'envoi pour votre adresse:",
+        "error": "Une ou plusieurs erreurs se sont produites lors de la récupération des frais d'envoi:"
+      }
     },
     "collection_template": {
       "empty": "Aucun produit trouvé",
@@ -232,9 +251,10 @@
       "load_more": "Charger plus"
     },
     "signup": {
-      "enter_your_email": "Entrez votre adresse email"
+      "enter_your_email": "Entrez votre adresse email",
+      "i_agree": "J'accepte de recevoir des e-mails marketing et des offres spéciales"
     },
-		"countdown_banner": {
+    "countdown_banner": {
       "days": "Jours",
       "hours": "Heures",
       "minutes": "Minutes",
@@ -259,9 +279,9 @@
     "shop_the_look": {
       "view_product": "Voir le produit"
     },
-		"more_from_vendor": {
-			"more_from_html": "Plus du {{ vendor }}"
-		}
+    "more_from_vendor": {
+      "more_from_html": "Plus du {{ vendor }}"
+    }
   },
   "localization": {
     "country_label": "Pays/région",
@@ -286,7 +306,8 @@
       "submit_register": "Créer un compte",
       "already_have_an_account": "Vous avez déjà un compte?",
       "submit": "Envoyer",
-      "cancel": "Annuler"
+      "cancel": "Annuler",
+      "alternate_provider_separator": "ou"
     },
     "recover_password": {
       "title": "Réinitialiser son mot de passe",
@@ -342,7 +363,7 @@
       "total": "Total",
       "none": "Vous n'avez encore passé aucune commande."
     },
-		"activate_account": {
+    "activate_account": {
       "title": "Activer le compte",
       "subtext": "Créez votre mot de passe pour activer le compte.",
       "password": "Mot de passe",
@@ -410,7 +431,9 @@
       "name": "Nom",
       "message_label": "Message (facultatif)",
       "message": "Message",
-      "max_characters": "{{ max_chars }} caractères au maximum"
+      "max_characters": "{{ max_chars }} caractères au maximum",
+      "send_on": "AAAA-MM-JJ",
+      "send_on_label": "Envoyer le (facultatif)"
     }
   }
 }

@@ -156,8 +156,8 @@ if (!customElements.get('full-menu')) {
       }
       const _this = this;
       // resize on initial load
-      document.fonts.ready.then(function() {
-        window.addEventListener('resize', debounce(function() {
+      document.fonts.ready.then(function () {
+        window.addEventListener('resize', debounce(function () {
           _this.resizeSubMenus();
         }, 100));
       });

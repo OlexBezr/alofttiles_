@@ -11,10 +11,10 @@
       "you_may_also_like": "Potrebbe piacerti anche",
       "add_order_note": "Aggiungi nota d'ordine",
       "save": "Salva",
-			"free_shipping": {
-				"spend_more_for_free_shipping_html": "Spendi altri <span>{{ amount }}<\/span> per la spedizione GRATUITA.",
-				"free_shipping_applied_at_checkout": "La spedizione GRATUITA verrà applicata al momento del pagamento"
-			}
+      "free_shipping": {
+        "spend_more_for_free_shipping_html": "Spendi altri <span>{{ amount }}<\/span> per la spedizione GRATUITA.",
+        "free_shipping_applied_at_checkout": "La spedizione GRATUITA verrà applicata al momento del pagamento"
+      }
     },
     "meta": {
       "page": "Pagina",
@@ -48,8 +48,10 @@
       "vimeo": "Vimeo",
       "tiktok": "TikTok",
       "linkedin": "Linkedin",
-      "wechat": "WeChat"
-    }
+      "wechat": "WeChat",
+      "whatsapp": "WhatsApp"
+    },
+    "copied_to_clipboard": "Copiato negli appunti"
   },
   "search": {
     "heading": "Search Results",
@@ -111,7 +113,9 @@
       "add_to_cart": "Aggiungi al carrello",
       "choose_options": "Scegliere le opzioni",
       "sold_out": "Esaurito",
+      "save_html": "Risparmia {{ saved_amount }}",
       "unavailable": "Non disponibile",
+      "pre_order": "Pre-ordina",
       "price": {
         "from_price_html": "Da {{ price }}",
         "regular_price": "Prezzo di listino",
@@ -130,12 +134,12 @@
         "increase": "Aumenta quantità per {{ product }}",
         "decrease": "Diminuisci quantità per {{ product }}"
       },
-			"inventory": {
-				"only_x_left": "{{ quantity }} in magazzino",
-	      "x_units_available": "{{ quantity }} in magazzino, pronto per la spedizione",
-	      "low_stock": "In esaurimento",
-	      "in_stock": "In magazzino"
-	    },
+      "inventory": {
+        "only_x_left": "{{ quantity }} in magazzino",
+        "x_units_available": "{{ quantity }} in magazzino, pronto per la spedizione",
+        "low_stock": "In esaurimento",
+        "in_stock": "In magazzino"
+      },
       "pickup_availability": {
         "heading": "Disponibilità di ritiro",
         "view_store_info": "Visualizza i dettagli del negozio",
@@ -146,11 +150,15 @@
         "unavailable": "Impossibile caricare la disponibilità di ritiro",
         "refresh": "Aggiorna"
       },
+      "view_product_details": "Visualizza i dettagli del prodotto",
       "product_drawer": {
         "select_options": "selezionare le opzioni"
       },
       "xr_button": "Visualizza nel tuo spazio",
-      "xr_button_label": "Visualizza nel tuo spazio, carica l'articolo nella finestra della realtà aumentata"
+      "xr_button_label": "Visualizza nel tuo spazio, carica l'articolo nella finestra della realtà aumentata",
+      "siblings": {
+        "label": "Colore"
+      }
     },
     "facets": {
       "apply": "Applica",
@@ -191,9 +199,9 @@
       "my_account": "Il mio conto",
       "login": "Login",
       "cart": "Carrello",
-			"products": "Prodotti",
-			"articles": "Articoli",
-			"suggestions": "Suggerimenti"
+      "products": "Prodotti",
+      "articles": "Articoli",
+      "suggestions": "Suggerimenti"
     },
     "404": {
       "not_found": "Pagina non trovata",
@@ -221,9 +229,20 @@
         "total": "Totale",
         "quantity": "Quantità"
       },
-			"terms": "Sono d'accordo con i termini e le condizioni",
+      "terms": "Sono d'accordo con i termini e le condizioni",
       "terms_html": "Sono d'accordo con i <a href='{{ url }}' target='_blank'>termini e condizioni<\/a>",
-      "terms_confirm": "Devi accettare i termini e le condizioni di vendita per effettuare il pagamento"
+      "terms_confirm": "Devi accettare i termini e le condizioni di vendita per effettuare il pagamento",
+      "shipping_estimator": {
+        "estimate_shipping": "Previsione di spedizione",
+        "country": "Paese",
+        "province": "Provincia",
+        "zip_code": "Codice postale",
+        "submit": "Stima",
+        "no_results": "Siamo spiacenti, non spediamo al tuo indirizzo.",
+        "one_result": "C'è una tariffa di spedizione per il tuo indirizzo:",
+        "multiple_results": "Ci sono diverse tariffe di spedizione per il tuo indirizzo:",
+        "error": "Si sono verificati uno o più errori durante il recupero delle tariffe di spedizione:"
+      }
     },
     "collection_template": {
       "empty": "Nessun prodotto trovato",
@@ -231,10 +250,11 @@
       "load_more": "Carica di più"
     },
     "signup": {
-      "enter_your_email": "Inserisci il tuo indirizzo email"
+      "enter_your_email": "Inserisci il tuo indirizzo email",
+      "i_agree": "Accetto di ricevere e-mail di marketing e offerte speciali"
     },
-		"countdown_banner": {
-			"days": "Giorni",
+    "countdown_banner": {
+      "days": "Giorni",
       "hours": "Ore",
       "minutes": "Minuti",
       "seconds": "Secondi"
@@ -258,9 +278,9 @@
     "shop_the_look": {
       "view_product": "Visualizza prodotto"
     },
-		"more_from_vendor": {
-			"more_from_html": "Altro da {{ vendor }}"
-		}
+    "more_from_vendor": {
+      "more_from_html": "Altro da {{ vendor }}"
+    }
   },
   "localization": {
     "country_label": "Paese/Area geografica",
@@ -285,7 +305,8 @@
       "submit_register": "Crea account",
       "already_have_an_account": "Hai già un account?",
       "submit": "Invia",
-      "cancel": "Annulla"
+      "cancel": "Annulla",
+      "alternate_provider_separator": "oppure"
     },
     "recover_password": {
       "title": "Reimposta la password",
@@ -341,7 +362,7 @@
       "total": "Totale",
       "none": "Non hai ancora effettuato ordini."
     },
-		"activate_account": {
+    "activate_account": {
       "title": "Attiva l'account",
       "subtext": "Crea una password per attivare il tuo account.",
       "password": "Password",
@@ -409,7 +430,9 @@
       "name": "Nome",
       "message_label": "Messaggio (facoltativo)",
       "message": "Messaggio",
-      "max_characters": "Massimo {{ max_chars }} caratteri"
+      "max_characters": "Massimo {{ max_chars }} caratteri",
+      "send_on": "AAAA-MM-GG",
+      "send_on_label": "Spedisci il giorno (opzionale)"
     }
   }
 }

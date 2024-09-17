@@ -39,7 +39,7 @@
 					{% assign small_width = bg_image.src.height | times: '375' | divided_by: bg_image.src.width %}
 					{% assign master_width = bg_image.src.width | append: 'x' | append: bg_image.src.height %}
 					{% assign width = '375x' | append: small_width | append: ',' | append: master_width %}
-					{%- render 'responsive-image', image: bg_image, sizes: width -%}
+					{%- render 'responsive-image', image: bg_image, sizes: width, priority: 'high' -%}
 				</div>
 				{% endif %}
 				<div class="page-header__inner">

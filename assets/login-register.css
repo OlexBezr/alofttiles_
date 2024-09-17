@@ -63,7 +63,7 @@ Utilities
     font-size: 0.8125rem;
     text-align: center;
     margin-top: 20px;
-    font-weight: 500;
+    font-weight: var(--font-body-medium-weight, 500);
     text-decoration: underline;
     text-underline-offset: 3px; }
   .thb-form-container .button {
@@ -100,3 +100,8 @@ Utilities
   @media only screen and (min-width: 768px) {
     .account-activate-buttons {
       flex-direction: row; } }
+
+.sign-in-with-shop-provider {
+  text-align: center; }
+  .sign-in-with-shop-provider p {
+    margin-bottom: 10px; }

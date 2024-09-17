@@ -40,4 +40,5 @@ Utilities
     color: var(--bg-body, #fff); }
   .page-numbers .current {
     border-color: var(--color-accent2);
-    color: var(--color-accent2); }
+    background: var(--color-accent2);
+    color: var(--bg-body, #fff); }

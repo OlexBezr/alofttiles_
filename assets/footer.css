@@ -35,7 +35,7 @@ Utilities
   .footer .thb-widget-title {
     font-size: 0.875rem;
     letter-spacing: 0.1em;
-    font-weight: 500;
+    font-weight: var(--font-body-medium-weight, 500);
     margin-bottom: 20px;
     line-height: 1; }
   .footer .social-links svg path {
@@ -133,10 +133,20 @@ Utilities
       height: 32px;
       padding: 0 22px 0 12px;
       color: inherit;
-      border: 1px solid rgba(var(--color-footer-border-rgb, --color-accent-rgb), 0.4); }
+      border: 1px solid rgba(var(--color-footer-border-rgb, --color-accent-rgb), 0.4);
+      background: var(--color-footer-bg, var(--color-accent3)); }
+      .sub-footer .thb-localization-forms select option {
+        background: var(--color-footer-bg, var(--color-accent3));
+        color: var(--color-announcement-bar-text, var(--color-accent3)); }
 
-[dir="rtl"] .footer--follow-on-shop {
-  text-align: left; }
+.footer--follow-on-shop {
+  text-align: center;
+  margin-top: 10px; }
+  @media only screen and (min-width: 768px) {
+    .footer--follow-on-shop {
+      text-align: right; }
+      [dir="rtl"] .footer--follow-on-shop {
+        text-align: left; } }
 
 .footer-payment-icons {
   text-align: center; }
@@ -190,6 +200,13 @@ Utilities
       left: 0; }
       [dir="rtl"] .signup-container button svg {
         transform: rotateZ(180deg); }
+  .signup-container--terms {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px; }
+    .signup-container--terms input {
+      width: auto;
+      margin-right: 8px; }
 
 .social-links {
   list-style: none;

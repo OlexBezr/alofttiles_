@@ -3,15 +3,11 @@
  *  @function SlideShow
  */
 
-class SlideShow {
-  constructor() {
-    let _this = this,
-      slideshows = document.querySelectorAll('.carousel');
-
-    if (!slideshows) {
-      return;
-    }
-    slideshows.forEach((slideshow) => {
+if (!customElements.get('slide-show')) {
+  class SlideShow extends HTMLElement {
+    constructor() {
+      super();
+      const slideshow = this;
 
       let dots = slideshow.dataset.dots === 'true',
         slideshow_slides = Array.from(slideshow.querySelectorAll('.carousel__slide')),
@@ -109,16 +105,16 @@ class SlideShow {
           args.adaptiveHeight = true;
         }
         if (document.body.classList.contains('animations-true') && typeof gsap !== 'undefined') {
-          _this.prepareAnimations(slideshow, animations);
+          slideshow.prepareAnimations(slideshow, animations);
           args.on = {
             ready: function () {
-              _this.animateSlides(0, slideshow, animations);
+              slideshow.animateSlides(0, slideshow, animations);
             },
             change: function (index) {
               let previousIndex = fizzyUIUtils.modulo(this.selectedIndex - 1, this.slides.length);
 
-              _this.animateReverse(previousIndex, slideshow, animations);
-              _this.animateSlides(index, slideshow, animations);
+              slideshow.animateReverse(previousIndex, animations);
+              slideshow.animateSlides(index, slideshow, animations);
             }
           };
         }
@@ -129,7 +125,7 @@ class SlideShow {
           ready: function () {
             var flickity = this;
             window.addEventListener('resize.center_arrows', function () {
-              _this.centerArrows(flickity, slideshow, prev_button, next_button);
+              slideshow.centerArrows(flickity, prev_button, next_button);
             });
             window.dispatchEvent(new Event('resize.center_arrows'));
           }
@@ -161,112 +157,110 @@ class SlideShow {
           flkty.select(index);
         });
       }
-    });
 
-  }
-  prepareAnimations(slideshow, animations) {
-    if (!slideshow.dataset.animationsReady) {
+    }
+    prepareAnimations(slideshow, animations) {
+      if (!slideshow.dataset.animationsReady) {
+        document.fonts.ready.then(function () {
+          new SplitText(slideshow.querySelectorAll('h1, p:not(.subheading)'), {
+            type: 'lines, words',
+            linesClass: 'line-child'
+          });
+          slideshow.querySelectorAll('.slideshow__slide').forEach((item, i) => {
+            let tl = gsap.timeline({
+              paused: true
+            }),
+              button_offset = 0;
+
+
+            animations[i] = tl;
+
+            tl
+              .to(item.querySelector('.slideshow__slide-content'), {
+                duration: 0,
+                autoAlpha: 1
+              });
+            if (item.querySelector('.subheading')) {
+              tl
+                .fromTo(item.querySelector('.subheading'), {
+                  opacity: 0
+                }, {
+                  duration: 0.5,
+                  opacity: 0.6
+                }, 0);
+
+              button_offset += 0.5;
+            }
+            if (item.querySelector('h1')) {
+              let h1_duration = 0.5 + ((item.querySelectorAll('h1 .line-child div').length - 1) * 0.05);
+              tl
+                .from(item.querySelectorAll('h1 .line-child div'), {
+                  duration: h1_duration,
+                  yPercent: '100',
+                  stagger: 0.05
+                }, 0);
+              button_offset += h1_duration;
+            }
+            if (item.querySelector('p:not(.subheading)')) {
+
+              let p_duration = 0.5 + ((item.querySelectorAll('p:not(.subheading) .line-child div').length - 1) * 0.02);
+              tl
+                .from(item.querySelectorAll('p:not(.subheading) .line-child div'), {
+                  duration: p_duration,
+                  yPercent: '100',
+                  stagger: 0.02
+                }, 0);
+              button_offset += p_duration;
+            }
+            if (item.querySelectorAll('.button')) {
+              tl
+                .fromTo(item.querySelectorAll('.button'), {
+                  opacity: 0
+                }, {
+                  duration: 0.5,
+                  opacity: 1,
+                  stagger: 0.05
+                }, '-=0.4');
+            }
+            item.dataset.timeline = tl;
+          });
+        });
+        slideshow.dataset.animationsReady = true;
+      }
+    }
+    animateSlides(i, slideshow, animations) {
+      let flkty = Flickity.data(slideshow),
+        active_slide = flkty.selectedElement;
       document.fonts.ready.then(function () {
-        new SplitText(slideshow.querySelectorAll('h1, p:not(.subheading)'), {
-          type: 'lines, words',
-          linesClass: 'line-child'
-        });
-        slideshow.querySelectorAll('.slideshow__slide').forEach((item, i) => {
-          let tl = gsap.timeline({
-            paused: true
-          }),
-            button_offset = 0;
-
-
-          animations[i] = tl;
-
-          tl
-            .to(item.querySelector('.slideshow__slide-content'), {
-              duration: 0,
-              autoAlpha: 1
-            });
-          if (item.querySelector('.subheading')) {
-            tl
-              .fromTo(item.querySelector('.subheading'), {
-                opacity: 0
-              }, {
-                duration: 0.5,
-                opacity: 0.6
-              }, 0);
-
-            button_offset += 0.5;
-          }
-          if (item.querySelector('h1')) {
-            let h1_duration = 0.5 + ((item.querySelectorAll('h1 .line-child div').length - 1) * 0.05);
-            tl
-              .from(item.querySelectorAll('h1 .line-child div'), {
-                duration: h1_duration,
-                yPercent: '100',
-                stagger: 0.05
-              }, 0);
-            button_offset += h1_duration;
-          }
-          if (item.querySelector('p:not(.subheading)')) {
-
-            let p_duration = 0.5 + ((item.querySelectorAll('p:not(.subheading) .line-child div').length - 1) * 0.02);
-            tl
-              .from(item.querySelectorAll('p:not(.subheading) .line-child div'), {
-                duration: p_duration,
-                yPercent: '100',
-                stagger: 0.02
-              }, 0);
-            button_offset += p_duration;
-          }
-          if (item.querySelectorAll('.button')) {
-            tl
-              .fromTo(item.querySelectorAll('.button'), {
-                opacity: 0
-              }, {
-                duration: 0.5,
-                opacity: 1,
-                stagger: 0.05
-              }, '-=0.4');
-          }
-          item.dataset.timeline = tl;
-        });
+        animations[i].restart();
       });
-      slideshow.dataset.animationsReady = true;
     }
-  }
-  animateSlides(i, slideshow, animations) {
-    let flkty = Flickity.data(slideshow),
-      active_slide = flkty.selectedElement;
-    document.fonts.ready.then(function () {
-      animations[i].restart();
-    });
-  }
-  animateReverse(i, slideshow, animations) {
-    animations[i].reverse();
-  }
-  centerArrows(flickity, slideshow, prev_button, next_button) {
-    let first_cell = flickity.cells[0],
-      max_height = 0,
+    animateReverse(i, animations) {
+      animations[i].reverse();
+    }
+    centerArrows(flickity, prev_button, next_button) {
+      let first_cell = flickity.cells[0],
+        max_height = 0,
 
-      image_height = first_cell.element.querySelector('.product-featured-image').clientHeight;
+        image_height = first_cell.element.querySelector('.product-featured-image').clientHeight;
 
-    flickity.cells.forEach((item, i) => {
-      if (item.size.height > max_height) {
-        max_height = item.size.height;
-      }
-    });
+      flickity.cells.forEach((item, i) => {
+        if (item.size.height > max_height) {
+          max_height = item.size.height;
+        }
+      });
 
-    if (max_height > image_height) {
-      let difference = (max_height - image_height) / -2;
+      if (max_height > image_height) {
+        let difference = (max_height - image_height) / -2;
 
-      if (prev_button) {
-        prev_button.style.transform = 'translateY(' + difference + 'px)';
-      }
-      if (next_button) {
-        next_button.style.transform = 'translateY(' + difference + 'px)';
+        if (prev_button) {
+          prev_button.style.transform = 'translateY(' + difference + 'px)';
+        }
+        if (next_button) {
+          next_button.style.transform = 'translateY(' + difference + 'px)';
+        }
       }
     }
   }
-}
-if (typeof SlideShow !== 'undefined') {
-  new SlideShow();
+  customElements.define('slide-show', SlideShow);
 }

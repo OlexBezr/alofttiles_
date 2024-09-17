@@ -26,7 +26,36 @@
 		}
 	{% endstyle %}
 </theme-header>
-
+<div class="thb-quick-search no-js-hidden" tabindex="-1">
+	<div class="thb-quick-search--form">
+		<form role="search" method="get" class="searchform" action="{{ routes.search_url }}">
+			<fieldset>
+				<input type="search" class="search-field" placeholder="{{ 'sections.header.search_for' | t | escape }}" value="{{ search.terms | replace: '*', '' }}" name="q" autocomplete="off">
+				<div class="thb-search-close">{%- render 'svg-icons' with 'search-close' -%}</div>
+			</fieldset>
+		</form>
+	</div>
+	{%- if section.settings.predictive_search_enabled -%}
+	<div class="thb-quick-search--results-container">
+		<div class="thb-quick-search--results"></div>
+		<span class="loading-overlay">
+			{%- render 'svg-icons' with 'thb-loading' -%}
+		</span>
+	</div>
+	{%- endif -%}
+	{%- if section.settings.search_menu != blank -%}
+	<div class="thb-quick-search--popular">
+		<span class="thb-quick-search--label">{{ 'sections.header.popular_searches' | t }}</span>
+		<scroll-shadow>
+			<div>
+				{%- for link in section.settings.search_menu.links -%}
+				<a href="{{ link.url }}" title="{{ link.title | escape }}" class="button small outline pill">{{ link.title }}</a>
+				{%- endfor -%}
+			</div>
+		</scroll-shadow>
+	</div>
+	{%- endif -%}
+</div>
 {{- 'header.js' | asset_url | script_tag -}}
 <script type="application/ld+json">
   {
@@ -327,7 +356,82 @@
 					"label": "Promotion link"
 				}
 			]
-		}
+		},
+    {
+      "type": "menu_badge",
+      "name": "Menu badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "badge_position",
+          "label": "Badge position in main menu",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Item 1"
+            },
+            {
+              "value": "2",
+              "label": "Item 2"
+            },
+            {
+              "value": "3",
+              "label": "Item 3"
+            },
+            {
+              "value": "4",
+              "label": "Item 4"
+            },
+            {
+              "value": "5",
+              "label": "Item 5"
+            },
+            {
+              "value": "6",
+              "label": "Item 6"
+            },
+            {
+              "value": "7",
+              "label": "Item 7"
+            },
+            {
+              "value": "8",
+              "label": "Item 8"
+            },
+            {
+              "value": "9",
+              "label": "Item 9"
+            },
+            {
+              "value": "10",
+              "label": "Item 10"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "color_bg",
+          "label": "Background",
+          "default": "#D3ECE2"
+        },
+        {
+          "type": "color",
+          "id": "color_text",
+          "label": "Text",
+          "default": "#272422"
+        }
+      ]
+    }
 	]
 }
 {% endschema %}

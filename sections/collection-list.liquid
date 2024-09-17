@@ -14,7 +14,9 @@
 	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
 	assign is_carousel = false
 
+	assign tag = 'div'
 	if collection_layout == 'carousel'
+		assign tag = 'slide-show'
 		assign is_carousel = true
 		assign carousel_class = 'carousel'
 	endif
@@ -23,7 +25,7 @@
 	{% render 'section-header', section_heading: section_heading, section_description: section_description %}
 	<div class="row {{ content_alignment }}" style="--var-collection-list-columns:{{ columns_desktop }}">
 	  <div class="small-12 columns">
-			<div class="collection-grid collection-grid__{{ collection_layout }} {{ carousel_class }}{% if mobile_swipe %} swipe-on-mobile{% endif %}" data-dots="{{ carousel_dots }}">
+			<{{ tag }} class="collection-grid collection-grid__{{ collection_layout }} {{ carousel_class }}{% if mobile_swipe %} swipe-on-mobile{% endif %}" data-dots="{{ carousel_dots }}">
 				{% if collections.count > 0 %}
 					{% for collection in collections %}
 						{% render 'collection-card', grid_collection: collection, media_aspect_ratio: section.settings.image_ratio, style: style, layout: collection_layout, index: forloop.index, is_carousel: is_carousel, columns_desktop: columns_desktop, collection_description: collection_description %}
@@ -33,7 +35,7 @@
 						{% render 'collection-card', grid_collection: empty, media_aspect_ratio: section.settings.image_ratio, style: style, layout: collection_layout, index: forloop.index, is_carousel: is_carousel, columns_desktop: columns_desktop, collection_description: collection_description %}
 					{% endfor %}
 				{% endif %}
-			</div>
+			</{{ tag }}>
 		</div>
 	</div>
 </div>
@@ -41,6 +43,7 @@
 {% schema %}
   {
     "name": "Collection list",
+  	"class": "section-collection-list",
     "settings": [
       {
         "type": "text",

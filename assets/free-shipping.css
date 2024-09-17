@@ -16,7 +16,7 @@ Utilities
   line-height: 1.2;
   text-align: center;
   margin-bottom: 28px;
-  font-weight: 500; }
+  font-weight: var(--font-body-medium-weight, 500); }
   .free-shipping--text {
     margin-bottom: 10px; }
     .free-shipping--text-remaining {

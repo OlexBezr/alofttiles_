@@ -61,7 +61,7 @@ Utilities
     display: inline-flex;
     font-size: 0.6875rem;
     line-height: 1;
-    font-weight: 600;
+    font-weight: var(--font-body-bold-weight, 600);
     text-transform: uppercase;
     letter-spacing: 0.2em;
     padding-bottom: 14px;

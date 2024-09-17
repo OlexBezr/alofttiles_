@@ -2,7 +2,6 @@
  *  @class
  *  @function Cart
  */
-
 class Cart {
 
   constructor() {
@@ -29,23 +28,16 @@ class Cart {
     });
   }
   setupEventListeners() {
-    let removes = this.container.querySelectorAll('.remove');
-
-
-    removes.forEach((remove) => {
-      remove.addEventListener('click', (event) => {
-
-        this.updateQuantity(event.target.dataset.index, '0');
-
-        event.preventDefault();
-      });
-    });
+    this.removeProductEvent();
 
     this.debouncedOnChange = debounce((event) => {
       this.onChange(event);
     }, 300);
-   
-    
+
+    document.addEventListener('cart:refresh', (event) => {
+      this.refresh();
+    });
+
     this.container.addEventListener('change', this.debouncedOnChange.bind(this));
 
     this.termsCheckbox();
@@ -81,28 +73,28 @@ class Cart {
     if (line) {
       this.container.querySelector(`#CartItem-${line}`).classList.add('loading');
     }
-    return;
+
     const body = JSON.stringify({
       line,
       quantity,
       sections: this.getSectionsToRender().map((section) => section.section),
       sections_url: window.location.pathname
     });
-    console.log(body)
+
     dispatchCustomEvent('line-item:change:start', {
       quantity: quantity
     });
 
     fetch(`${theme.routes.cart_change_url}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': `application/json`
-        },
-        ...{
-          body
-        }
-      })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': `application/json`
+      },
+      ...{
+        body
+      }
+    })
       .then((response) => {
         return response.text();
       })
@@ -125,6 +117,30 @@ class Cart {
         });
       });
   }
+  refresh() {
+    this.container.classList.add('cart-disabled');
+
+    let sections = 'main-cart';
+
+    fetch(`${window.location.pathname}?sections=${sections}`)
+      .then((response) => {
+        return response.text();
+      })
+      .then((state) => {
+        const parsedState = JSON.parse(state);
+
+
+        if (parsedState.errors) {
+          this.displayErrors(line, parsedState.errors);
+          this.container.classList.remove('cart-disabled');
+          return;
+        }
+
+        this.renderContents(parsedState, false, true);
+
+        this.container.classList.remove('cart-disabled');
+      });
+  }
   termsCheckbox() {
     let terms_checkbox = this.container.querySelector('#CartTerms'),
       checkout_button = this.container.querySelector('.button.checkout-button');
@@ -132,7 +148,7 @@ class Cart {
 
     if (terms_checkbox && checkout_button) {
       terms_checkbox.setCustomValidity(theme.strings.requiresTerms);
-      checkout_button.addEventListener('click', function(e) {
+      checkout_button.addEventListener('click', function (e) {
         if (!terms_checkbox.checked) {
           terms_checkbox.reportValidity();
           terms_checkbox.focus();
@@ -141,16 +157,34 @@ class Cart {
       });
     }
   }
-  renderContents(parsedState, line) {
+  removeProductEvent() {
+    let removes = this.container.querySelectorAll('.remove');
+
+    removes.forEach((remove) => {
+      remove.addEventListener('click', (event) => {
+        this.updateQuantity(event.target.dataset.index, '0');
+
+        event.preventDefault();
+      });
+    });
+  }
+  renderContents(parsedState, line, refresh) {
     this.getSectionsToRender().forEach((section => {
       const elementToReplace = document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
 
-      elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
+      if (refresh) {
+        if (parsedState[section.section]) {
+          elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState[section.section], section.selector);
+        }
+      } else {
+        elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
+      }
 
-      this.setupEventListeners();
+      this.removeProductEvent();
       if (line && this.container.querySelector(`#CartItem-${line}`)) {
         this.container.querySelector(`#CartItem-${line}`).classList.remove('loading');
       }
+      this.termsCheckbox();
     }));
   }
 }

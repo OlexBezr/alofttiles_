@@ -45,29 +45,28 @@
 			</collection-tabs>
 		</scroll-shadow>
 	</div>
-	<ul id="product-grid-{{ section.id }}" data-id="{{ section.id }}" class="products carousel row small-up-2 medium-up-{{ columns_desktop }}{% if full_width %} full-width-row{% endif %}">
+	<slide-show id="product-grid-{{ section.id }}" data-id="{{ section.id }}" class="products carousel row small-up-2 medium-up-{{ columns_desktop }}{% if full_width %} full-width-row{% endif %}">
 		{% for block in section.blocks %}
 			{% assign mainloop = forloop %}
 			{% if block.settings.collection != blank %}
 				{%- for product in block.settings.collection.products limit: product_limit -%}
-					<li class="{{ columns_class }} columns{% if mainloop.first == true %} carousel__slide{% endif %}" data-collection="{{ block.settings.collection.handle }}">
+					<div class="{{ columns_class }} columns{% if mainloop.first == true %} carousel__slide{% endif %}" data-collection="{{ block.settings.collection.handle }}">
 						{% render 'product-card', product_card_product: product %}
-					</li>
+					</div>
 				{%- endfor -%}
 			{% else %}
 				{%- for i in (1..product_limit) -%}
-				<li class="{{ columns_class }} columns{% if mainloop.first == true %} carousel__slide{% endif %}" data-collection="collection-{{ block.id }}">
-					{% render 'product-card' %}
-				</li>
+				<div class="{{ columns_class }} columns{% if mainloop.first == true %} carousel__slide{% endif %}" data-collection="collection-{{ block.id }}">
+					{% render 'product-card', index: forloop.index %}
+				</div>
 				{%- endfor -%}
 			{% endif %}
 		{%- endfor -%}
 
 		{%- if product_limit > columns_desktop -%}
-		<div class="flickity-nav flickity-prev" tabindex="0">{% render 'svg-icons' with 'carousel-prev' %}</div>
-		<div class="flickity-nav flickity-next" tabindex="0">{% render 'svg-icons' with 'carousel-next' %}</div>
+		{%- render 'slideshow-arrows' -%}
 		{%- endif -%}
-	</ul>
+	</slide-show>
 </div>
 {{- 'collection-tabs.js' | asset_url | script_tag -}}
 {% schema %}

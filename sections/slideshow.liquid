@@ -34,11 +34,23 @@
 		else
 			assign mobile_image_height = 500
 	endcase
+
+	assign preload = false
+
+	if section.index == 1
+		assign preload = true
+	endif
 -%}
 <div class="row{% if full_width %} full-width-row{% endif %}">
 	<div class="small-12 columns">
-		<div class="slideshow main-slideshow carousel text-{{ text_alignment }} content-size-{{ content_size }} {{ mobile_height }} {{ desktop_height }} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}" data-dots="{{ dots }}" data-autoplay="{{ autoplay }}" data-fade="{{ fade }}" style="--overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }}">
-			{% for block in section.blocks %}
+		<slide-show class="slideshow main-slideshow carousel text-{{ text_alignment }} content-size-{{ content_size }} {{ mobile_height }} {{ desktop_height }} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}" data-dots="{{ dots }}" data-autoplay="{{ autoplay }}" data-fade="{{ fade }}" style="--overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }}">
+			{%- for block in section.blocks -%}
+				{%- liquid
+					assign priority = false
+					if forloop.index == 1 and preload
+						assign priority = 'high'
+					endif
+				-%}
 				<div class="slideshow__slide carousel__slide {{ mobile_height }} {{ desktop_height }}" {{ block.shopify_attributes }}>
 					{%- if desktop_height == 'desktop-height-image' or mobile_height == 'mobile-height-image' -%}
 						<div class="slideshow__slide-adapt-to-image">
@@ -56,7 +68,7 @@
 								 <img src="{{ image | image_url }}" class="{{ class }}" width="{{ image.src.width }}" height="{{ image.src.height }}" alt="{{ image.alt }}" />
 							{%- else -%}
 								{%- assign index = forloop.index | modulo: 2 | plus: 1 -%}
-								{{ 'lifestyle-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
+								{{ 'hero-apparel-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
 							{%- endif -%}
 							{%- if block.settings.mobile_image -%}
 								{%- liquid
@@ -80,10 +92,10 @@
 									assign class = 'slideshow-image--desktop'
 								endif
 							 -%}
-							{%- render 'responsive-image', image: image, sizes: width, class: class -%}
+							{%- render 'responsive-image', image: image, sizes: width, class: class, priority: priority -%}
 						{%- else -%}
 							{%- assign index = forloop.index | modulo: 2 | plus: 1 -%}
-							{{ 'lifestyle-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
+							{{ 'hero-apparel-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
 						{%- endif -%}
 						{%- if block.settings.mobile_image -%}
 							{%- liquid
@@ -91,7 +103,7 @@
 								assign master_width = image.src.width | append: 'x' | append: image.src.height
 								assign width = '375x' | append: mobile_image_height | append: ',' | append: master_width
 							 -%}
-							{%- render 'responsive-image', image: image, sizes: width, class: 'slideshow-image--mobile' -%}
+							{%- render 'responsive-image', image: image, sizes: width, class: 'slideshow-image--mobile', priority: priority -%}
 						{%- endif -%}
 					</div>
 					<div class="slideshow__slide-inner content-{{ content_position }}">
@@ -114,13 +126,13 @@
 				        {% endif %}
 							</div>
 							{% if block.settings.slide_link != blank %}
-							<a href="{{ block.settings.slide_link }}" class="slideshow__slide-content-link" target="_self" tabindex="-1"></a>
+							<a href="{{ block.settings.slide_link }}" class="slideshow__slide-content-link" target="_blank" tabindex="-1"></a>
 							{% endif %}
 						</div>
 					</div>
 				</div>
-			{% endfor %}
-		</div>
+			{%- endfor -%}
+		</slide-show>
 	</div>
 </div>
 {% schema %}

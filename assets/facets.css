@@ -4,7 +4,7 @@ Compass Mixins
 /*------------------------------------------------------------------
 Variables
 */
-.thb-filter ul.list-color label:after {
+.active-facets__button--color:before, .thb-filter ul.list-color label:after {
   transition: all 0.25s cubic-bezier(0.104, 0.204, 0.492, 1); }
 
 /*------------------------------------------------------------------
@@ -15,12 +15,12 @@ Utilities
   grid-template-columns: max-content 1fr;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
+  margin-bottom: 20px;
   padding: 13px 15px;
   font-size: 0.8125rem;
   background: var(--bg-body, #fff);
   position: sticky;
-  margin-bottom: 15px;
-  top: 0;
+  top: var(--header-height-mobile, 60px);
   left: 0;
   z-index: 45; }
   @media only screen and (min-width: 768px) {
@@ -81,10 +81,10 @@ Utilities
     letter-spacing: 0.02em;
     position: relative;
     font-size: 0.9375rem;
-    padding: 15px 18px 15px 0;
+    padding: 15px 15px 15px 0;
     cursor: pointer; }
     [dir="rtl"] .facets .thb-filter .thb-filter-title {
-      padding: 15px 0 15px 18px; }
+      padding: 15px 0 15px 15px; }
     .facets .thb-filter .thb-filter-title:after {
       content: "";
       display: inline-flex;
@@ -136,7 +136,7 @@ Utilities
       width: 100%; }
     .facets .thb-filter-dropdown__inner {
       padding: 24px;
-      overflow-y: scroll;
+      overflow-y: auto;
       max-height: 250px; }
       .facets .thb-filter-dropdown__inner .count {
         font-size: 0.8125rem; }
@@ -302,7 +302,7 @@ Utilities
     grid-template-rows: auto 1fr auto;
     height: 100vh; }
   .facet-drawer .side-panel-content {
-    overflow-y: scroll; }
+    overflow-y: auto; }
   .facet-drawer .side-panel-footer {
     border-top: 1px solid var(--color-border);
     display: grid;
@@ -320,7 +320,7 @@ Utilities
       font-size: 0.875rem;
       line-height: 1;
       margin-bottom: 20px;
-      font-weight: 600;
+      font-weight: var(--font-body-bold-weight, 600);
       letter-spacing: 0.1em;
       text-transform: uppercase; }
     .facet-drawer .thb-filter ul {
@@ -370,8 +370,27 @@ Utilities
       color: #fff; }
       .active-facets__button:hover svg path {
         fill: #fff; }
+    .active-facets__button--color {
+      position: relative;
+      padding-left: 34px; }
+      .active-facets__button--color:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 9px;
+        right: 0;
+        bottom: 0;
+        margin-top: -8px;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-size: cover;
+        background-color: var(--bg-color, "black");
+        background-image: var(--option-color-image); }
   .active-facets__button-remove {
-    font-weight: 600;
+    font-weight: var(--font-body-bold-weight, 600);
     margin-left: 9px;
     letter-spacing: 0.02em;
     text-decoration: underline;
@@ -399,8 +418,9 @@ Utilities
   .thb-filter ul.list-color label:before {
     content: "";
     display: block;
-    background: #000;
-    background: var(--bg-color, "black");
+    background-color: var(--bg-color, "black");
+    background-image: var(--option-color-image);
+    background-size: cover;
     border-radius: 50%;
     width: 18px;
     height: 18px;

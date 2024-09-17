@@ -67,7 +67,7 @@ Utilities
       margin-bottom: 10px; }
       .commentlist .comment .comment-author .fn {
         display: inline-block;
-        font-weight: 500;
+        font-weight: var(--font-body-medium-weight, 500);
         font-style: normal;
         font-size: inherit;
         color: inherit; }

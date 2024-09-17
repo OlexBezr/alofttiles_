@@ -34,7 +34,15 @@
 					</div>
 					<div class="small-12 medium-6 columns">
 						<div class="field">
-							<input type="email" id="ContactFormEmail" name="contact[email]" class="full" placeholder="{{ 'contact.form.email' | t | escape }}" required>
+							<input
+								type="email"
+								id="ContactFormEmail"
+								name="contact[email]"
+								class="full"
+								pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$"
+								placeholder="{{ 'contact.form.email' | t | escape }}"
+								required
+								>
 							<label for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
 						</div>
 					</div>
@@ -79,7 +87,7 @@
 							<div class="small-12 columns">
 								<div class="field select">
 									<select class="full" name="contact[{{ field_title | escape }}]" title="{{ block.settings.title | escape }}" required>
-										
+										<option value="" disabled selected>{{ block.settings.title | escape }}</option>
 										{%- for value in values -%}
 											{%- assign trim_value = value | strip -%}
 											<option value="{{ trim_value | escape }}">{{ trim_value | escape }}</option>
@@ -101,8 +109,6 @@
 						<input type="submit" value="{{ 'contact.form.send' | t }}" class="button full">
 					</div>
 				</div>
-          {% if form.posted_successfully? %} <script> window.location = "/pages/thank-you"; </script> 
- {% endif %} 
 			{% endform %}
 		</div>
 		{%- if text_blocks.size > 0 -%}
@@ -125,6 +131,7 @@
 {% schema %}
   {
     "name": "Contact form",
+  	"class": "section-contact-form",
 		"settings": [
 			{
 				"type": "text",

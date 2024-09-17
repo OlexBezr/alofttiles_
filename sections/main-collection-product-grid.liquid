@@ -1,8 +1,5 @@
 {{- 'product-grid.css' | asset_url | stylesheet_tag -}}
 {{- 'facets.css' | asset_url | stylesheet_tag -}}
-{{ 'sample-button.js' | asset_url | script_tag }}
-
-
 {%- liquid
 	assign full_width = section.settings.full_width
 	assign enable_filtering = section.settings.enable_filtering
@@ -12,28 +9,11 @@
 	assign pagination_type = section.settings.pagination_type
 	assign products_per_page = section.settings.products_per_page
 	assign columns_desktop = section.settings.columns_desktop
-
 -%}
-{% assign banner_handle_id = 1 %}
-
-{% assign collection_name = collection.title | replace: ' ', '-' | replace: ':', '' | replace: ',', '' | replace: '&-', '' | downcase %}
-{% assign banner_handle = "banner-" | append: collection_name | append: '-'| append: banner_handle_id %}
-{% if shop.metaobjects.product_banners[banner_handle].skip_product_lines %}
-  {% assign skip_product_lines = shop.metaobjects.product_banners[banner_handle].skip_product_lines %}
-{% else %}
-  {% assign skip_product_lines = 0 %}
-{% endif %}
-{% if shop.metaobjects.product_banners[banner_handle].start_on_first_line == true %}
-  {% assign start_on_first_line = true %}
-{% else %}
-  {% assign start_on_first_line = false %}
-{% endif %}
-
 {%- paginate collection.products by products_per_page -%}
 	<div class="collection-container section-spacing-bottom collection-container--full-width-{{ full_width }}">
 		{% render 'facets', results: collection, enable_filtering: enable_filtering, enable_sorting: enable_sorting, show_counts: show_counts, filter_color_swatches: filter_color_swatches %}
 		<div id="ProductGridContainer">
-          
 			{%- if collection.products.size == 0 -%}
 				<div class="row">
 					<div class="small-12 columns">
@@ -54,33 +34,6 @@
 						<li class="column">
 							{% render 'product-card', product_card_product: product %}
 						</li>
-                        
-                   
-                      {% assign product_count = forloop.index | modulo: 6 %}
-                       {% if product_count == 0 or product_count == 2 and start_on_first_line %}
-                           {% assign start_on_first_line = false %}
-                            {% if skip_product_lines != 0 %}
-                              {% assign skip_product_lines = skip_product_lines | minus: 1 %}
-                              {% continue %}
-                            {% endif %}
-                           {% assign banner_handle = "banner-" | append: collection_name | append: '-'| append: banner_handle_id %}
-                           {% assign banner = shop.metaobjects.product_banners[banner_handle] %}
-                           {% if banner %}
-                              <li class="column-2">
-                                 <a href="{{ banner.banner_link }}" class="products-banner">
-                                    <div class="products-banner__background">
-                                     <img src="{{ banner.background | image_url }}">
-                                     <div class="products-banner__background_filter"></div>
-                                    </div>
-                                    <div class="products-banner__content">
-                                      
-                                      {{ banner.html_content }}
-                                    </div>
-                                 </a>
-                            </li>
-                            {% assign banner_handle_id = banner_handle_id | plus: 1 %}
-                          {% endif %}
-                      {% endif %}
 					{%- endfor -%}
 				</ul>
 				{% render 'pagination', paginate: paginate, pagination_type: pagination_type, id: section.id %}

@@ -177,4 +177,4 @@ Utilities
     line-height: 1.375rem; }
   .shop-the-look .thb-hotspot-product-content a {
     font-size: 0.75rem;
-    font-weight: 500; }
+    font-weight: var(--font-body-medium-weight, 500); }

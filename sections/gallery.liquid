@@ -53,10 +53,10 @@
 										assign button_class = 'text-button white'
 									endif
 								-%}
-								<a class="{{ button_class }}"{% if block.settings.link == self %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.link }}"{% endif %}>{{ block.settings.link_label }}</a>
+								<a class="{{ button_class }}"{% if block.settings.link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.link }}"{% endif %}>{{ block.settings.link_label }}</a>
 							{% endif %}
-							{% if block.settings.block_link != self %}
-							<a href="{{ block.settings.block_link }}" class="gallery__item-content-link" target="_self"></a>
+							{% if block.settings.block_link != blank %}
+							<a href="{{ block.settings.block_link }}" class="gallery__item-content-link" target="_blank"></a>
 							{% endif %}
 						</div>
 					</div>
@@ -69,6 +69,7 @@
 {% schema %}
   {
     "name": "Gallery",
+  	"class": "section-gallery",
     "settings": [
 			{
 				"type": "text",
@@ -86,7 +87,7 @@
 				"type": "range",
 				"id": "columns_desktop",
 				"min": 2,
-				"max": 5,
+				"max": 4,
 				"step": 1,
 				"default": 3,
 				"label": "Number of columns on desktop"

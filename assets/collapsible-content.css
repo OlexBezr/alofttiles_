@@ -30,11 +30,11 @@ Utilities
     width: 100%;
     list-style: none;
     position: relative;
-    font-weight: 600;
-    font-size: 1.8 rem;
-
-    letter-spacing: 0em;
-    line-height: 1.5;
+    font-weight: var(--font-body-bold-weight, 600);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    line-height: 1;
     padding: 18px 40px 18px 0;
     cursor: pointer; }
     [dir="rtl"] .accordion summary {

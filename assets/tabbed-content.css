@@ -55,7 +55,7 @@ Utilities
       margin-right: 30px;
       letter-spacing: 0.02em;
       font-size: 0.9375rem;
-      font-weight: 500;
+      font-weight: var(--font-body-medium-weight, 500);
       padding: 25px 0;
       position: relative;
       z-index: 2; }

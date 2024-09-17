@@ -1,7 +1,7 @@
 <div class="product-cart-item">
 	<div class="product-cart-item-image">
 		{% if product_small.featured_image %}
-			{%- render 'responsive-image', image: product_small.featured_image, sizes: '200x0' -%}
+			{%- render 'responsive-image', image: product_small.featured_image, sizes: '200x0', priority: 'low' -%}
 		{% else %}
 			<div class="thb-placeholder" style="width: 75px; height:75px;">
 				{%-
@@ -23,7 +23,6 @@
 			endif
 		-%}
 		<a href="{{ product_small.url }}" title="{{ product_small.title | escape }}" class="cart-product-link">{{ product_title }}</a>
-		{% render 'product-card-price', product: product_small %}
+		{% render 'product-price', product: product_small %}
 	</div>
-   
 </div>

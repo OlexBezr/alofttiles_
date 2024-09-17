@@ -14,8 +14,11 @@
 					assign parent_index = forloop.index
 					assign has_sub_menu = false
 					assign has_mega_menu = false
+					assign has_menu_badge = false
 					assign mega_menu_block_index = false
 					assign mega_menu_blocks = blocks | where: "type", "megamenu"
+					assign menu_badge_index = false
+					assign menu_badge_blocks = blocks | where: "type", "menu_badge"
 
 					if link.links.size > 0
 						assign has_sub_menu = true
@@ -27,6 +30,14 @@
 							assign mega_menu_block_index = forloop.index0
 						endif
 					endfor
+					for block in menu_badge_blocks
+						assign badge_position = block.settings.badge_position | plus: 0
+			    	if badge_position == parent_index
+							assign has_menu_badge = true
+
+							assign menu_badge_index = forloop.index0
+						endif
+					endfor
 				-%}
 			  <li>
 			    {%- if has_sub_menu == true or has_mega_menu == true -%}
@@ -34,7 +45,10 @@
 							assign mega_menu_block = mega_menu_blocks[mega_menu_block_index]
 						-%}
 						<details class="link-container">
-							<summary class="parent-link">{{ link.title }}<span></span></summary>
+							<summary class="parent-link">{{ link.title }}{%- if has_menu_badge -%}
+								{%- assign menu_badge_block = menu_badge_blocks[menu_badge_index] -%}
+								<span class="menu-item-badge" style="--menu-badge-bg: {{ menu_badge_block.settings.color_bg }};--menu-badge-text: {{ menu_badge_block.settings.color_text }};">{{ menu_badge_block.settings.text }}</span>
+							{%- endif -%}<span class="link-forward"></span></summary>
 							<ul class="sub-menu">
 								{%- if link.links.size > 0 -%}
 					        {%- for l in link.links -%}
@@ -120,7 +134,7 @@
 			    {{ 'sections.header.login' | t }}
 			  {%- endcapture -%}
 			{%- endif -%}
-          
+	    <a class="thb-mobile-account-link" href="{{ profile_link | escape }}" title="{{ profile_text | escape }}">{%- render 'svg-icons' with 'myaccount' %} {{ profile_text }}</a>
 	  {%- endif -%}
 	</div>
 </nav>

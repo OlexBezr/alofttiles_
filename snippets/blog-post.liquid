@@ -46,11 +46,10 @@
 <div class="blog-post {% if use_shapes %}blog-post-shape-{{ index }}{% endif -%}">
 	{% if show_image %}
 	<figure class="featured-image aspect-ratio" style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;">
-		<a href="{{ article.url }}" title="{{ article.title | escape }}">
-			<div class="thb-placeholder">
-				{{ 'image' | placeholder_svg_tag }}
-			</div>
-		</a>
+		<div class="thb-placeholder">
+			{%- assign index = index | modulo: 3 | plus: 1 -%}
+			{{ 'blog-apparel-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
+		</div>
 	</figure>
 	{% endif %}
 	{% if show_date %}
