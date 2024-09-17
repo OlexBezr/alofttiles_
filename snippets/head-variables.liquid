@@ -117,30 +117,24 @@
 		--font-product-title-line-height-scale: {{ settings.product_title_line_height_scale | divided_by: 100.0 }};
 		--button-letter-spacing: {{ settings.button_letter_spacing | divided_by: 1000.0 }}em;
 
-		{%- if color_body_bg -%}
-			--bg-body: {{ color_body_bg }};
-			--bg-body-rgb: {{ color_body_bg | color_extract: 'red' }}, {{ color_body_bg | color_extract: 'green' }}, {{ color_body_bg | color_extract: 'blue' }};
-			--bg-color-side-panel-footer: {{ color_body_bg | color_darken: 2 }};
-		{%- endif -%}
-		{%- if color_accent -%}
-			--color-accent: {{ color_accent }};
-			--color-accent-rgb: {{ color_accent | color_extract: 'red' }}, {{ color_accent | color_extract: 'green' }}, {{ color_accent | color_extract: 'blue' }};
-		{%- endif -%}
-		{%- if color_accent2 -%}
-			--color-accent2: {{ color_accent2 }};
-		{%- endif -%}
-		{%- if color_accent3 -%}
-			--color-accent3: {{ color_accent3 }};
-		{%- endif -%}
-		{%- if color_border -%}
-			--color-border: {{ color_border }};
-		{%- endif -%}
-		{%- if color_overlay -%}
-			--color-overlay-rgb: {{ color_overlay | color_extract: 'red' }}, {{ color_overlay | color_extract: 'green' }}, {{ color_overlay | color_extract: 'blue' }};
-		{%- endif -%}
-		{%- if color_input_border -%}
-			--color-form-border: {{ color_input_border }};
-		{%- endif -%}
+		--bg-body: {{ color_body_bg | default: '#fff' }};
+		--bg-body-rgb: {{ color_body_bg.rgb | default: '255 255 255' | replace: ' ' , ',' }};
+		--bg-color-side-panel-footer: {{ color_body_bg | default: '#fff' | color_darken: 2 }};
+
+		--color-accent: {{ color_accent | default: '#103a3a' }};
+		--color-accent-rgb: {{ color_accent.rgb | default: '16 58 58' | replace: ' ' , ',' }};
+
+		--color-accent2: {{ color_accent2 | default: '#c25b41' }};
+		--color-accent3: {{ color_accent3 | default: '#f6f6f0' }};
+
+		--color-border: {{ color_border | default: '#eeeeee' }};
+		--color-overlay-rgb: {{ color_overlay.rgb | default: '0 0 0' | replace: ' ' , ',' }};
+		--color-form-border: {{ color_input_border | default: '#dedede' }};
+
+		--shopify-accelerated-checkout-button-block-size: 52px;
+		--shopify-accelerated-checkout-inline-alignment: center;
+		--shopify-accelerated-checkout-skeleton-animation-duration: 0.25s;
+		--shopify-accelerated-checkout-button-border-radius: {{ button_border_radius | append: 'px' }};
 
 
 		{%- if color_announcement_bar_text -%}

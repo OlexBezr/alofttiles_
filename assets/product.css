@@ -100,6 +100,7 @@ Add to Cart.
   .shopify-payment-button .shopify-payment-button__more-options {
     text-decoration: none;
     margin: 1em auto 0;
+    display: inline-block;
     width: auto;
     font-size: 0.9375rem; }
     .shopify-payment-button .shopify-payment-button__more-options:hover:not([disabled]) {

@@ -2,6 +2,7 @@
  *  @class
  *  @function Cart
  */
+
 class Cart {
 
   constructor() {
@@ -80,7 +81,7 @@ class Cart {
     if (line) {
       this.container.querySelector(`#CartItem-${line}`).classList.add('loading');
     }
-
+    return;
     const body = JSON.stringify({
       line,
       quantity,

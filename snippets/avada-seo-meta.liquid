@@ -1,7 +1,661 @@
+{%- assign avada_seo_ovr_collection_ids = "464309223742" -%}
+{%- if request.page_type == 'collection' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- if collection.title contains "Large Format Marble Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Large Format Tile" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Small Format Marble Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Small Format Tile" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if avada_seo_conditions contains 1 -%}
+{%- unless avada_seo_ovr_collection_ids contains collection.id -%}
+{%- capture avada_seo_meta_title -%}{{ collection.title }} – Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}Shop our {{ collection.title }} designs add a touch of design for any home or commercial space ✓ Free Shipping for big orders ✓ Check Price and Buy Online {%- endcapture -%}
+{%- endunless -%}
+{%- endif -%}
+{%- endif -%}
+{%- if request.page_type == 'collection' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- if collection.title contains "New arrivals" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Best Sellers" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if avada_seo_conditions contains 1 -%}
+{%- unless avada_seo_ovr_collection_ids contains collection.id -%}
+{%- capture avada_seo_meta_title -%}{{ collection.title }} – Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}{{ collection.title }} at {{ shop.name }}. ✓ Free Shipping for big orders ✓ 10 free samples at month for Pro accounts ✓ Best Offers{%- endcapture -%}
+{%- endunless -%}
+{%- endif -%}
+{%- endif -%}
+{%- if request.page_type == 'collection' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- if collection.title contains "Tile Sample Bundles" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Tile Samples" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Samples" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if avada_seo_conditions contains 1 -%}
+{%- unless avada_seo_ovr_collection_ids contains collection.id -%}
+{%- capture avada_seo_meta_title -%}{{ collection.title }} – Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}⚡️Shop {{ collection.title }} at {{ shop.name }}. Achieve the perfect porcelain tile, ceramic tile, subway tile & mosaic tile samples for a stylish, modern finish{%- endcapture -%}
+{%- endunless -%}
+{%- endif -%}
+{%- endif -%}
+{%- if request.page_type == 'collection' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- if collection.title contains "Agnes" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Alhambra" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Almada" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Avalon" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Azzara" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Bardiglio" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Braga" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Brooklyn" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Calacatta Porcelain & Ceramic Tiles" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Calacatta Bluette" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Calacatta Marble" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Carrara" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Carrara Marble" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Catalina" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Crema Marfil" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Crema Marfil Marble" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Crete" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Elegance" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Estella" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Estzer" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Infinity" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Laurent" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Lemnos" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Lyon" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Madita" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Magdalena" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Malaga" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Marrakech" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Mirabelle" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Modena" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Momentum" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Monteverde" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Nero Marquina" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Nevis" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Orbetello" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Oslo" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Palermo" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Paros" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Prague" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Prato" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Renaissance" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Sakura" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Santorini" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Scandinavia" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Soho" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Thassos" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Tudor" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Urban Edge" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Venice" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Vienna Dreams: Marble Creations" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Waterjet" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Waterjet Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Woodville" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if avada_seo_conditions contains 1 -%}
+{%- unless avada_seo_ovr_collection_ids contains collection.id -%}
+{%- capture avada_seo_meta_title -%}{{ collection.title }} Tile Collection – Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}Shop the exclusive {{ collection.title }} Tile Collection at {{ shop.name }} ✓ Free Shipping for big orders ✓ 10 free samples at month for Pro accounts{%- endcapture -%}
+{%- endunless -%}
+{%- endif -%}
+{%- endif -%}
+{%- if request.page_type == 'collection' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- if collection.title contains "White Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Black Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Gray & Silver Surfaces" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Pink Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Metallic Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Yellow & Gold Surfaces" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Red Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Green Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Blue Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Beige Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "White Marble" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Gray Marble" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Blue Marble" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Green Marble" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Cream Marfil" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Blue Celeste" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if avada_seo_conditions contains 1 -%}
+{%- unless avada_seo_ovr_collection_ids contains collection.id -%}
+{%- capture avada_seo_meta_title -%}{{ collection.title }} – Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}{{ shop.name }} carries a huge selection of {{ collection.title }} for walls & floors.. Check Price and Buy Online ✓ Free Shipping for big orders ✓ Best Offers{%- endcapture -%}
+{%- endunless -%}
+{%- endif -%}
+{%- endif -%}
+{%- if request.page_type == 'collection' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- if collection.title contains "Subway" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Zellige" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Decorative Tile" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Wood Look Tile" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Fluted Tiles" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Mosaic Tiles for Kitchen, Bathroom and more" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Marble Look" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Chevron" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Concrete look" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Hexagon" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "3D Tiles" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Mosaic" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Porcelain Mosaic Tile" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Marble Mosaic" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Thassos" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Natural Stone Tiles & Stone Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if avada_seo_conditions contains 1 -%}
+{%- unless avada_seo_ovr_collection_ids contains collection.id -%}
+{%- capture avada_seo_meta_title -%}{{ collection.title }} – Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}Shop {{ collection.title }} with best price guarantee. Browse the porcelain and ceramic tile options here ✓ Free Shipping for big orders ✓ 10 free samples at month for Pro accounts{%- endcapture -%}
+{%- endunless -%}
+{%- endif -%}
+{%- endif -%}
+{%- if request.page_type == 'collection' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- if collection.title contains "Kitchen Tile" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Bathroom & Shower" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Floor Tile" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Wall Tiles" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Pool Tile" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Outdoor Tiles" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Commercial" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Fireplace Tiles" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if avada_seo_conditions contains 1 -%}
+{%- unless avada_seo_ovr_collection_ids contains collection.id -%}
+{%- capture avada_seo_meta_title -%}{{ collection.title }} – Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}The best place to shop for {{ collection.title }} online! ✓ Subway wall tile to shell backsplash tile to porcelain floor tiles! ✓ Free shipping on big orders{%- endcapture -%}
+{%- endunless -%}
+{%- endif -%}
+{%- endif -%}
+{%- if request.page_type == 'collection' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- if collection.title contains "Porcelain & Ceramic" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Marble Tiles & Mosaics" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Glass Tile" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Mixed Material" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Terrazzo" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Recycled Glass" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Shell" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if collection.title contains "Metallic" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- if avada_seo_conditions contains 1 -%}
+{%- unless avada_seo_ovr_collection_ids contains collection.id -%}
+{%- capture avada_seo_meta_title -%}{{ collection.title }} – Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}Buy {{ collection.title }}. Commercial and residential, modern and traditional tile ✓ Free Shipping ✓ 10 free samples at month for Pro accounts{%- endcapture -%}
+{%- endunless -%}
+{%- endif -%}
+{%- endif -%}
+{%- if request.page_type == 'article' -%}
+{%- assign avada_seo_conditions = 1 -%}
+{%- unless avada_seo_conditions contains 0 -%}
+{%- unless avada_seo_ovr_article_ids contains article.id -%}
+{%- capture avada_seo_meta_title -%}{{ article.title }} - Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}👍 {{ article.excerpt_or_content }}{%- endcapture -%}
+{%- endunless -%}
+{%- endunless -%}
+{%- endif -%}
 {%- if request.page_type == 'product' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- if product.title contains "Sample" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endif -%}
+{%- unless avada_seo_conditions contains 0 -%}
+{%- unless avada_seo_ovr_product_ids contains product.id -%}
+{%- capture avada_seo_meta_title -%}{{ product.title }} – Aloft Tiles{%- endcapture -%}
+{%- capture avada_seo_meta_description -%}⚡️Shop {{ product.title }}. Achieve the perfect porcelain tile, ceramic tile, subway tile & mosaic tile samples for a stylish, modern finish{%- endcapture -%}
+{%- endunless -%}
+{%- endunless -%}
+{%- endif -%}
+{%- if request.page_type == 'product' -%}
+{%- assign avada_seo_conditions = '' -%}
+{%- unless product.title contains "Sample" -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 1 -%}
+{%- else -%}
+{%- assign avada_seo_conditions = avada_seo_conditions | append: 0 -%}
+{%- endunless -%}
+{%- unless avada_seo_conditions contains 0 -%}
 {%- unless avada_seo_ovr_product_ids contains product.id -%}
 {%- capture avada_seo_meta_title -%}{{ product.title }} – Aloft Tiles{%- endcapture -%}
 {%- capture avada_seo_meta_description -%}⚡️Buy {{ product.title }} at the lowest price. Best price guarantee when you shop at Aloft Tiles. Shop now to add a contemporary touch!{%- endcapture -%}
+{%- endunless -%}
 {%- endunless -%}
 {%- endif -%}
 {%- if avada_seo_meta_title -%}

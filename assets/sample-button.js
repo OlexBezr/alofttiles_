@@ -41,7 +41,6 @@ window.onload = function() {
         formData.append('sections', this.getSectionsToRender().map((section) => section.section));
         formData.append('sections_url', window.location.pathname);
         config.body = formData;
-  
         fetch(`${theme.routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {

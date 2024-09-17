@@ -110,3 +110,11 @@
 
 <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
+
+{% if product.metafields.product.product_type == 'bundle' %}
+  <style>
+    .product-information .product-form {
+      display: none !important;
+    }
+  </style>
+{% endif %}

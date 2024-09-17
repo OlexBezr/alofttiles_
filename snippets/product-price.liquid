@@ -201,7 +201,25 @@
       </span>
     </div>
   </div>
-{% elsif product.metafields.product.product_type == 'sample' %}
+  
+{% elsif product.metafields.product.product_type == 'bundle' %}
+  {% assign total_price = 0 %}
+  {% for product_boundle in product.metafields.product.list_bundle_products.value %}
+    {% assign total_price = total_price | plus: product_boundle.selected_or_first_available_variant.price %}
+  {% endfor %}
+
+  <span class="price">
+      
+  	<ins><span class="amount">{{  total_price | money  }}</span></ins>
+  	
+  </span>  
+{% elsif product.metafields.product.list_bundle_products != blank and product.metafields.product.product_type == 'sample'   %}
+
+
+  <span class="price">
+  	<ins><span class="amount">{{ money_price  }}</span></ins>
+  </span>
+{% elsif product.metafields.product.product_type == 'sample' and product.metafields.product.list_bundle_products == blank %}
   {% assign price_pre_sqft = price | divided_by: product.metafields.product.sqft %}
 
   {% if product.metafields.product.original_product.value %}
@@ -259,19 +277,7 @@
      
     </div>
   </div>
-{% elsif product.metafields.product.product_type == 'bundle' %}
 
-  {% assign total_price = 0 %}
-  {% for product_boundle in product.metafields.product.list_bundle_products.value %}
-    {% assign total_price = total_price | plus: product_boundle.selected_or_first_available_variant.price %}
-  {% endfor %}
-  
-
-  <span class="price">
-      
-  	<ins><span class="amount">{{  total_price | money  }}</span></ins>
-  	
-  </span>
 {% else %}
   
   <span class="price">

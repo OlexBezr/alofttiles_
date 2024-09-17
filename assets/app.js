@@ -62,11 +62,6 @@ if (!customElements.get('quantity-selector')) {
     constructor() {
       super();
       this.id = this.getAttribute('data-id');
-      console.log(this.id)
-      if(this.id == 'null') {
-        console.log('here')
-        return false;
-      }
       this.input = this.querySelector('.qty');
       this.step = this.input.getAttribute('step');
       this.productType = this.getAttribute('data-type-product') ? this.getAttribute('data-type-product') : ''; 
@@ -114,18 +109,18 @@ if (!customElements.get('quantity-selector')) {
       if(quantity >= 3 && this.productType === 'Sample') {
         errorQuantityWrapper.querySelector('.product-quantity-message-wrapper').style.display = 'block'
         quantity = 2
-       // function sleep(ms) {
-       //      return new Promise(resolve => setTimeout(resolve, ms));
-       //  }
-       //  async function wait(ms, _this) {
-       //    await sleep(ms);
-       //    quantity = Math.max(quantity, 1);
-       //    console.log(_this)
-       //    _this.input.value = quantity;
+       function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        async function wait(ms, _this) {
+          await sleep(ms);
+          quantity = Math.max(quantity, 1);
+          console.log(_this)
+          _this.input.value = quantity;
     
-       //    _this.input.dispatchEvent(_this.changeEvent);
-       //  }
-       //  wait(3000, this)
+          _this.input.dispatchEvent(_this.changeEvent);
+        }
+        wait(3000, this)
         return;
       }else if(this.productType === 'Sample') {
         errorQuantityWrapper.querySelector('.product-quantity-message-wrapper').style.display = 'none'
@@ -245,7 +240,6 @@ if (!customElements.get('product-card')) {
 
       let formData = new FormData(this.form);
 
-      console.log("here")
       formData.append('id', this.quick_add.dataset.productId);
       formData.append('quantity', 1);
       formData.append('sections', this.getSectionsToRender().map((section) => section.section));
